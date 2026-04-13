@@ -34,7 +34,7 @@
       --shadow: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
     }
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;}
+    body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;}
     .nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;}
     .nav-logo{font-size:15px;font-weight:700;color:var(--text-h);letter-spacing:-0.02em;}
@@ -45,8 +45,8 @@
     .c{max-width:1200px;margin:0 auto;padding:0 32px;}
     .sec{padding:80px 0;} .sec-alt{background:var(--bg-alt);} .sec-dark{background:var(--bg-dark);color:var(--text-w);}
     .sn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:var(--rx);background:var(--blue);color:#fff;font-size:14px;font-weight:700;margin-bottom:12px;}
-    .st{font-size:30px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:8px;letter-spacing:-0.01em;}
-    .sd{font-size:16px;color:var(--text-2);line-height:1.7;margin-bottom:40px;max-width:820px;}
+    .st{font-size:34px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:10px;letter-spacing:-0.01em;}
+    .sd{font-size:17px;color:var(--text-2);line-height:1.7;margin-bottom:40px;max-width:820px;}
     .sec-dark .st{color:var(--text-w);} .sec-dark .sd{color:var(--text-wm);}
     .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:0.04em;margin-bottom:6px;}
     .tag-r{background:var(--blue-bg);color:var(--blue);} .tag-f{background:var(--green-bg);color:var(--green);} .tag-s{background:var(--purple-bg);color:var(--purple);}
@@ -58,9 +58,9 @@
     .card:hover{box-shadow:var(--shadow);}
     .card-d{background:var(--bg-dark-card);border-color:rgba(255,255,255,0.06);}
     .card-d .ct{color:var(--text-w);} .card-d p,.card-d li{color:var(--text-wm);}
-    .ct{font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:8px;line-height:1.4;}
-    .card p{font-size:14px;color:var(--text-2);line-height:1.6;}
-    .card ul{padding-left:16px;margin-top:8px;} .card li{font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:4px;}
+    .ct{font-size:17px;font-weight:700;color:var(--text-h);margin-bottom:8px;line-height:1.4;}
+    .card p{font-size:15px;color:var(--text-2);line-height:1.7;}
+    .card ul{padding-left:16px;margin-top:8px;} .card li{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:4px;}
     .ca-blue{border-left:4px solid var(--blue);} .ca-green{border-left:4px solid var(--green);} .ca-red{border-left:4px solid var(--red);} .ca-purple{border-left:4px solid var(--purple);} .ca-orange{border-left:4px solid var(--orange);} .ca-teal{border-left:4px solid var(--teal);}
     .icon{width:44px;height:44px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
     .icon-r{background:var(--red-bg);} .icon-b{background:var(--blue-bg);} .icon-g{background:var(--green-bg);} .icon-p{background:var(--purple-bg);} .icon-o{background:var(--orange-bg);} .icon-t{background:var(--teal-bg);}
@@ -68,7 +68,7 @@
     .flow-s{background:var(--bg-dark);color:var(--text-w);padding:10px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;}
     .flow-a{font-size:20px;color:var(--text-m);}
     .callout{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:0 var(--rs) var(--rs) 0;padding:24px 28px;margin:32px 0;}
-    .callout p{font-size:15px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--blue);}
+    .callout p{font-size:16px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--blue);}
     .callout-g{background:var(--green-bg);border-left-color:var(--green);} .callout-g strong{color:var(--green);}
     .scenario{background:var(--bg-dark);border-radius:var(--r);padding:36px;margin:32px 0;}
     .scenario h4{font-size:18px;font-weight:700;color:var(--text-w);margin-bottom:20px;} .scenario h4 span{color:#7da0ff;}
@@ -119,33 +119,33 @@
 </nav>
 
 <!-- ═══ HERO ═══ -->
-<section style="background:var(--bg-dark);color:var(--text-w);padding:80px 0 64px;text-align:center;">
+<section style="background:var(--bg-alt);padding:96px 0 72px;text-align:center;border-bottom:1px solid var(--border);">
   <div class="c">
     <span class="tag tag-phase" style="margin-bottom:20px;">Project Proposal 2026 — v2</span>
-    <h1 style="font-size:48px;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin-bottom:16px;">IGAWORKS <span style="color:var(--blue);">PRISM</span></h1>
-    <p style="font-size:18px;color:var(--text-wm);max-width:760px;margin:0 auto;line-height:1.7;">우리 데이터 짱 많고, 클린데이터고, 가공할 기술력 있고, 심지어 경쟁사 분석도 해줘.</p>
-    <p style="font-size:14px;color:var(--text-wm);margin-top:24px;letter-spacing:0.04em;">Precise Reporting &amp; Intelligence Strategy Module</p>
+    <h1 style="font-size:56px;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin-bottom:20px;color:var(--text-h);">IGAWORKS <span style="color:var(--blue);">PRISM</span></h1>
+    <p style="font-size:20px;color:var(--text-2);max-width:760px;margin:0 auto;line-height:1.7;">기존 컨설팅의 한계를 넘어, 실시간 행동 데이터 기반의 실행형 경쟁 분석 플랫폼을 제안합니다.</p>
+    <p style="font-size:15px;color:var(--text-m);margin-top:24px;letter-spacing:0.04em;">Precise Reporting &amp; Intelligence Strategy Module</p>
 
     <div class="g4" style="margin-top:48px;text-align:left;">
-      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
-        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 1</div>
-        <div style="font-size:20px;font-weight:800;color:var(--blue);">데이터 규모</div>
-        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">국내 최대 ADID 기반 행동 데이터</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:14px;color:var(--text-m);margin-bottom:6px;">핵심 가치 1</div>
+        <div style="font-size:22px;font-weight:800;color:var(--blue);">데이터 규모</div>
+        <div style="font-size:14px;color:var(--text-2);margin-top:4px;">국내 최대 ADID 기반 행동 데이터</div>
       </div>
-      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
-        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 2</div>
-        <div style="font-size:20px;font-weight:800;color:var(--green);">클린 데이터</div>
-        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">R-F-S 태그 체계로 정제된 신뢰 데이터</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:14px;color:var(--text-m);margin-bottom:6px;">핵심 가치 2</div>
+        <div style="font-size:22px;font-weight:800;color:var(--green);">클린 데이터</div>
+        <div style="font-size:14px;color:var(--text-2);margin-top:4px;">R-F-S 태그 체계로 정제된 신뢰 데이터</div>
       </div>
-      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
-        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 3</div>
-        <div style="font-size:20px;font-weight:800;color:var(--purple);">기술력</div>
-        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">ML 모델 + AI 기반 오디언스 가공</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:14px;color:var(--text-m);margin-bottom:6px;">핵심 가치 3</div>
+        <div style="font-size:22px;font-weight:800;color:var(--purple);">기술력</div>
+        <div style="font-size:14px;color:var(--text-2);margin-top:4px;">ML 모델 + AI 기반 오디언스 가공</div>
       </div>
-      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
-        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 4</div>
-        <div style="font-size:20px;font-weight:800;color:var(--orange);">경쟁사 분석</div>
-        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">실행형 경쟁 분석 리포트 자동 생성</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:14px;color:var(--text-m);margin-bottom:6px;">핵심 가치 4</div>
+        <div style="font-size:22px;font-weight:800;color:var(--orange);">경쟁사 분석</div>
+        <div style="font-size:14px;color:var(--text-2);margin-top:4px;">실행형 경쟁 분석 리포트 자동 생성</div>
       </div>
     </div>
   </div>
@@ -160,45 +160,45 @@
 
     <div class="g2">
       <!-- Phase 1 -->
-      <div style="background:var(--bg-dark);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
-        <div style="font-size:80px;font-weight:900;color:rgba(255,255,255,0.04);position:absolute;top:8px;right:20px;">01</div>
+      <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(0,0,0,0.03);position:absolute;top:8px;right:20px;">01</div>
         <span class="tag tag-phase">PHASE 1</span>
-        <h3 style="font-size:22px;font-weight:800;color:var(--text-w);margin:8px 0 12px;">오디언스 태깅을 통한 자사 데이터 구축</h3>
-        <p style="font-size:14px;color:var(--text-wm);line-height:1.7;margin-bottom:20px;">기존 Raw Data를 R-Tag, F-Tag로 정제하고, 업종+카테고리별 주요 오디언스(S-Tag)를 사전 구축합니다.</p>
+        <h3 style="font-size:24px;font-weight:800;color:var(--text-h);margin:8px 0 12px;">오디언스 태깅을 통한 자사 데이터 구축</h3>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">기존 Raw Data를 R-Tag, F-Tag로 정제하고, 업종+카테고리별 주요 오디언스(S-Tag)를 사전 구축합니다.</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="tag tag-r" style="margin:0;">R-Tag</span>
-            <span style="font-size:13px;color:var(--text-wm);">Raw Data 태깅 (w. Kiro)</span>
+            <span style="font-size:14px;color:var(--text-2);">Raw Data 태깅 (w. Kiro)</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="tag tag-f" style="margin:0;">F-Tag</span>
-            <span style="font-size:13px;color:var(--text-wm);">고객 속성 페르소나 생성</span>
+            <span style="font-size:14px;color:var(--text-2);">고객 속성 페르소나 생성</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="tag tag-s" style="margin:0;">S-Tag</span>
-            <span style="font-size:13px;color:var(--text-wm);">업종별 주요 오디언스 사전 구축</span>
+            <span style="font-size:14px;color:var(--text-2);">업종별 주요 오디언스 × 전략 사전 구축</span>
           </div>
         </div>
       </div>
 
       <!-- Phase 2 -->
-      <div style="background:var(--bg-dark);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
-        <div style="font-size:80px;font-weight:900;color:rgba(255,255,255,0.04);position:absolute;top:8px;right:20px;">02</div>
-        <span class="tag" style="background:rgba(51,102,255,0.15);color:#7da0ff;">PHASE 2</span>
-        <h3 style="font-size:22px;font-weight:800;color:var(--text-w);margin:8px 0 12px;">자사 데이터를 활용한 경쟁사 분석 리포트</h3>
-        <p style="font-size:14px;color:var(--text-wm);line-height:1.7;margin-bottom:20px;">업종+카테고리 선택 → 주요 오디언스 선택 → 기본 분석 + 경쟁사 분석 리포트를 자동 생성합니다.</p>
+      <div style="background:var(--bg);border:2px solid var(--blue);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(51,102,255,0.04);position:absolute;top:8px;right:20px;">02</div>
+        <span class="tag" style="background:var(--blue-bg);color:var(--blue);">PHASE 2</span>
+        <h3 style="font-size:24px;font-weight:800;color:var(--text-h);margin:8px 0 12px;">자사 데이터를 활용한 경쟁사 분석 리포트</h3>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">업종+카테고리 선택 → S-Tag(오디언스×전략) 선택 → 기본 분석 + 경쟁사 분석 리포트를 자동 생성합니다.</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:13px;font-weight:600;color:#7da0ff;">①</span>
-            <span style="font-size:13px;color:var(--text-wm);">업종 + 카테고리 선택</span>
+            <span style="font-size:14px;font-weight:600;color:var(--blue);">①</span>
+            <span style="font-size:14px;color:var(--text-2);">업종 + 카테고리 선택</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:13px;font-weight:600;color:#7da0ff;">②</span>
-            <span style="font-size:13px;color:var(--text-wm);">주요 오디언스 선택 (S-Tag)</span>
+            <span style="font-size:14px;font-weight:600;color:var(--blue);">②</span>
+            <span style="font-size:14px;color:var(--text-2);">S-Tag 선택 (오디언스 × 전략)</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:13px;font-weight:600;color:#7da0ff;">③</span>
-            <span style="font-size:13px;color:var(--text-wm);">기본 분석 + 경쟁사 분석 리포트 제공</span>
+            <span style="font-size:14px;font-weight:600;color:var(--blue);">③</span>
+            <span style="font-size:14px;color:var(--text-2);">기본 분석 + 경쟁사 분석 리포트 제공</span>
           </div>
         </div>
       </div>
@@ -333,21 +333,21 @@
       <p style="font-size:14px;color:var(--text-m);margin-bottom:24px;">오디언스만으로는 '현상 파악'에 그치고, 전략만으로는 '누구에게'가 빠집니다. S-Tag는 이 둘을 하나로 묶어 실행 가능한 단위로 만듭니다.</p>
 
       <!-- S-Tag 구조 설명 -->
-      <div style="background:var(--bg-dark);border-radius:var(--r);padding:32px;margin-bottom:32px;">
+      <div style="background:var(--bg-alt);border:2px solid var(--border);border-radius:var(--r);padding:32px;margin-bottom:32px;">
         <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
           <div style="background:var(--green-bg);border:1px solid var(--green);border-radius:var(--rs);padding:14px 24px;text-align:center;">
             <div style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:4px;">F-Tag 오디언스</div>
-            <div style="font-size:16px;font-weight:700;color:var(--text-w);">판교 IT 맞벌이</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">판교 IT 맞벌이</div>
           </div>
-          <div style="font-size:24px;font-weight:800;color:var(--text-wm);">×</div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-m);">×</div>
           <div style="background:var(--red-bg);border:1px solid var(--red);border-radius:var(--rs);padding:14px 24px;text-align:center;">
             <div style="font-size:12px;color:var(--red);font-weight:600;margin-bottom:4px;">전략 목적</div>
-            <div style="font-size:16px;font-weight:700;color:var(--text-w);">쿠팡에서 탈취</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">쿠팡에서 탈취</div>
           </div>
-          <div style="font-size:24px;font-weight:800;color:var(--text-wm);">=</div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-m);">=</div>
           <div style="background:var(--purple-bg);border:1px solid var(--purple);border-radius:var(--rs);padding:14px 24px;text-align:center;">
             <div style="font-size:12px;color:var(--purple);font-weight:600;margin-bottom:4px;">S-Tag</div>
-            <div style="font-size:16px;font-weight:700;color:var(--text-w);">실행 가능한 전략 단위</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">실행 가능한 전략 단위</div>
           </div>
         </div>
       </div>
@@ -745,10 +745,10 @@
 </section>
 
 <!-- ═══ SECTION 5: Kiro 활용 가이드 ═══ -->
-<section id="kiro" class="sec sec-dark">
+<section id="kiro" class="sec sec-alt">
   <div class="c">
     <div class="sn">5</div>
-    <h2 class="st" style="color:var(--text-w);">Kiro 활용 가이드: 데이터팀 × 마케팅팀</h2>
+    <h2 class="st">Kiro 활용 가이드: 데이터팀 × 마케팅팀</h2>
     <p class="sd">Kiro는 단순한 코딩 도구가 아니라, '전략적 명세(Spec)를 이해하고 검증하는 에이전트'입니다. 데이터팀과 마케팅팀이 각각 다른 방식으로 활용합니다.</p>
 
     <div class="g2" style="margin-bottom:40px;">
@@ -756,17 +756,17 @@
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
           <span class="tag tag-kiro" style="font-size:13px;padding:5px 14px;">데이터팀</span>
-          <span style="font-size:18px;font-weight:700;color:var(--text-w);">R-F-S 태깅 시스템의 무결성 확보</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-h);">R-F-S 태깅 시스템의 무결성 확보</span>
         </div>
 
-        <div class="card card-d ca-teal" style="margin-bottom:16px;">
+        <div class="card ca-teal" style="margin-bottom:16px;">
           <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">① R→F 변환 로직 설계 (Stamper 단계)</div>
           <div class="ct">GPS + 회사 명세 → 직장인 페르소나 생성</div>
           <p>"GPS 좌표와 회사 명세를 매칭해 '직장인 페르소나'를 생성하라"는 스펙을 Kiro에게 전달. 데이터 정제 및 태깅 알고리즘 초안을 생성하고, 데이터 간 의존성을 분석합니다.</p>
           <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 복잡한 SQL/Python 로직 작성 시간 단축 + 태깅 누락 사전 방지</p>
         </div>
 
-        <div class="card card-d ca-teal">
+        <div class="card ca-teal">
           <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 데이터 신뢰도 검증 (Quality Assurance)</div>
           <div class="ct">엣지 케이스 시뮬레이션</div>
           <p>CEO 책상에 오를 데이터인 만큼, 수천 개의 엣지 케이스 테스트를 Kiro에게 맡깁니다. 예: "주말에 회사 근처를 지나는 관광객을 '출퇴근 직장인'으로 오분류하지 않는가?"</p>
@@ -778,17 +778,17 @@
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
           <span class="tag tag-kiro" style="font-size:13px;padding:5px 14px;">마케팅팀</span>
-          <span style="font-size:18px;font-weight:700;color:var(--text-w);">리포트 자동화 및 전략 시나리오 고도화</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-h);">리포트 자동화 및 전략 시나리오 고도화</span>
         </div>
 
-        <div class="card card-d ca-teal" style="margin-bottom:16px;">
+        <div class="card ca-teal" style="margin-bottom:16px;">
           <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">① S-Tag 기반 리포트 생성 엔진</div>
           <div class="ct">Executive Summary 자동 생성</div>
           <p>분석 결과를 기반으로 CEO가 즉시 읽을 수 있는 Executive Summary와 전략 제안 텍스트를 자동 생성하는 엔진을 설계합니다. 조건에 따라 리포트의 텍스트와 표가 유동적으로 변합니다.</p>
           <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 컨설팅 보고서 수작업 시간을 제로(0)에 가깝게 단축</p>
         </div>
 
-        <div class="card card-d ca-teal">
+        <div class="card ca-teal">
           <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 타겟팅 시나리오 시뮬레이션 (Strategy Finder)</div>
           <div class="ct">최적 오디언스 조합 탐색</div>
           <p>"경쟁사 A의 VIP 유저를 우리 앱으로 데려오기 위한 최적의 오디언스 조합"을 시뮬레이션. 특정 F-Tag 조합 적용 시 예상 타겟 모수와 마케팅 반응률을 가상 테스트합니다.</p>
