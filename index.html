@@ -1,724 +1,772 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IGAWORKS PRISM — 기획안</title>
+  <title>IGAWORKS PRISM — 기획안 v2</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <style>
     :root {
-      --background: hsl(0, 0%, 100%);
-      --foreground: hsl(220, 16%, 12%);
-      --primary: hsl(220, 16%, 12%);
-      --primary-foreground: hsl(0, 0%, 100%);
-      --secondary: hsl(216, 14%, 93%);
-      --muted: hsl(216, 14%, 93%);
-      --muted-foreground: hsl(215, 14%, 34%);
-      --accent: hsl(216, 14%, 96%);
-      --border: hsl(220, 13%, 91%);
-      --color-heading: hsl(220, 16%, 12%);
-      --color-body1: hsl(214, 14%, 25%);
-      --color-body2: hsl(213, 12%, 35%);
-      --point-blue: hsl(225, 90%, 58%);
-      --point-green: hsl(145, 80%, 45%);
-      --shadow-card: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
-      --radius: 16px;
-      --radius-sm: 12px;
-      --radius-xs: 8px;
+      --bg: #ffffff;
+      --bg-alt: #f8f9fb;
+      --bg-dark: #1a1d24;
+      --bg-dark-card: #22262e;
+      --text-h: #1a1d24;
+      --text-1: #2d3340;
+      --text-2: #4b5563;
+      --text-m: #6b7280;
+      --text-w: #ffffff;
+      --text-wm: #a0a7b4;
+      --border: #e5e7eb;
+      --blue: #3366ff;
+      --blue-bg: rgba(51,102,255,0.08);
+      --green: #22c55e;
+      --green-bg: rgba(34,197,94,0.08);
+      --red: #ef4444;
+      --red-bg: rgba(239,68,68,0.08);
+      --orange: #f59e0b;
+      --orange-bg: rgba(245,158,11,0.08);
+      --purple: #8b5cf6;
+      --purple-bg: rgba(139,92,246,0.08);
+      --teal: #14b8a6;
+      --teal-bg: rgba(20,184,166,0.08);
+      --r: 16px; --rs: 12px; --rx: 8px;
+      --shadow: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background: var(--background);
-      color: var(--color-body1);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-    .nav { position: sticky; top: 0; z-index: 100; background: hsla(0,0%,100%,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-size: 15px; font-weight: 700; color: var(--color-heading); letter-spacing: -0.02em; }
-    .nav-logo span { color: var(--point-blue); }
-    .nav-links { display: flex; gap: 8px; list-style: none; flex-wrap: wrap; }
-    .nav-links a { font-size: 13px; font-weight: 500; color: var(--color-body2); text-decoration: none; padding: 6px 12px; border-radius: var(--radius-xs); transition: all 0.2s; }
-    .nav-links a:hover { background: var(--accent); color: var(--color-heading); }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-    .hero { padding: 96px 0 64px; text-align: center; }
-    .hero-badge { display: inline-block; font-size: 13px; font-weight: 600; color: var(--point-blue); background: hsl(225 90% 58% / 0.08); padding: 6px 16px; border-radius: var(--radius-xs); margin-bottom: 24px; letter-spacing: 0.02em; }
-    .hero h1 { font-size: 56px; font-weight: 700; color: var(--color-heading); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .hero h1 span { color: var(--point-blue); }
-    .hero-sub { font-size: 18px; color: var(--color-body2); max-width: 740px; margin: 0 auto; line-height: 1.6; }
-    .hero-acronym { margin-top: 32px; font-size: 14px; color: var(--muted-foreground); letter-spacing: 0.04em; }
-    .section { padding: 96px 0; }
-    .section-alt { background: var(--accent); }
-    .section-dark { background: var(--primary); color: var(--primary-foreground); }
-    .section-dark .section-title { color: var(--primary-foreground); }
-    .section-dark .section-desc { color: hsl(0,0%,70%); }
-    .section-dark .card { background: hsl(220,16%,18%); border-color: hsl(220,14%,24%); }
-    .section-dark .card-title { color: var(--primary-foreground); }
-    .section-dark .card p, .section-dark .card li { color: hsl(0,0%,75%); }
-    .section-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-xs); background: var(--point-blue); color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
-    .section-title { font-size: 36px; font-weight: 700; color: var(--color-heading); line-height: 1.3; margin-bottom: 12px; }
-    .section-desc { font-size: 18px; color: var(--color-body2); max-width: 860px; line-height: 1.6; margin-bottom: 48px; }
-    .card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-    .card-grid-2 { grid-template-columns: repeat(2,1fr); }
-    .card { background: var(--background); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; transition: box-shadow 0.3s ease; }
-    .card:hover { box-shadow: var(--shadow-card); }
-    .card-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
-    .card-icon-red { background: hsl(0,84%,95%); }
-    .card-icon-blue { background: hsl(225,90%,95%); }
-    .card-icon-green { background: hsl(145,80%,92%); }
-    .card-icon-purple { background: hsl(270,70%,94%); }
-    .card-icon-orange { background: hsl(30,90%,93%); }
-    .card-icon-teal { background: hsl(180,60%,92%); }
-    .card-title { font-size: 18px; font-weight: 700; color: var(--color-heading); margin-bottom: 10px; line-height: 1.4; }
-    .card p, .card li { font-size: 15px; color: var(--color-body2); line-height: 1.6; }
-    .card ul { padding-left: 18px; margin-top: 8px; }
-    .card li { margin-bottom: 4px; }
-    .flow-bar { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 48px; flex-wrap: wrap; }
-    .flow-step { background: var(--primary); color: var(--primary-foreground); padding: 10px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; }
-    .flow-arrow { font-size: 20px; color: var(--muted-foreground); }
-    .tag-section { margin-bottom: 40px; }
-    .tag-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .tag-badge { display: inline-block; padding: 6px 16px; border-radius: var(--radius-xs); font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
-    .tag-r { background: hsl(225 90% 58% / 0.1); color: var(--point-blue); }
-    .tag-f { background: hsl(145 80% 45% / 0.1); color: var(--point-green); }
-    .tag-s { background: hsl(270 70% 55% / 0.1); color: hsl(270,70%,50%); }
-    .tag-label { font-size: 22px; font-weight: 700; color: var(--color-heading); }
-    .tag-desc { font-size: 15px; color: var(--color-body2); margin-bottom: 20px; line-height: 1.6; }
-    .tag-card { background: var(--background); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; }
-    .tag-card-r { border-left: 4px solid var(--point-blue); }
-    .tag-card-f { border-left: 4px solid var(--point-green); }
-    .tag-card-s { border-left: 4px solid hsl(270,70%,50%); }
-    .tag-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
-    .tag-list-item { padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .tag-list-item:nth-last-child(-n+3) { border-bottom: none; }
-    .tag-list-item:not(:nth-child(3n)) { border-right: 1px solid var(--border); }
-    .tag-list-title { font-size: 14px; font-weight: 700; color: var(--color-heading); margin-bottom: 4px; }
-    .tag-list-desc { font-size: 13px; color: var(--color-body2); line-height: 1.5; }
-    .tag-items { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-    .tag-item { background: var(--accent); border-radius: var(--radius-sm); padding: 20px 24px; }
-    .tag-item-title { font-size: 15px; font-weight: 600; color: var(--color-heading); margin-bottom: 6px; }
-    .tag-item p { font-size: 14px; color: var(--color-body2); line-height: 1.5; }
-    .scenario-box { background: var(--primary); color: var(--primary-foreground); border-radius: var(--radius); padding: 40px; margin-top: 48px; }
-    .scenario-box h4 { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
-    .scenario-box h4 span { color: hsl(225,90%,72%); }
-    .scenario-steps { display: flex; flex-direction: column; gap: 16px; }
-    .scenario-step { display: flex; gap: 16px; align-items: flex-start; }
-    .scenario-step-badge { flex-shrink: 0; padding: 4px 12px; border-radius: var(--radius-xs); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-    .scenario-step p { font-size: 15px; line-height: 1.6; color: hsl(0,0%,80%); }
-    .dev-guide { background: hsl(225 90% 58% / 0.06); border: 1px solid hsl(225 90% 58% / 0.15); border-radius: var(--radius); padding: 32px; margin-top: 48px; }
-    .dev-guide h4 { font-size: 18px; font-weight: 700; color: var(--color-heading); margin-bottom: 20px; }
-    .dev-guide h4 span { color: var(--point-blue); }
-    .ux-step { margin-bottom: 48px; }
-    .ux-step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .ux-step-num { width: 32px; height: 32px; border-radius: var(--radius-xs); background: var(--point-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
-    .ux-step-title { font-size: 22px; font-weight: 700; color: var(--color-heading); }
-    .ux-step-desc { font-size: 16px; color: var(--color-body2); margin-bottom: 20px; line-height: 1.6; }
-    .insight-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
-    .insight-table thead th { background: var(--primary); color: var(--primary-foreground); font-size: 14px; font-weight: 600; padding: 16px 24px; text-align: left; }
-    .insight-table tbody td { padding: 20px 24px; font-size: 15px; line-height: 1.6; border-bottom: 1px solid var(--border); vertical-align: top; }
-    .insight-table tbody tr:last-child td { border-bottom: none; }
-    .insight-table tbody tr:hover { background: var(--accent); }
-    .insight-table .q-cell { font-weight: 600; color: var(--color-heading); width: 30%; }
-    .insight-table .a-label { display: inline-block; font-size: 12px; font-weight: 700; color: var(--point-blue); background: hsl(225 90% 58% / 0.08); padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; letter-spacing: 0.02em; }
-    .callout { background: hsl(225 90% 58% / 0.06); border-left: 4px solid var(--point-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 24px 28px; margin-top: 32px; }
-    .callout p { font-size: 16px; color: var(--color-body1); line-height: 1.7; }
-    .callout strong { color: var(--point-blue); }
-    .footer { padding: 48px 0; text-align: center; border-top: 1px solid var(--border); }
-    .footer p { font-size: 13px; color: var(--color-body2); }
-    @media (max-width: 1024px) {
-      .card-grid { grid-template-columns: repeat(2,1fr); }
-      .tag-items { grid-template-columns: 1fr; }
-      .tag-list { grid-template-columns: repeat(2,1fr); }
-      .tag-list-item:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
-      .tag-list-item:nth-last-child(-n+2) { border-bottom: none; }
-      .tag-list-item:not(:nth-child(3n)) { border-right: none; }
-      .tag-list-item:nth-child(odd) { border-right: 1px solid var(--border); }
-    }
-    @media (max-width: 768px) {
-      .hero { padding: 64px 0 48px; }
-      .hero h1 { font-size: 32px; }
-      .hero-sub { font-size: 15px; }
-      .section { padding: 64px 0; }
-      .section-title { font-size: 24px; }
-      .section-desc { font-size: 15px; }
-      .container { padding: 0 24px; }
-      .card-grid, .card-grid-2 { grid-template-columns: 1fr; }
-      .tag-items { grid-template-columns: 1fr; }
-      .tag-list { grid-template-columns: 1fr; }
-      .tag-list-item { border-right: none !important; }
-      .tag-list-item:not(:last-child) { border-bottom: 1px solid var(--border); }
-      .tag-list-item:last-child { border-bottom: none; }
-      .flow-bar { flex-direction: column; }
-      .flow-arrow { transform: rotate(90deg); }
-      .nav-links { display: none; }
-      .scenario-box { padding: 24px; }
-      .insight-table { font-size: 14px; }
-      .insight-table thead th, .insight-table tbody td { padding: 12px 16px; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;}
+    .nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-size:15px;font-weight:700;color:var(--text-h);letter-spacing:-0.02em;}
+    .nav-logo span{color:var(--blue);}
+    .nav-links{display:flex;gap:4px;list-style:none;flex-wrap:wrap;}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:var(--rx);transition:all 0.2s;}
+    .nav-links a:hover{background:var(--bg-alt);color:var(--text-h);}
+    .c{max-width:1200px;margin:0 auto;padding:0 32px;}
+    .sec{padding:80px 0;} .sec-alt{background:var(--bg-alt);} .sec-dark{background:var(--bg-dark);color:var(--text-w);}
+    .sn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:var(--rx);background:var(--blue);color:#fff;font-size:14px;font-weight:700;margin-bottom:12px;}
+    .st{font-size:30px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:8px;letter-spacing:-0.01em;}
+    .sd{font-size:16px;color:var(--text-2);line-height:1.7;margin-bottom:40px;max-width:820px;}
+    .sec-dark .st{color:var(--text-w);} .sec-dark .sd{color:var(--text-wm);}
+    .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:0.04em;margin-bottom:6px;}
+    .tag-r{background:var(--blue-bg);color:var(--blue);} .tag-f{background:var(--green-bg);color:var(--green);} .tag-s{background:var(--purple-bg);color:var(--purple);}
+    .tag-phase{background:var(--orange-bg);color:var(--orange);} .tag-kiro{background:var(--teal-bg);color:var(--teal);}
+    .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;transition:box-shadow 0.2s;}
+    .card:hover{box-shadow:var(--shadow);}
+    .card-d{background:var(--bg-dark-card);border-color:rgba(255,255,255,0.06);}
+    .card-d .ct{color:var(--text-w);} .card-d p,.card-d li{color:var(--text-wm);}
+    .ct{font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:8px;line-height:1.4;}
+    .card p{font-size:14px;color:var(--text-2);line-height:1.6;}
+    .card ul{padding-left:16px;margin-top:8px;} .card li{font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:4px;}
+    .ca-blue{border-left:4px solid var(--blue);} .ca-green{border-left:4px solid var(--green);} .ca-red{border-left:4px solid var(--red);} .ca-purple{border-left:4px solid var(--purple);} .ca-orange{border-left:4px solid var(--orange);} .ca-teal{border-left:4px solid var(--teal);}
+    .icon{width:44px;height:44px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+    .icon-r{background:var(--red-bg);} .icon-b{background:var(--blue-bg);} .icon-g{background:var(--green-bg);} .icon-p{background:var(--purple-bg);} .icon-o{background:var(--orange-bg);} .icon-t{background:var(--teal-bg);}
+    .flow{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap;}
+    .flow-s{background:var(--bg-dark);color:var(--text-w);padding:10px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;}
+    .flow-a{font-size:20px;color:var(--text-m);}
+    .callout{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:0 var(--rs) var(--rs) 0;padding:24px 28px;margin:32px 0;}
+    .callout p{font-size:15px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--blue);}
+    .callout-g{background:var(--green-bg);border-left-color:var(--green);} .callout-g strong{color:var(--green);}
+    .scenario{background:var(--bg-dark);border-radius:var(--r);padding:36px;margin:32px 0;}
+    .scenario h4{font-size:18px;font-weight:700;color:var(--text-w);margin-bottom:20px;} .scenario h4 span{color:#7da0ff;}
+    .scenario-step{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+    .scenario-step p{font-size:14px;line-height:1.6;color:var(--text-wm);}
+    .phase-box{background:var(--bg-dark);border-radius:var(--r);padding:40px;margin-bottom:40px;}
+    .phase-num{font-size:48px;font-weight:900;color:rgba(255,255,255,0.06);position:absolute;top:16px;right:24px;}
+    .phase-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+    .phase-icon{width:56px;height:56px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+    .phase-title{font-size:24px;font-weight:800;color:var(--text-w);}
+    .phase-sub{font-size:14px;color:var(--text-wm);}
+    .synergy-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;}
+    .synergy-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+    .synergy-mi::before{background:var(--blue);} .synergy-tw::before{background:var(--orange);} .synergy-df::before{background:var(--green);}
+    .synergy-card .ct{margin-bottom:4px;}
+    .synergy-formula{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:12px;}
+    .ux-mock{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r);padding:32px;margin:24px 0;}
+    .ux-mock-header{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+    .ux-dot{width:10px;height:10px;border-radius:50%;}
+    .ux-tab{display:inline-block;padding:8px 20px;border-radius:var(--rx);font-size:13px;font-weight:600;cursor:default;margin-right:8px;margin-bottom:8px;}
+    .ux-tab-active{background:var(--blue);color:#fff;} .ux-tab-inactive{background:var(--bg-alt);color:var(--text-m);border:1px solid var(--border);}
+    .ux-audience{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:12px;cursor:default;transition:all 0.2s;}
+    .ux-audience:hover{border-color:var(--blue);background:var(--blue-bg);}
+    .ux-audience-icon{width:40px;height:40px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .ux-audience-name{font-size:15px;font-weight:600;color:var(--text-h);}
+    .ux-audience-desc{font-size:12px;color:var(--text-m);}
+    .ux-audience-count{margin-left:auto;font-size:14px;font-weight:700;color:var(--blue);}
+    .footer{padding:40px 0;text-align:center;border-top:1px solid var(--border);}
+    .footer p{font-size:12px;color:var(--text-m);}
+    @media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}.c{padding:0 20px;}.sec{padding:56px 0;}.st{font-size:24px;}.nav-links{display:none;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
   </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav class="nav" role="navigation" aria-label="메인 네비게이션">
   <div class="nav-inner">
     <div class="nav-logo">IGAWORKS <span>PRISM</span></div>
     <ul class="nav-links">
-      <li><a href="#pain-points">Pain Points</a></li>
-      <li><a href="#prism">PRISM 제안</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#phase1">1단계: 오디언스</a></li>
+      <li><a href="#phase2">2단계: 리포트</a></li>
       <li><a href="#rfs">R-F-S 태그</a></li>
-      <li><a href="#ux">UX/UI 명세</a></li>
-      <li><a href="#competitive">경쟁사 뷰</a></li>
+      <li><a href="#synergy">제품 시너지</a></li>
+      <li><a href="#kiro">Kiro 활용</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-badge">Project Proposal 2026</div>
-    <h1>IGAWORKS <span>PRISM</span></h1>
-    <p class="hero-sub">기존 컨설팅의 한계를 넘어, 실시간 행동 데이터 기반의 실행형 경쟁 분석 플랫폼을 제안합니다.</p>
-    <p class="hero-acronym">Precise Reporting &amp; Intelligence Strategy Module</p>
+<!-- ═══ HERO ═══ -->
+<section style="background:var(--bg-dark);color:var(--text-w);padding:80px 0 64px;text-align:center;">
+  <div class="c">
+    <span class="tag tag-phase" style="margin-bottom:20px;">Project Proposal 2026 — v2</span>
+    <h1 style="font-size:48px;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin-bottom:16px;">IGAWORKS <span style="color:var(--blue);">PRISM</span></h1>
+    <p style="font-size:18px;color:var(--text-wm);max-width:760px;margin:0 auto;line-height:1.7;">우리 데이터 짱 많고, 클린데이터고, 가공할 기술력 있고, 심지어 경쟁사 분석도 해줘.</p>
+    <p style="font-size:14px;color:var(--text-wm);margin-top:24px;letter-spacing:0.04em;">Precise Reporting &amp; Intelligence Strategy Module</p>
+
+    <div class="g4" style="margin-top:48px;text-align:left;">
+      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 1</div>
+        <div style="font-size:20px;font-weight:800;color:var(--blue);">데이터 규모</div>
+        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">국내 최대 ADID 기반 행동 데이터</div>
+      </div>
+      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 2</div>
+        <div style="font-size:20px;font-weight:800;color:var(--green);">클린 데이터</div>
+        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">R-F-S 태그 체계로 정제된 신뢰 데이터</div>
+      </div>
+      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 3</div>
+        <div style="font-size:20px;font-weight:800;color:var(--purple);">기술력</div>
+        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">ML 모델 + AI 기반 오디언스 가공</div>
+      </div>
+      <div style="background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:13px;color:var(--text-wm);margin-bottom:6px;">핵심 가치 4</div>
+        <div style="font-size:20px;font-weight:800;color:var(--orange);">경쟁사 분석</div>
+        <div style="font-size:13px;color:var(--text-wm);margin-top:4px;">실행형 경쟁 분석 리포트 자동 생성</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ═══ SECTION 1: 기존 컨설팅 업체의 한계점 ═══ -->
-<section id="pain-points" class="section section-alt">
-  <div class="container">
-    <div class="section-num">1</div>
-    <h2 class="section-title">기존 컨설팅 업체의 한계점</h2>
-    <p class="section-desc">기존 컨설팅(맥킨지, BCG 등)이나 시장조사 업체를 이용할 때 기업들이 느끼는 고질적인 문제입니다. 이를 해결하는 것이 우리 비즈니스의 '파괴적 혁신' 포인트가 됩니다.</p>
+<!-- ═══ OVERVIEW: 2단계 로드맵 ═══ -->
+<section id="overview" class="sec">
+  <div class="c">
+    <div class="sn">0</div>
+    <h2 class="st">프로젝트 로드맵: 2단계 구조</h2>
+    <p class="sd">PRISM은 크게 두 단계로 나뉩니다. 1단계에서 오디언스 태깅으로 자사 데이터를 구축하고, 2단계에서 그 데이터를 활용해 경쟁사 분석 리포트를 생성합니다.</p>
 
-    <div class="card-grid">
+    <div class="g2">
+      <!-- Phase 1 -->
+      <div style="background:var(--bg-dark);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(255,255,255,0.04);position:absolute;top:8px;right:20px;">01</div>
+        <span class="tag tag-phase">PHASE 1</span>
+        <h3 style="font-size:22px;font-weight:800;color:var(--text-w);margin:8px 0 12px;">오디언스 태깅을 통한 자사 데이터 구축</h3>
+        <p style="font-size:14px;color:var(--text-wm);line-height:1.7;margin-bottom:20px;">기존 Raw Data를 R-Tag, F-Tag로 정제하고, 업종+카테고리별 주요 오디언스(S-Tag)를 사전 구축합니다.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-r" style="margin:0;">R-Tag</span>
+            <span style="font-size:13px;color:var(--text-wm);">Raw Data 태깅 (w. Kiro)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-f" style="margin:0;">F-Tag</span>
+            <span style="font-size:13px;color:var(--text-wm);">고객 속성 페르소나 생성</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-s" style="margin:0;">S-Tag</span>
+            <span style="font-size:13px;color:var(--text-wm);">업종별 주요 오디언스 사전 구축</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="background:var(--bg-dark);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(255,255,255,0.04);position:absolute;top:8px;right:20px;">02</div>
+        <span class="tag" style="background:rgba(51,102,255,0.15);color:#7da0ff;">PHASE 2</span>
+        <h3 style="font-size:22px;font-weight:800;color:var(--text-w);margin:8px 0 12px;">자사 데이터를 활용한 경쟁사 분석 리포트</h3>
+        <p style="font-size:14px;color:var(--text-wm);line-height:1.7;margin-bottom:20px;">업종+카테고리 선택 → 주요 오디언스 선택 → 기본 분석 + 경쟁사 분석 리포트를 자동 생성합니다.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;font-weight:600;color:#7da0ff;">①</span>
+            <span style="font-size:13px;color:var(--text-wm);">업종 + 카테고리 선택</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;font-weight:600;color:#7da0ff;">②</span>
+            <span style="font-size:13px;color:var(--text-wm);">주요 오디언스 선택 (S-Tag)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;font-weight:600;color:#7da0ff;">③</span>
+            <span style="font-size:13px;color:var(--text-wm);">기본 분석 + 경쟁사 분석 리포트 제공</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <p>💡 <strong>핵심 포인트:</strong> 기존에는 '분석'에서 끝나면 현상만 알려주는 느낌이었지만, PRISM은 <strong>'경쟁 분석'이 메인이고, 그것을 뒷받침하는 것이 오디언스</strong>입니다. 오디언스의 신뢰도를 경쟁 분석 결과로 증명하는 구조입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 1: 기존 컨설팅의 한계 ═══ -->
+<section class="sec sec-alt">
+  <div class="c">
+    <div class="sn">1</div>
+    <h2 class="st">기존 컨설팅 업체의 한계점</h2>
+    <p class="sd">기존 컨설팅(맥킨지, BCG 등)이나 시장조사 업체를 이용할 때 기업들이 느끼는 고질적인 문제입니다. 이를 해결하는 것이 PRISM의 '파괴적 혁신' 포인트입니다.</p>
+    <div class="g3">
       <div class="card">
-        <div class="card-icon card-icon-red">⏳</div>
-        <div class="card-title">휘발성 및 적시성 부족</div>
-        <p>보고서가 나오는 시점에는 이미 과거 데이터가 되어버립니다. 실시간으로 변하는 모바일/커머스 시장 대응에 한계가 있습니다.</p>
+        <div class="icon icon-r">⏳</div>
+        <div class="ct">휘발성 및 적시성 부족</div>
+        <p>보고서가 나오는 시점에는 이미 과거 데이터. 실시간으로 변하는 모바일/커머스 시장 대응에 한계가 있습니다.</p>
       </div>
       <div class="card">
-        <div class="card-icon card-icon-orange">📋</div>
-        <div class="card-title">표본의 한계</div>
+        <div class="icon icon-o">📋</div>
+        <div class="ct">표본의 한계</div>
         <p>설문조사 기반 리포트는 실제 행동 데이터가 아닌 '기억'에 의존하므로 정확도가 떨어집니다.</p>
       </div>
       <div class="card">
-        <div class="card-icon card-icon-purple">💸</div>
-        <div class="card-title">높은 비용 대비 낮은 실행력</div>
-        <p>수억 원의 비용을 들여 전략을 짜도, 구체적으로 "내일 아침에 누구에게 어떤 메시지를 보낼지"에 대한 실행 수단은 제공하지 못합니다.</p>
+        <div class="icon icon-p">💸</div>
+        <div class="ct">높은 비용 대비 낮은 실행력</div>
+        <p>수억 원의 비용을 들여 전략을 짜도, "내일 아침에 누구에게 어떤 메시지를 보낼지"에 대한 실행 수단은 제공하지 못합니다.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SECTION 2: IGAWORKS PRISM 제안 ═══ -->
-<section id="prism" class="section">
-  <div class="container">
-    <div class="section-num">2</div>
-    <h2 class="section-title">IGAWORKS PRISM 제안</h2>
-    <p class="section-desc">앱 사용성 데이터와 커머스 데이터를 결합하여, 기존 업체들이 결코 흉내 낼 수 없는 '실행형 경쟁 분석'을 제공합니다.</p>
+<!-- ═══ PHASE 1: 오디언스 태깅 ═══ -->
+<section id="phase1" class="sec">
+  <div class="c">
+    <div class="sn">2</div>
+    <span class="tag tag-phase">PHASE 1</span>
+    <h2 class="st">오디언스 태깅을 통한 자사 데이터 구축</h2>
+    <p class="sd">기존 Raw Data를 R-F-S 태그 체계로 정제하여, 경쟁사 분석에 특화된 오디언스를 생성합니다. 기존 '오디언스 메이커'의 진화 버전입니다.</p>
 
-    <!-- 업무 플로우 -->
-    <div class="flow-bar">
-      <div class="flow-step">Raw Data</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">Tag</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">AI Model</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">Business</div>
+    <!-- 데이터 플로우 -->
+    <div class="flow">
+      <div class="flow-s">Raw Data</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--blue);">R-Tag 태깅</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--green);color:#fff;">F-Tag 생성</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--purple);color:#fff;">S-Tag 오디언스</div>
     </div>
-
-    <!-- 단계 1 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">1</div>
-        <div class="ux-step-title">ADID 기반 데이터 정제 및 태깅 (Data Curation)</div>
-      </div>
-      <div class="card-grid card-grid-2">
-        <div class="card">
-          <div class="card-icon card-icon-blue">📡</div>
-          <div class="card-title">다채널 데이터 수집</div>
-          <p>다양한 채널에서 유입되는 고객 ADID와 활동 데이터를 수집합니다.</p>
-          <ul>
-            <li>앱 사용성 데이터</li>
-            <li>커머스 데이터</li>
-            <li>DFN, DSP 클릭데이터</li>
-            <li>애드팝콘 데이터 등</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-green">🏷️</div>
-          <div class="card-title">R-F-S 시스템을 통한 데이터 구조화</div>
-          <p>수집된 원시 데이터를 Root → Feature → Strategy 3단계 태그 체계로 구조화하여 비즈니스 의사결정에 즉시 활용 가능한 형태로 변환합니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 단계 2 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">2</div>
-        <div class="ux-step-title">ML 모델링 및 BDP 엔진 구축 (PRISM Intelligence)</div>
-      </div>
-      <p class="ux-step-desc">수집된 R-Tag(Root)와 F-Tag(Feature)를 기반으로, 대기업 경영진의 전략적 질문에 답할 수 있는 S-Tag(Strategy) 도출 알고리즘을 설계합니다.</p>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-icon card-icon-blue">🎯</div>
-          <div class="card-title">Strategy Finder</div>
-          <p style="font-size:13px;color:var(--point-blue);margin-bottom:8px;">의사결정 최적화 엔진</p>
-          <p>현대카드의 Mother AI 모델을 우리 식의 S-Tag 도출 엔진으로 진화시킨 모델입니다.</p>
-          <ul>
-            <li>마케팅 및 사업 전략 목적에 맞는 최적의 F-Tag(속성) 조합을 찾아내어 승리 공식을 제안</li>
-            <li>"판교/여의도 지역의 고연봉 직장인 중 경쟁사 앱 결제 비중이 높은 그룹을 공략하라"와 같은 전략적 조합을 자동 추천</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-green">🔄</div>
-          <div class="card-title">Context Sequence AI</div>
-          <p style="font-size:13px;color:var(--point-green);margin-bottom:8px;">행동 패턴 예측 엔진</p>
-          <p>단순한 구매 예측을 넘어, 사용자의 GPS 동선과 앱 사용 흐름을 결합한 시퀀스 분석 모델입니다.</p>
-          <ul>
-            <li>직장인의 출퇴근 동선, 특정 시간대의 앱 사용 패턴을 분석하여 다음 행동 시점을 예측</li>
-            <li>경쟁사 매장 인근을 지날 것으로 예상되는 시점에 맞춰 실시간 Geofencing 마케팅 타이밍 결정</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-purple">🪞</div>
-          <div class="card-title">Competitor Mirroring</div>
-          <p style="font-size:13px;color:hsl(270,70%,50%);margin-bottom:8px;">유사 타겟 확장 모델</p>
-          <p>현대카드의 Pathfinder 기능을 '경쟁사 탈취' 관점에서 고도화한 모델입니다.</p>
-          <ul>
-            <li>경쟁사 앱의 헤비 유저와 R-Tag 상의 행동 패턴이 가장 유사한 우리 쪽 잠재 고객을 탐색</li>
-            <li>경쟁사 VIP와 닮은꼴인 '미개척 고가치 유저'를 즉시 타겟팅하여 점유율 탈취 지원</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 단계 3 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">3</div>
-        <div class="ux-step-title">비즈니스 솔루션 패키징 및 판매</div>
-      </div>
-      <p class="ux-step-desc">고객사에게 '기능' 또는 '데이터' 형태로 가치를 전달합니다.</p>
-      <div class="card-grid card-grid-2">
-        <div class="card">
-          <div class="card-icon card-icon-teal">📊</div>
-          <div class="card-title">마케팅 타겟 추출</div>
-          <p>리포트에서 발견한 인사이트를 즉시 활용 가능한 ADID 데이터 리스트로 변환하여 구매 및 매체 전송합니다.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-orange">📄</div>
-          <div class="card-title">전략 리포트 생성</div>
-          <p>CEO/임원 보고용 또는 사업 전략 수립용 고해상도 PDF/HTML 리포트를 생성합니다.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SECTION 3: R-F-S Tag 시스템 명세 ═══ -->
-<section id="rfs" class="section section-alt">
-  <div class="container">
-    <div class="section-num">3</div>
-    <h2 class="section-title">R-F-S Tag 시스템 명세</h2>
-    <p class="section-desc">이 R-F-S 구조는 날것의 데이터가 어떻게 대기업 대표의 의사결정을 돕는 전략으로 진화하는지를 보여주는 강력한 프레임워크입니다.</p>
 
     <!-- R-Tag -->
-    <div class="tag-section">
-      <div class="tag-header">
-        <span class="tag-badge tag-r">R-Tag</span>
-        <span class="tag-label">Root: 근거 데이터</span>
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-r" style="font-size:13px;padding:5px 14px;">R-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Root: 근거 데이터 (w. Kiro 태깅)</span>
       </div>
-      <p class="tag-desc">비즈니스 분석의 가장 밑단이 되는 '팩트(Fact)' 레이어입니다. 조작이나 해석이 가미되지 않은 순수한 행동의 기록입니다.</p>
-      <div class="tag-card tag-card-r">
-        <div class="tag-list">
-          <div class="tag-list-item">
-            <div class="tag-list-title">데모 및 기본 정보</div>
-            <div class="tag-list-desc">나이, 성별, 결혼 유무, 연애 상태</div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;">비즈니스 분석의 가장 밑단이 되는 '팩트(Fact)' 레이어. 조작이나 해석이 가미되지 않은 순수한 행동의 기록입니다.</p>
+      <div class="card ca-blue" style="padding:0;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);">
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">데모 및 기본 정보</div>
+            <div style="font-size:13px;color:var(--text-2);">나이, 성별, 결혼 유무, 연애 상태</div>
           </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">경제력 지표</div>
-            <div class="tag-list-desc">소득 분위별 자산지수, 연봉 정도, 회사 규모, 직종 산업</div>
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">경제력 지표</div>
+            <div style="font-size:13px;color:var(--text-2);">소득 분위별 자산지수, 연봉, 회사 규모, 직종</div>
           </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">공간 및 이동</div>
-            <div class="tag-list-desc">GPS 기반 거주지 및 활동지 좌표</div>
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">공간 및 이동</div>
+            <div style="font-size:13px;color:var(--text-2);">GPS 기반 거주지 및 활동지 좌표</div>
           </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">앱 활동성</div>
-            <div class="tag-list-desc">신규 설치, 일별 사용량, 사용 시간, 유입/이탈 경로</div>
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">앱 활동성</div>
+            <div style="font-size:13px;color:var(--text-2);">설치, 사용량, 사용 시간, 유입/이탈 경로</div>
           </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">커머스 트랜잭션</div>
-            <div class="tag-list-desc">카테고리별 매출(전체/상품당/유저당), 유니크 상품 수, 평균 단가</div>
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">커머스 트랜잭션</div>
+            <div style="font-size:13px;color:var(--text-2);">카테고리별 매출, 유니크 상품 수, 평균 단가</div>
           </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">결합 데이터</div>
-            <div class="tag-list-desc">DSP 매체 데이터, ADID 기반 1st Party 데이터, 애드팝콘 데이터 등</div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:4px;">결합 데이터</div>
+            <div style="font-size:13px;color:var(--text-2);">DSP, ADID 1st Party, 애드팝콘 데이터 등</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- F-Tag -->
-    <div class="tag-section">
-      <div class="tag-header">
-        <span class="tag-badge tag-f">F-Tag</span>
-        <span class="tag-label">Feature: 고객 속성 데이터</span>
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-f" style="font-size:13px;padding:5px 14px;">F-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Feature: 고객 속성 페르소나</span>
       </div>
-      <p class="tag-desc">R-Tag를 조합하여 고객의 '페르소나와 라이프스타일'을 정의하는 속성 레이어입니다. 컨설팅의 '가설'을 검증하는 핵심 지표가 됩니다.</p>
-      <div class="tag-card tag-card-f">
-        <div class="tag-list" style="grid-template-columns:repeat(2,1fr);">
-          <div class="tag-list-item" style="border-right:1px solid var(--border);">
-            <div class="tag-list-title">초정밀 직장인 프로파일링</div>
-            <div class="tag-list-desc">'여의도 금융권 고연봉자', '판교 대기업 IT 기획자', '울산 제조 현장직'</div>
-            <div class="tag-list-desc" style="margin-top:4px;color:var(--point-green);font-weight:500;">GPS + 직종 + 회사 규모 + 연봉 결합</div>
-          </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">쇼핑 페르소나</div>
-            <div class="tag-list-desc">'계절가전 얼리어답터', '마트 주중 방문형 체리피커', '프리미엄 카테고리 헤비 쇼퍼'</div>
-            <div class="tag-list-desc" style="margin-top:4px;color:var(--point-green);font-weight:500;">커머스 카테고리 + 평균 단가 결합</div>
-          </div>
-          <div class="tag-list-item" style="border-right:1px solid var(--border);">
-            <div class="tag-list-title">경쟁사 관계 정의</div>
-            <div class="tag-list-desc">'경쟁사 A 전용 유저', '우리 앱-경쟁사 B 교차 사용자', '최근 경쟁사로의 이탈 징후군'</div>
-            <div class="tag-list-desc" style="margin-top:4px;color:var(--point-green);font-weight:500;">앱 사용성 + 이탈 경로 결합</div>
-          </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">관심사 세그먼트</div>
-            <div class="tag-list-desc">대분류 25개 및 중분류 214개 카테고리별 고관여 유저</div>
-          </div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;">R-Tag를 조합하여 고객의 '페르소나와 라이프스타일'을 정의하는 속성 레이어. 컨설팅의 '가설'을 검증하는 핵심 지표입니다.</p>
+      <div class="g2">
+        <div class="card ca-green">
+          <div class="ct">초정밀 직장인 프로파일링</div>
+          <p>'여의도 금융권 고연봉자', '판교 대기업 IT 기획자', '울산 제조 현장직'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:13px;">GPS + 직종 + 회사 규모 + 연봉 결합</p>
         </div>
-      </div>
-    </div>
-
-    <!-- S-Tag -->
-    <div class="tag-section">
-      <div class="tag-header">
-        <span class="tag-badge tag-s">S-Tag</span>
-        <span class="tag-label">Strategy: 비즈니스 전략 데이터</span>
-      </div>
-      <p class="tag-desc">F-Tag 분석을 통해 도출된 '비즈니스 정답' 레이어입니다. CEO의 책상 위에서 "그래서 무엇을 해야 하는가"에 답을 주는 최종 결과물입니다.</p>
-      <div class="tag-card tag-card-s">
-        <div class="tag-list" style="grid-template-columns:repeat(2,1fr);">
-          <div class="tag-list-item" style="border-right:1px solid var(--border);">
-            <div class="tag-list-title">점유율 탈취 타겟 (Conquesting Strategy)</div>
-            <div class="tag-list-desc">경쟁사 사용 비중이 높으나 우리 앱으로 유도 가능한 '이동 잠재력'이 높은 고객군 추출</div>
-          </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">지갑 점유율 방어 (Wallet Share Defense)</div>
-            <div class="tag-list-desc">자산지수 대비 우리 앱 결제 비중이 낮은 VIP를 식별하여 카테고리 확장 제안</div>
-          </div>
-          <div class="tag-list-item" style="border-right:1px solid var(--border);">
-            <div class="tag-list-title">로컬 거점 공략 (Geofencing Strategy)</div>
-            <div class="tag-list-desc">특정 오피스 타운 출퇴근자들의 점유율이 낮은 지점을 포착하여 오프라인 결합 마케팅 제안</div>
-          </div>
-          <div class="tag-list-item">
-            <div class="tag-list-title">이탈 방지 예측 (Churn Prevention)</div>
-            <div class="tag-list-desc">경쟁사 앱 설치 및 사용 패턴 변화를 감지하여 이탈 전 'Win-back' 시나리오 제시</div>
-          </div>
+        <div class="card ca-green">
+          <div class="ct">쇼핑 페르소나</div>
+          <p>'계절가전 얼리어답터', '마트 주중 방문형 체리피커', '프리미엄 카테고리 헤비 쇼퍼'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:13px;">커머스 카테고리 + 평균 단가 결합</p>
+        </div>
+        <div class="card ca-green">
+          <div class="ct">경쟁사 관계 정의</div>
+          <p>'경쟁사 A 전용 유저', '우리 앱-경쟁사 B 교차 사용자', '최근 경쟁사로의 이탈 징후군'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:13px;">앱 사용성 + 이탈 경로 결합</p>
+        </div>
+        <div class="card ca-green">
+          <div class="ct">관심사 세그먼트</div>
+          <p>대분류 25개 및 중분류 214개 카테고리별 고관여 유저</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:13px;">앱 사용 패턴 + 커머스 데이터 결합</p>
         </div>
       </div>
     </div>
 
-    <!-- 시나리오 박스 -->
-    <div class="scenario-box">
-      <h4>💡 R-F-S 활용 예시 — <span>경쟁사 '컬리'의 헤비 유저를 뺏어오고 싶을 때</span></h4>
-      <div class="scenario-steps">
-        <div class="scenario-step">
-          <span class="scenario-step-badge tag-r">R-Tag</span>
-          <p>최근 1개월 내 '컬리' 앱 사용 시간 상위 10%이면서 우리 앱 결제 경험이 있는 유저 추출</p>
+    <!-- S-Tag (재정의) -->
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-s" style="font-size:13px;padding:5px 14px;">S-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Strategy: 업종별 주요 오디언스 (사전 구축)</span>
+      </div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;">S-Tag는 업종 + 카테고리 조합에 따라 <strong style="color:var(--purple);">미리 만들어 놓은 '주요 오디언스'</strong>입니다. 사용자가 해당 오디언스를 선택하면 2단계 경쟁사 분석 리포트가 생성됩니다.</p>
+
+      <!-- 업종별 S-Tag 예시 -->
+      <div class="g3" style="margin-bottom:24px;">
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:18px;">🎓</span>
+            <span style="font-size:14px;font-weight:700;color:var(--purple);">교육 · 학습지</span>
+          </div>
+          <div class="ct">주요 오디언스 예시</div>
+          <ul>
+            <li>강남 3구 성적 상위자 학부모</li>
+            <li>제주 국제학교 학생 학부모</li>
+            <li>초등 저학년 영어교육 관심 학부모</li>
+            <li>중등 수학 학원 교차 이용 학부모</li>
+          </ul>
         </div>
-        <div class="scenario-step">
-          <span class="scenario-step-badge tag-f">F-Tag</span>
-          <p>그중 '강남/서초 지역 거주' 및 '자산지수 상위 20%'에 해당하는 페르소나 특정</p>
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:18px;">🛒</span>
+            <span style="font-size:14px;font-weight:700;color:var(--purple);">이커머스</span>
+          </div>
+          <div class="ct">주요 오디언스 예시</div>
+          <ul>
+            <li>판교 IT 맞벌이 새벽배송 헤비유저</li>
+            <li>강남 프리미엄 와인/식품 쇼퍼</li>
+            <li>경쟁사 로켓배송 전환 이탈 징후군</li>
+            <li>가격비교 후 최저가 플랫폼 이동자</li>
+          </ul>
         </div>
-        <div class="scenario-step">
-          <span class="scenario-step-badge tag-s">S-Tag</span>
-          <p>해당 타겟에게 "새벽 배송 카테고리 쿠폰"을 증정하거나, DSP를 통해 "프리미엄 신선식품" 광고를 집중 노출하는 전략 리포트 완성</p>
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:18px;">💳</span>
+            <span style="font-size:14px;font-weight:700;color:var(--purple);">금융</span>
+          </div>
+          <div class="ct">주요 오디언스 예시</div>
+          <ul>
+            <li>여의도 금융권 고연봉 자산관리 니즈</li>
+            <li>토스 헤비유저 중 시중은행 이탈 징후</li>
+            <li>2030 주식투자 앱 교차 사용자</li>
+            <li>보험 비교 앱 활성 사용 3040 가장</li>
+          </ul>
         </div>
       </div>
-    </div>
 
-    <!-- 개발 가이드 -->
-    <div class="dev-guide">
-      <h4>🛠️ 개발 및 운영 가이드 <span>(with AI Kiro)</span></h4>
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title">R to F 변환 로직 검증</div>
-          <p>GPS와 회사 명세를 매칭해 '직장인 태그'를 생성할 때, 발생할 수 있는 데이터 오차 범위를 Kiro로 시뮬레이션하여 정확도를 확보합니다.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">S-Tag 리포트 자동 생성 엔진</div>
-          <p>사용자가 선택한 조건에 따라 텍스트와 표(HTML)가 포함된 리포트 초안을 생성하는 코드를 Kiro로 개발하여 제작 시간을 단축합니다.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">데이터 정합성 테스트</div>
-          <p>CEO 책상에 오를 데이터인 만큼, 산출 로직의 무결성을 보장하기 위한 수만 개의 엣지 케이스 테스트를 Kiro 에이전트에게 맡깁니다.</p>
-        </div>
+      <div class="callout" style="margin-top:0;">
+        <p>💡 <strong>S-Tag의 핵심:</strong> 사용자가 업종과 카테고리를 선택하면, 미리 구축된 주요 오디언스가 노출됩니다. 오디언스를 선택하는 순간, 해당 오디언스에 대한 경쟁사 분석 리포트(2단계)가 자동으로 생성됩니다. <strong>"오디언스 선택 = 리포트 생성"</strong>의 원클릭 구조입니다.</p>
       </div>
-    </div>
-
-    <div class="callout" style="margin-top:48px;">
-      <p>이 R-F-S 시스템은 우리 데이터의 <strong>신뢰도(R)</strong>를 바탕으로, 고객의 <strong>특징(F)</strong>을 잡아내어, 경영진이 원하는 <strong>승리 전략(S)</strong>을 주는 완성형 비즈니스 모델이 될 것입니다.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ SECTION 4: UX/UI 기능 명세 ═══ -->
-<section id="ux" class="section">
-  <div class="container">
-    <div class="section-num">4</div>
-    <h2 class="section-title">아이지에이웍스 프리즘 UX/UI 기능 명세</h2>
-    <p class="section-desc">사용자의 목적에 따라 '실행(Action)'과 '전략(Insight)'을 명확히 구분하고, 컨설팅 수준의 리포트를 1분 만에 생성합니다.</p>
+<!-- ═══ PHASE 2: 경쟁사 분석 리포트 ═══ -->
+<section id="phase2" class="sec sec-alt">
+  <div class="c">
+    <div class="sn">3</div>
+    <span class="tag" style="background:rgba(51,102,255,0.15);color:var(--blue);">PHASE 2</span>
+    <h2 class="st">경쟁사 분석 리포트 생성</h2>
+    <p class="sd">1단계에서 구축한 오디언스 데이터를 기반으로, 업종 선택 → 오디언스 선택 → 리포트 자동 생성의 흐름으로 경쟁사 분석을 제공합니다.</p>
 
-    <!-- (1) 첫 진입 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">1</div>
-        <div class="ux-step-title">첫 진입: 목적 기반 메뉴 선택 (Gateway)</div>
+    <!-- UX 흐름 시뮬레이션 -->
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;">🖥️ UX 흐름 시뮬레이션</h3>
+
+    <!-- Step 1: 업종 선택 -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:13px;font-weight:600;color:var(--text-m);">PRISM — Step 1: 업종 + 카테고리 선택</span>
       </div>
-      <p class="ux-step-desc">사용자가 플랫폼에 들어왔을 때, '실행(Action)'을 원하는지 '전략(Insight)'을 원하는지 명확히 구분합니다.</p>
-      <div class="card-grid card-grid-2">
-        <div class="card">
-          <div class="card-icon card-icon-teal">🎯</div>
-          <div class="card-title">Option 1: 마케팅 타겟 추출 (Data Purchase)</div>
-          <p>준비 중인 기능으로, 리포트에서 발견한 인사이트를 즉시 ADID 리스트로 변환하여 구매 및 매체 전송합니다.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-blue">📊</div>
-          <div class="card-title">Option 2: 전략 리포트 생성 (Strategy Report)</div>
-          <p>CEO/임원 보고용 또는 사업 전략 수립용 고해상도 PDF/HTML 리포트를 생성합니다.</p>
-        </div>
+      <p style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:16px;">어떤 시장을 분석하시겠습니까?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="ux-tab ux-tab-active">🎓 교육 · 학습지</span>
+        <span class="ux-tab ux-tab-inactive">🛒 이커머스</span>
+        <span class="ux-tab ux-tab-inactive">💳 금융</span>
+        <span class="ux-tab ux-tab-inactive">🎮 게임</span>
+        <span class="ux-tab ux-tab-inactive">🍔 F&B · 배달</span>
+        <span class="ux-tab ux-tab-inactive">✈️ 여행</span>
+        <span class="ux-tab ux-tab-inactive">🏥 헬스케어</span>
+        <span class="ux-tab ux-tab-inactive">🏠 부동산</span>
       </div>
     </div>
 
-    <!-- (2) 리포트 생성 단계 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">2</div>
-        <div class="ux-step-title">리포트 생성 단계: "어떤 싸움을 준비하십니까?"</div>
+    <!-- Step 2: 오디언스 선택 -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:13px;font-weight:600;color:var(--text-m);">PRISM — Step 2: 주요 오디언스 선택 (교육 · 학습지)</span>
       </div>
-      <p class="ux-step-desc">현대카드의 'Key Business Questions'처럼 사용자의 상황에 맞는 템플릿을 제공합니다.</p>
+      <p style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:4px;">분석할 오디언스를 선택하세요</p>
+      <p style="font-size:13px;color:var(--text-m);margin-bottom:16px;">S-Tag 기반으로 사전 구축된 주요 오디언스입니다. 선택 시 경쟁사 분석 리포트가 자동 생성됩니다.</p>
 
-      <div style="margin-bottom:32px;">
-        <div class="card-title" style="margin-bottom:16px;font-size:16px;">리포트 유형 선택</div>
-        <div class="card-grid">
-          <div class="card">
-            <div class="card-icon card-icon-red">⚔️</div>
-            <div class="card-title">시장 점유율 탈취 (Conquesting)</div>
-            <p>특정 경쟁사의 핵심 고객을 뺏어오기 위한 심층 분석</p>
+      <div class="ux-audience" style="border-color:var(--blue);background:var(--blue-bg);">
+        <div class="ux-audience-icon" style="background:var(--purple-bg);">🎓</div>
+        <div>
+          <div class="ux-audience-name">강남 3구 성적 상위자 학부모</div>
+          <div class="ux-audience-desc">강남/서초/송파 거주 · 자녀 성적 상위 20% · 학원 3개 이상 이용</div>
+        </div>
+        <div class="ux-audience-count">24.7만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--green-bg);">🏝️</div>
+        <div>
+          <div class="ux-audience-name">제주 국제학교 학생 학부모</div>
+          <div class="ux-audience-desc">제주 거주 · 국제학교 인근 활동 · 영어교육 앱 헤비유저</div>
+        </div>
+        <div class="ux-audience-count">3.2만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--orange-bg);">📚</div>
+        <div>
+          <div class="ux-audience-name">초등 저학년 영어교육 관심 학부모</div>
+          <div class="ux-audience-desc">자녀 6~9세 · 영어학원/앱 2개 이상 · 교육비 월 50만 원 이상</div>
+        </div>
+        <div class="ux-audience-count">41.8만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--red-bg);">🔢</div>
+        <div>
+          <div class="ux-audience-name">중등 수학 학원 교차 이용 학부모</div>
+          <div class="ux-audience-desc">자녀 13~15세 · 수학 학원 2개 이상 교차 · 성적 관리 앱 사용</div>
+        </div>
+        <div class="ux-audience-count">18.3만 명</div>
+      </div>
+    </div>
+
+    <!-- Step 3: 리포트 구조 -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:13px;font-weight:600;color:var(--text-m);">PRISM — Step 3: 리포트 생성 (강남 3구 성적 상위자 학부모)</span>
+      </div>
+
+      <!-- 리포트 Part 1: 기본 분석 -->
+      <div style="margin-bottom:28px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <span style="background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 1</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text-h);">기본 분석 — 업종 상위 10% 사용자 프로파일</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-m);margin-bottom:16px;">R-Tag, F-Tag 기반으로 해당 오디언스의 데모, 경제력, 거주지, 앱 사용 패턴을 분석합니다.</p>
+        <div class="g4">
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:12px;color:var(--text-m);margin-bottom:4px;">오디언스 규모</div>
+            <div style="font-size:22px;font-weight:800;color:var(--blue);">24.7만</div>
           </div>
-          <div class="card">
-            <div class="card-icon card-icon-green">🛡️</div>
-            <div class="card-title">우리 고객 방어 (Retention)</div>
-            <p>경쟁사로 이탈 중인 고객의 특징과 이탈 경로 분석</p>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:12px;color:var(--text-m);margin-bottom:4px;">평균 연봉</div>
+            <div style="font-size:22px;font-weight:800;color:var(--green);">9,200만</div>
           </div>
-          <div class="card">
-            <div class="card-icon card-icon-purple">🔍</div>
-            <div class="card-title">잠재 고객 발굴 (Expansion)</div>
-            <p>우리와 경쟁사 모두 쓰지 않는 '미개척 직장인 페르소나' 탐색</p>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:12px;color:var(--text-m);margin-bottom:4px;">월평균 교육비</div>
+            <div style="font-size:22px;font-weight:800;color:var(--purple);">127만</div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:12px;color:var(--text-m);margin-bottom:4px;">교육 앱 평균 사용</div>
+            <div style="font-size:22px;font-weight:800;color:var(--orange);">3.4개</div>
           </div>
         </div>
       </div>
 
+      <!-- 리포트 Part 2: 경쟁사 분석 -->
+      <div style="margin-bottom:28px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <span style="background:var(--purple);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 2</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text-h);">경쟁사 분석 — 이 오디언스가 우리 앱을 얼마나 쓰는가</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-m);margin-bottom:16px;">선택한 오디언스의 우리 앱 vs 경쟁 앱 사용 현황, 최근 6개월 앱 사용/커머스 결제 분석</p>
+        <div class="g2">
+          <div class="card ca-blue" style="padding:20px;">
+            <div style="font-size:13px;color:var(--blue);font-weight:600;margin-bottom:8px;">우리 앱 (예: 웅진씽크빅)</div>
+            <div style="font-size:28px;font-weight:800;color:var(--text-h);">MAU 8.2만</div>
+            <div style="font-size:13px;color:var(--text-m);margin-top:4px;">오디언스 침투율 33.2% · 월 사용 시간 42분</div>
+          </div>
+          <div class="card ca-red" style="padding:20px;">
+            <div style="font-size:13px;color:var(--red);font-weight:600;margin-bottom:8px;">경쟁 앱 (예: 밀크T)</div>
+            <div style="font-size:28px;font-weight:800;color:var(--text-h);">MAU 11.4만</div>
+            <div style="font-size:13px;color:var(--text-m);margin-top:4px;">오디언스 침투율 46.2% · 월 사용 시간 68분</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 리포트 Part 3: 리포트 유형 -->
       <div>
-        <div class="card-title" style="margin-bottom:16px;font-size:16px;">세부 설정 (Filter)</div>
-        <div class="card-grid">
-          <div class="card">
-            <div class="card-icon card-icon-blue">📱</div>
-            <div class="card-title">대상</div>
-            <p>내 앱 vs 경쟁 앱 (최대 3개)</p>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <span style="background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 3</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text-h);">전략 리포트 유형 선택</span>
+        </div>
+        <div class="g3">
+          <div class="card ca-red" style="padding:20px;">
+            <div style="font-size:18px;margin-bottom:8px;">⚔️</div>
+            <div class="ct">시장 점유율 탈취</div>
+            <p>경쟁사 핵심 고객을 뺏어오기 위한 심층 분석</p>
           </div>
-          <div class="card">
-            <div class="card-icon card-icon-orange">📅</div>
-            <div class="card-title">기간</div>
-            <p>최근 주간, 월간, 분기 대비 분석</p>
+          <div class="card ca-green" style="padding:20px;">
+            <div style="font-size:18px;margin-bottom:8px;">🛡️</div>
+            <div class="ct">우리 고객 방어</div>
+            <p>경쟁사로 이탈 중인 고객의 특징과 경로 분석</p>
           </div>
-          <div class="card">
-            <div class="card-icon card-icon-teal">⚡</div>
-            <div class="card-title">조건 (The Power of Data)</div>
-            <p>단순 데모를 넘어 활동지(GPS), 자산지수, 직종 산업 필터 결합</p>
+          <div class="card ca-purple" style="padding:20px;">
+            <div style="font-size:18px;margin-bottom:8px;">🔍</div>
+            <div class="ct">잠재 고객 발굴</div>
+            <p>우리와 경쟁사 모두 미개척인 페르소나 탐색</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- (3) 리포트 결과물 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">3</div>
-        <div class="ux-step-title">리포트 결과물: "The Strategic Document"</div>
-      </div>
-      <p class="ux-step-desc">단순 데이터 나열이 아닌, '현상 분석 → 전략 제안'의 컨설팅 흐름을 완성합니다.</p>
+    <!-- 오디언스 비교 기능 -->
+    <h3 style="font-size:18px;font-weight:700;margin:40px 0 16px;">🔄 오디언스 비교 기능</h3>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;">서로 다른 오디언스를 비교하여 전략적 차이를 발견할 수 있습니다.</p>
 
-      <div class="card-grid card-grid-2">
-        <div class="card" style="border-left:4px solid var(--point-blue);">
-          <div class="card-title">1) 데이터 기반의 현상 분석</div>
-          <p style="font-size:13px;color:var(--point-blue);margin-bottom:12px;">P/D Tag 기반</p>
-          <ul>
-            <li><strong style="color:var(--color-heading);">Market Share Gap:</strong> GPS 데이터를 결합하여 "강남권 대기업 직장인 점유율은 우리가 15% 밀림"과 같은 정밀 팩트 제시</li>
-            <li><strong style="color:var(--color-heading);">Wallet Share Analysis:</strong> 커머스 데이터를 통해 "고객들이 우리 앱에선 1만 원 미만만 쓰고, 경쟁사에서 10만 원 이상 씀"과 같은 지갑 점유율 현황 도출</li>
-          </ul>
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:13px;font-weight:600;color:var(--text-m);">PRISM — 오디언스 비교</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+        <div style="background:var(--purple-bg);border:1px solid var(--purple);border-radius:var(--rx);padding:10px 16px;font-size:14px;font-weight:600;color:var(--purple);">🎓 강남 3구 성적 상위자 학부모</div>
+        <span style="font-size:18px;font-weight:700;color:var(--text-m);">VS</span>
+        <div style="background:var(--green-bg);border:1px solid var(--green);border-radius:var(--rx);padding:10px 16px;font-size:14px;font-weight:600;color:var(--green);">🏝️ 제주 국제학교 학생 학부모</div>
+      </div>
+      <div class="g2">
+        <div style="background:var(--bg-alt);border-radius:var(--rx);padding:20px;">
+          <div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:12px;">강남 3구 학부모</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:2;">
+            오디언스 규모: <strong style="color:var(--text-h);">24.7만 명</strong><br>
+            평균 연봉: <strong style="color:var(--text-h);">9,200만 원</strong><br>
+            교육 앱 사용: <strong style="color:var(--text-h);">3.4개</strong><br>
+            우리 앱 침투율: <strong style="color:var(--blue);">33.2%</strong><br>
+            경쟁 앱 침투율: <strong style="color:var(--red);">46.2%</strong><br>
+            월 교육비: <strong style="color:var(--text-h);">127만 원</strong>
+          </div>
         </div>
-        <div class="card" style="border-left:4px solid var(--point-green);">
-          <div class="card-title">2) 컨설팅 방향성 제안</div>
-          <p style="font-size:13px;color:var(--point-green);margin-bottom:12px;">I-Tag 기반</p>
-          <ul>
-            <li><strong style="color:var(--color-heading);">Short-term Action:</strong> "내일 당장 판교/여의도 지역에 Geofencing 광고를 집행하여 경쟁사 VIP를 유인하십시오."</li>
-            <li><strong style="color:var(--color-heading);">Long-term Strategy:</strong> "경쟁사가 장악한 '계절가전' 카테고리의 3040 고소득층 타겟이 비어 있으니, 이들을 위한 전용 멤버십을 설계하십시오."</li>
-          </ul>
+        <div style="background:var(--bg-alt);border-radius:var(--rx);padding:20px;">
+          <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:12px;">제주 국제학교 학부모</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:2;">
+            오디언스 규모: <strong style="color:var(--text-h);">3.2만 명</strong><br>
+            평균 연봉: <strong style="color:var(--text-h);">1.2억 원</strong><br>
+            교육 앱 사용: <strong style="color:var(--text-h);">2.1개</strong><br>
+            우리 앱 침투율: <strong style="color:var(--blue);">12.8%</strong><br>
+            경쟁 앱 침투율: <strong style="color:var(--red);">28.4%</strong><br>
+            월 교육비: <strong style="color:var(--text-h);">340만 원</strong>
+          </div>
         </div>
+      </div>
+      <div style="background:var(--blue-bg);border-radius:var(--rx);padding:16px 20px;margin-top:16px;">
+        <p style="font-size:13px;color:var(--text-1);line-height:1.6;">💡 <strong style="color:var(--blue);">인사이트:</strong> 제주 국제학교 학부모는 규모는 작지만 인당 교육비가 2.7배 높고, 우리 앱 침투율이 12.8%로 매우 낮아 <strong style="color:var(--blue);">고가치 미개척 시장</strong>입니다. 반면 강남 3구는 규모가 크지만 경쟁이 치열하여 점유율 탈취 전략이 필요합니다.</p>
       </div>
     </div>
 
-    <!-- 기존 리포트 분석 뷰 사례 -->
-    <div style="background:var(--primary);border-radius:var(--radius);padding:40px;margin-bottom:48px;">
+    <!-- 기존 분석 뷰 사례 -->
+    <div style="background:var(--bg-dark);border-radius:var(--r);padding:40px;margin-top:40px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
         <span style="font-size:22px;">📌</span>
-        <span style="font-size:20px;font-weight:700;color:var(--primary-foreground);">이미 검증된 분석 뷰, PRISM이 자동으로 생성합니다</span>
+        <span style="font-size:18px;font-weight:700;color:var(--text-w);">이미 검증된 분석 뷰, PRISM이 자동으로 생성합니다</span>
       </div>
-      <p style="font-size:15px;color:hsl(0,0%,72%);margin-bottom:28px;line-height:1.6;">아래와 같은 수준의 심층 분석 리포트를 수작업 없이, 필터 설정만으로 자동 생성합니다. 기존에 분석가가 일주일 걸려 만들던 리포트를 PRISM이 1분 만에 완성합니다.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-        <a href="https://www.igaworksblog.com/post/insight-finance-group-vs-toss" target="_blank" rel="noopener" style="text-decoration:none;background:hsl(220,16%,18%);border:1px solid hsl(220,14%,24%);border-radius:var(--radius-sm);padding:24px;transition:transform 0.2s;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span style="font-size:13px;font-weight:700;color:hsl(225,90%,72%);background:hsl(225,90%,58%,0.15);padding:3px 10px;border-radius:4px;">금융</span>
-            <span style="font-size:13px;font-weight:700;color:hsl(145,80%,60%);background:hsl(145,80%,45%,0.15);padding:3px 10px;border-radius:4px;">교차 사용 분석</span>
+      <p style="font-size:14px;color:var(--text-wm);margin-bottom:24px;line-height:1.6;">아래와 같은 수준의 심층 분석 리포트를 수작업 없이, 오디언스 선택만으로 자동 생성합니다.</p>
+      <div class="g3">
+        <a href="https://www.igaworksblog.com/post/insight-finance-group-vs-toss" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:12px;font-weight:700;color:#7da0ff;background:rgba(51,102,255,0.15);padding:3px 8px;border-radius:4px;">금융</span>
+            <span style="font-size:12px;font-weight:700;color:#6ee7b7;background:rgba(34,197,94,0.15);padding:3px 8px;border-radius:4px;">교차 사용</span>
           </div>
-          <div style="font-size:16px;font-weight:700;color:var(--primary-foreground);margin-bottom:8px;line-height:1.4;">'슈퍼앱' 토스에 맞서는 5대 시중 금융의 반격 시나리오</div>
-          <p style="font-size:14px;color:hsl(0,0%,65%);line-height:1.5;">그룹 통합 MAU, 교차 사용률, 체류시간 점유율, 계열사 앱 간 락인 효과 분석 — 금융 그룹의 구조적 방어력 진단</p>
-          <div style="margin-top:12px;font-size:12px;color:hsl(225,90%,72%);">분석 뷰 보기 →</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">'슈퍼앱' 토스에 맞서는 5대 시중 금융의 반격 시나리오</div>
+          <p style="font-size:13px;color:var(--text-wm);line-height:1.5;">그룹 통합 MAU, 교차 사용률, 체류시간 점유율 분석</p>
+          <div style="margin-top:10px;font-size:12px;color:#7da0ff;">분석 뷰 보기 →</div>
         </a>
-        <a href="https://www.igaworksblog.com/post/insight-bts-fandom-audience" target="_blank" rel="noopener" style="text-decoration:none;background:hsl(220,16%,18%);border:1px solid hsl(220,14%,24%);border-radius:var(--radius-sm);padding:24px;transition:transform 0.2s;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span style="font-size:13px;font-weight:700;color:hsl(270,70%,72%);background:hsl(270,70%,55%,0.15);padding:3px 10px;border-radius:4px;">엔터</span>
-            <span style="font-size:13px;font-weight:700;color:hsl(30,90%,65%);background:hsl(30,90%,50%,0.15);padding:3px 10px;border-radius:4px;">GPS + 팬덤 오디언스</span>
+        <a href="https://www.igaworksblog.com/post/insight-bts-fandom-audience" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:12px;font-weight:700;color:#c4b5fd;background:rgba(139,92,246,0.15);padding:3px 8px;border-radius:4px;">엔터</span>
+            <span style="font-size:12px;font-weight:700;color:#fdba74;background:rgba(245,158,11,0.15);padding:3px 8px;border-radius:4px;">GPS + 팬덤</span>
           </div>
-          <div style="font-size:16px;font-weight:700;color:var(--primary-foreground);margin-bottom:8px;line-height:1.4;">BTS 광화문 공연이 남긴 135만 개 데이터</div>
-          <p style="font-size:14px;color:hsl(0,0%,65%);line-height:1.5;">GPS 로그 × 앱 사용 × 결제 데이터 결합으로 오프라인/온라인 슈퍼 팬덤 오디언스 생성 및 마케팅 시나리오 제안</p>
-          <div style="margin-top:12px;font-size:12px;color:hsl(225,90%,72%);">분석 뷰 보기 →</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">BTS 광화문 공연이 남긴 135만 개 데이터</div>
+          <p style="font-size:13px;color:var(--text-wm);line-height:1.5;">GPS × 앱 사용 × 결제 데이터 결합 팬덤 오디언스</p>
+          <div style="margin-top:10px;font-size:12px;color:#7da0ff;">분석 뷰 보기 →</div>
         </a>
-        <a href="https://www.igaworksblog.com/post/insight-coupang" target="_blank" rel="noopener" style="text-decoration:none;background:hsl(220,16%,18%);border:1px solid hsl(220,14%,24%);border-radius:var(--radius-sm);padding:24px;transition:transform 0.2s;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span style="font-size:13px;font-weight:700;color:hsl(0,84%,72%);background:hsl(0,84%,60%,0.15);padding:3px 10px;border-radius:4px;">커머스</span>
-            <span style="font-size:13px;font-weight:700;color:hsl(180,60%,55%);background:hsl(180,60%,45%,0.15);padding:3px 10px;border-radius:4px;">결제 데이터 분석</span>
+        <a href="https://www.igaworksblog.com/post/insight-coupang" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:12px;font-weight:700;color:#fca5a5;background:rgba(239,68,68,0.15);padding:3px 8px;border-radius:4px;">커머스</span>
+            <span style="font-size:12px;font-weight:700;color:#5eead4;background:rgba(20,184,166,0.15);padding:3px 8px;border-radius:4px;">결제 분석</span>
           </div>
-          <div style="font-size:16px;font-weight:700;color:var(--primary-foreground);margin-bottom:8px;line-height:1.4;">탈(脫)쿠팡 신호일까? 이커머스 시장의 변화</div>
-          <p style="font-size:14px;color:hsl(0,0%,65%);line-height:1.5;">DAU 변화, 주간 결제 추이, 결제 단가별 분포, 성별/연령별 소비 구조 비교 — 경쟁 플랫폼 간 이동 신호 포착</p>
-          <div style="margin-top:12px;font-size:12px;color:hsl(225,90%,72%);">분석 뷰 보기 →</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">탈(脫)쿠팡 신호일까? 이커머스 시장의 변화</div>
+          <p style="font-size:13px;color:var(--text-wm);line-height:1.5;">DAU 변화, 결제 추이, 경쟁 플랫폼 간 이동 신호</p>
+          <div style="margin-top:10px;font-size:12px;color:#7da0ff;">분석 뷰 보기 →</div>
         </a>
       </div>
-      <div style="margin-top:24px;background:hsl(225,90%,58%,0.1);border-radius:var(--radius-xs);padding:16px 20px;">
-        <p style="font-size:14px;color:hsl(0,0%,80%);line-height:1.6;">💡 위 리포트들은 분석가가 수일에 걸쳐 수작업으로 제작한 결과물입니다. <span style="color:hsl(225,90%,72%);font-weight:600;">PRISM은 동일한 수준의 분석 뷰를 고객사가 직접 필터만 설정하면 자동으로 생성</span>하여, 금융·엔터·커머스 등 업종을 불문하고 즉시 활용 가능한 전략 리포트로 제공합니다.</p>
-      </div>
-    </div>
-
-    <!-- (4) 사용자 편의 기능 -->
-    <div class="ux-step">
-      <div class="ux-step-header">
-        <div class="ux-step-num">4</div>
-        <div class="ux-step-title">사용자 편의 기능 (Copy &amp; Paste)</div>
-      </div>
-      <p class="ux-step-desc">대기업 사원들이 가장 고통받는 '장표 제작 시간'을 줄여줌으로써 플랫폼 록인을 유도합니다.</p>
-      <div class="card-grid card-grid-2">
-        <div class="card">
-          <div class="card-icon card-icon-blue">📋</div>
-          <div class="card-title">원클릭 복사</div>
-          <p>리포트의 텍스트와 표를 HTML/Markdown 형태로 즉시 복사하여 사내 보고 시스템(Notion, Slack, ERP)이나 PPT에 그대로 붙여넣기 가능</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-green">🤖</div>
-          <div class="card-title">AI Summary</div>
-          <p>생성된 전체 리포트를 CEO 보고용 '한 줄 요약(Executive Summary)'으로 변환하여 제공</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout">
-      <p>💡 <strong>"데이터가 아닌 시간을 팔자"</strong> — 대기업 사업전략팀이 우리 서비스를 쓰는 이유는 데이터 때문이 아니라, '데이터를 분석하고 보고서를 쓰는 일주일의 시간을 1분으로 단축'해주기 때문이어야 합니다. 사용자가 "판교에 근무하는 연봉 7천만 원 이상 직장인들이 경쟁사 B앱에서 주로 사는 물건이 뭐야?"라는 필터만 걸면, 바로 대표님 책상에 올릴 보고서가 툭 튀어나오게 만드는 것. 그것이 우리 프로젝트의 진정한 필승 전략입니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SECTION 5: 핵심 인사이트 경쟁사 뷰 ═══ -->
-<section id="competitive" class="section section-alt">
-  <div class="container">
-    <div class="section-num">5</div>
-    <h2 class="section-title">핵심 인사이트 경쟁사 뷰</h2>
-    <p class="section-desc">보유하신 앱 사용성 데이터와 커머스 데이터를 결합하면, 기존 업체들이 결코 흉내 낼 수 없는 '실행형 경쟁 분석'이 가능해집니다.</p>
-
-    <table class="insight-table">
-      <thead>
-        <tr>
-          <th>전략적 질문</th>
-          <th>데이터 기반 해답 (IGAWorks View)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="q-cell">우리 고객은 어디로 이탈하는가?</td>
-          <td>
-            <span class="a-label">Defector Path</span><br>
-            우리 앱 사용량이 줄어든 유저의 경쟁사 유입 경로 및 교차 사용 비중 시각화
-          </td>
-        </tr>
-        <tr>
-          <td class="q-cell">실질적인 지갑 점유율은?</td>
-          <td>
-            <span class="a-label">Wallet Share</span><br>
-            자산지수 대비 카테고리별(가전, 식품 등) 경쟁사 지출 비중 분석
-          </td>
-        </tr>
-        <tr>
-          <td class="q-cell">경쟁사의 핵심 오디언스는 누구인가?</td>
-          <td>
-            <span class="a-label">Persona Context</span><br>
-            특정 오피스 타운(판교, 여의도 등) 및 연봉 수준별 경쟁사 침투율 비교
-          </td>
-        </tr>
-        <tr>
-          <td class="q-cell">경쟁사 마케팅의 실효성은?</td>
-          <td>
-            <span class="a-label">Campaign Impact</span><br>
-            경쟁사 프로모션 기간 중 우리 VIP 고객의 실제 이동 규모 및 구매액 변화 측정
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- 경쟁사 뷰 상세 카드 -->
-    <div class="card-grid" style="margin-top:48px;">
-      <div class="card">
-        <div class="card-icon card-icon-blue">💰</div>
-        <div class="card-title">시장 점유율(SoW) 분석</div>
-        <p>단순 매출액이 아닌, 우리 고객이 경쟁사 앱에 머무는 시간과 결제하는 금액의 비중을 분석합니다.</p>
-        <p style="margin-top:8px;font-style:italic;font-size:14px;color:var(--point-blue);">"우리 앱 고객의 40%가 무신사에서도 월 평균 15만 원을 지출함"</p>
-      </div>
-      <div class="card">
-        <div class="card-icon card-icon-green">🔀</div>
-        <div class="card-title">교차 사용 및 이탈 경로 추적</div>
-        <p>특정 캠페인 기간에 우리 앱 사용자가 경쟁사 앱으로 이동했는지, 혹은 그 반대의 흐름이 있었는지를 시각화합니다. 이는 경쟁사의 마케팅 효과를 역으로 추산할 수 있게 합니다.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon card-icon-orange">🔎</div>
-        <div class="card-title">구매 여정의 '누수 지점' 포착</div>
-        <p>커머스 데이터를 통해 경쟁사 대비 우리 앱에서 결제 전환이 일어나지 않는 카테고리가 어디인지, 경쟁사는 어떤 품목에서 '록인(Lock-in)'을 일으키는지 보여줍니다.</p>
+      <div style="margin-top:20px;background:rgba(51,102,255,0.08);border-radius:var(--rx);padding:14px 18px;">
+        <p style="font-size:13px;color:var(--text-wm);line-height:1.6;">💡 위 리포트들은 분석가가 수일에 걸쳐 수작업으로 제작한 결과물입니다. <span style="color:#7da0ff;font-weight:600;">PRISM은 동일한 수준의 분석 뷰를 오디언스 선택만으로 자동 생성</span>합니다.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+</section>
+
+<!-- ═══ SECTION 4: 제품 시너지 ═══ -->
+<section id="synergy" class="sec">
+  <div class="c">
+    <div class="sn">4</div>
+    <h2 class="st">IGAWorks 제품 시너지 맵</h2>
+    <p class="sd">PRISM은 단독 제품이 아닌, 기존 IGAWorks 제품군과 결합하여 '분석 → 실행'의 풀 퍼널을 완성합니다.</p>
+
+    <div class="g3">
+      <div class="synergy-card synergy-mi">
+        <div style="font-size:24px;margin-bottom:12px;">📊</div>
+        <div class="ct">모바일인덱스 + PRISM</div>
+        <div class="synergy-formula">앱 분석 + 경쟁사 분석</div>
+        <p>모바일인덱스의 앱 시장 데이터에 PRISM의 ADID 기반 경쟁사 오디언스 분석을 결합. 시장 트렌드 파악과 동시에 경쟁사 고객 세그먼트까지 심층 분석이 가능합니다.</p>
+        <ul>
+          <li>앱 MAU/DAU 트렌드 + 경쟁사 오디언스 프로파일</li>
+          <li>카테고리별 점유율 + 이탈 경로 추적</li>
+          <li>시장 리포트 + 전략 리포트 원스톱 제공</li>
+        </ul>
+      </div>
+      <div class="synergy-card synergy-tw">
+        <div style="font-size:24px;margin-bottom:12px;">📡</div>
+        <div class="ct">트웍 / MI Ads + PRISM</div>
+        <div class="synergy-formula">경쟁사 분석 + 경쟁사 오디언스 광고</div>
+        <p>PRISM이 발견한 경쟁사 오디언스를 트웍/MI Ads를 통해 즉시 광고 타겟으로 전환. 분석에서 실행까지 끊김 없는 파이프라인을 구축합니다.</p>
+        <ul>
+          <li>경쟁사 헤비유저 ADID → DSP 타겟 광고 즉시 집행</li>
+          <li>이탈 징후 고객 → 리타겟팅 캠페인 자동 연결</li>
+          <li>리포트 내 "이 오디언스에 광고하기" 원클릭 실행</li>
+        </ul>
+      </div>
+      <div class="synergy-card synergy-df">
+        <div style="font-size:24px;margin-bottom:12px;">🔬</div>
+        <div class="ct">디파이너리 + PRISM</div>
+        <div class="synergy-formula">자사 데이터 + 경쟁사 데이터 통합 분석</div>
+        <p>디파이너리의 자사 1st Party 데이터에 PRISM의 경쟁사 3rd Party 데이터를 결합. 자사 고객이 경쟁사에서 어떻게 행동하는지까지 볼 수 있습니다.</p>
+        <ul>
+          <li>자사 CRM 데이터 + 경쟁사 앱 사용 패턴 결합</li>
+          <li>자사 VIP의 경쟁사 이탈 징후 실시간 감지</li>
+          <li>자사/경쟁사 통합 고객 여정 분석</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout-g callout" style="margin-top:32px;">
+      <p>✅ <strong>시너지 핵심:</strong> PRISM 단독으로는 '분석'이지만, 모바일인덱스와 붙으면 '시장+경쟁사', 트웍/MI Ads와 붙으면 '분석+실행', 디파이너리와 붙으면 '자사+경쟁사 통합'. 고객사 니즈에 따라 조합을 달리하여 패키지 판매가 가능합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: Kiro 활용 가이드 ═══ -->
+<section id="kiro" class="sec sec-dark">
+  <div class="c">
+    <div class="sn">5</div>
+    <h2 class="st" style="color:var(--text-w);">Kiro 활용 가이드: 데이터팀 × 마케팅팀</h2>
+    <p class="sd">Kiro는 단순한 코딩 도구가 아니라, '전략적 명세(Spec)를 이해하고 검증하는 에이전트'입니다. 데이터팀과 마케팅팀이 각각 다른 방식으로 활용합니다.</p>
+
+    <div class="g2" style="margin-bottom:40px;">
+      <!-- 데이터팀 -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="tag tag-kiro" style="font-size:13px;padding:5px 14px;">데이터팀</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-w);">R-F-S 태깅 시스템의 무결성 확보</span>
+        </div>
+
+        <div class="card card-d ca-teal" style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">① R→F 변환 로직 설계 (Stamper 단계)</div>
+          <div class="ct">GPS + 회사 명세 → 직장인 페르소나 생성</div>
+          <p>"GPS 좌표와 회사 명세를 매칭해 '직장인 페르소나'를 생성하라"는 스펙을 Kiro에게 전달. 데이터 정제 및 태깅 알고리즘 초안을 생성하고, 데이터 간 의존성을 분석합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 복잡한 SQL/Python 로직 작성 시간 단축 + 태깅 누락 사전 방지</p>
+        </div>
+
+        <div class="card card-d ca-teal">
+          <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 데이터 신뢰도 검증 (Quality Assurance)</div>
+          <div class="ct">엣지 케이스 시뮬레이션</div>
+          <p>CEO 책상에 오를 데이터인 만큼, 수천 개의 엣지 케이스 테스트를 Kiro에게 맡깁니다. 예: "주말에 회사 근처를 지나는 관광객을 '출퇴근 직장인'으로 오분류하지 않는가?"</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 사람이 놓치기 쉬운 데이터 오차를 잡아내어 PRISM의 대외 신뢰도 확보</p>
+        </div>
+      </div>
+
+      <!-- 마케팅팀 -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="tag tag-kiro" style="font-size:13px;padding:5px 14px;">마케팅팀</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-w);">리포트 자동화 및 전략 시나리오 고도화</span>
+        </div>
+
+        <div class="card card-d ca-teal" style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">① S-Tag 기반 리포트 생성 엔진</div>
+          <div class="ct">Executive Summary 자동 생성</div>
+          <p>분석 결과를 기반으로 CEO가 즉시 읽을 수 있는 Executive Summary와 전략 제안 텍스트를 자동 생성하는 엔진을 설계합니다. 조건에 따라 리포트의 텍스트와 표가 유동적으로 변합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 컨설팅 보고서 수작업 시간을 제로(0)에 가깝게 단축</p>
+        </div>
+
+        <div class="card card-d ca-teal">
+          <div style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 타겟팅 시나리오 시뮬레이션 (Strategy Finder)</div>
+          <div class="ct">최적 오디언스 조합 탐색</div>
+          <p>"경쟁사 A의 VIP 유저를 우리 앱으로 데려오기 위한 최적의 오디언스 조합"을 시뮬레이션. 특정 F-Tag 조합 적용 시 예상 타겟 모수와 마케팅 반응률을 가상 테스트합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:13px;font-weight:500;">→ 광고주에게 넘기기 전 전략의 예상 ROI를 미리 검증하여 설득력 강화</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: 사용자 편의 기능 ═══ -->
+<section class="sec">
+  <div class="c">
+    <div class="sn">6</div>
+    <h2 class="st">사용자 편의 기능</h2>
+    <p class="sd">대기업 사원들이 가장 고통받는 '장표 제작 시간'을 줄여줌으로써 플랫폼 록인을 유도합니다.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="icon icon-b">📋</div>
+        <div class="ct">원클릭 복사</div>
+        <p>리포트의 텍스트와 표를 HTML/Markdown 형태로 즉시 복사하여 사내 보고 시스템(Notion, Slack, ERP)이나 PPT에 그대로 붙여넣기 가능</p>
+      </div>
+      <div class="card">
+        <div class="icon icon-g">🤖</div>
+        <div class="ct">AI Summary</div>
+        <p>생성된 전체 리포트를 CEO 보고용 '한 줄 요약(Executive Summary)'으로 변환하여 제공</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <p>💡 <strong>"데이터가 아닌 시간을 팔자"</strong> — 대기업 사업전략팀이 우리 서비스를 쓰는 이유는 데이터 때문이 아니라, '데이터를 분석하고 보고서를 쓰는 일주일의 시간을 1분으로 단축'해주기 때문이어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <div class="container">
-    <p>© 2026 IGAWorks PRISM — Precise Reporting &amp; Intelligence Strategy Module</p>
+  <div class="c">
+    <p style="margin-bottom:4px;">© 2026 IGAWorks PRISM — Precise Reporting & Intelligence Strategy Module</p>
+    <p><a href="proposal-v1.html" style="color:var(--blue);text-decoration:none;font-size:12px;">기획안 v1 보기 →</a> · <a href="report-ssg.html" style="color:var(--blue);text-decoration:none;font-size:12px;">SSG.COM 리포트 시뮬레이션 →</a></p>
   </div>
 </footer>
 
-</body></html>
+</body>
+</html>
