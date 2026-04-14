@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRISM Report — 삼쩜삼 경쟁 분석 리포트</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root{
+      --bg:#ffffff;--bg-alt:#f7f8fa;--bg-dark:#0f1117;--bg-card:#f7f8fa;
+      --text-h:#111318;--text-1:#23272f;--text-2:#4a5060;--text-m:#7a8194;--text-light:#b0b8c9;
+      --border:#dfe2e8;--border-light:#ebedf2;
+      --navy:#1a2744;--deep-blue:#1e3a5f;--blue:#2563eb;--blue-bg:rgba(37,99,235,.06);
+      --green:#16a34a;--green-bg:rgba(22,163,74,.06);
+      --red:#dc2626;--red-bg:rgba(220,38,38,.06);
+      --orange:#d97706;--orange-bg:rgba(217,119,6,.06);
+      --r:12px;--rs:8px;--rx:6px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+    .nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;}
+    .nav-inner{max-width:1120px;margin:0 auto;padding:0 40px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-size:13px;font-weight:700;color:var(--text-h);letter-spacing:.02em;text-transform:uppercase;}
+    .nav-links{display:flex;gap:2px;list-style:none;} .nav-links a{font-size:13px;font-weight:500;color:var(--text-m);text-decoration:none;padding:6px 10px;border-radius:var(--rx);transition:all .15s;} .nav-links a:hover{color:var(--text-h);background:var(--bg-alt);}
+    .c{max-width:1120px;margin:0 auto;padding:0 40px;}
+    .sec{padding:64px 0;border-bottom:1px solid var(--border-light);} .sec:last-of-type{border-bottom:none;} .sec-alt{background:var(--bg-alt);}
+    .st{font-size:22px;font-weight:700;color:var(--text-h);line-height:1.4;margin-bottom:6px;letter-spacing:-.01em;}
+    .sd{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:32px;max-width:800px;}
+    .label{font-size:12px;font-weight:600;color:var(--text-m);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
+    .tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.03em;margin-bottom:6px;border:1px solid;}
+    .tag-r{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,.15);} .tag-f{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,.15);} .tag-s{background:rgba(26,39,68,.06);color:var(--navy);border-color:rgba(26,39,68,.12);}
+    .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:24px;}
+    .ct{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:6px;line-height:1.4;}
+    .card p,.card li{font-size:14px;color:var(--text-2);line-height:1.7;} .card ul{padding-left:16px;margin-top:6px;} .card li{margin-bottom:3px;}
+    .ca-b{border-left:3px solid var(--blue);} .ca-g{border-left:3px solid var(--green);} .ca-r{border-left:3px solid var(--red);} .ca-n{border-left:3px solid var(--navy);} .ca-o{border-left:3px solid var(--orange);}
+    .kpi{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:20px;text-align:center;}
+    .kpi-label{font-size:13px;color:var(--text-m);margin-bottom:8px;font-weight:500;} .kpi-val{font-size:28px;font-weight:800;letter-spacing:-.02em;} .kpi-sub{font-size:13px;color:var(--text-m);margin-top:4px;}
+    .callout{background:var(--bg-alt);border-left:3px solid var(--navy);border-radius:0 var(--rs) var(--rs) 0;padding:20px 24px;margin:24px 0;} .callout p{font-size:14px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--text-h);}
+    .callout-r{border-left-color:var(--red);background:var(--red-bg);} .callout-r strong{color:var(--red);}
+    .callout-g{border-left-color:var(--green);background:var(--green-bg);} .callout-g strong{color:var(--green);}
+    .callout-o{border-left-color:var(--orange);background:var(--orange-bg);} .callout-o strong{color:var(--orange);}
+    .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+    .bar-label{width:100px;font-size:14px;font-weight:600;color:var(--text-h);text-align:right;flex-shrink:0;}
+    .bar-track{flex:1;height:24px;background:var(--bg-alt);border-radius:4px;overflow:hidden;}
+    .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:700;color:#fff;min-width:36px;}
+    .tbl{width:100%;border-collapse:collapse;font-size:14px;}
+    .tbl th{background:var(--bg-alt);font-weight:600;color:var(--text-h);padding:12px 16px;text-align:left;border-bottom:2px solid var(--border);}
+    .tbl td{padding:12px 16px;border-bottom:1px solid var(--border-light);color:var(--text-2);} .tbl tr:last-child td{border-bottom:none;} .tbl tr:hover td{background:var(--bg-alt);}
+    .tbl .num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text-h);}
+    .sec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px;}
+    .sec-dl{display:flex;gap:4px;flex-shrink:0;margin-top:6px;}
+    .sec-dl-btn{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:var(--rx);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);color:var(--text-m);background:var(--bg);transition:all .15s;} .sec-dl-btn:hover{border-color:var(--blue);color:var(--blue);}
+    .syn-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;}
+    .syn-btn{display:inline-block;margin-top:16px;padding:8px 20px;border:1px solid var(--navy);border-radius:var(--rx);font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .15s;} .syn-btn:hover{background:var(--navy);color:#fff;}
+    .footer{padding:40px 0;text-align:center;border-top:1px solid var(--border);} .footer p{font-size:12px;color:var(--text-m);}
+    @media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}.c{padding:0 24px;}.sec{padding:40px 0;}.st{font-size:18px;}.nav-links{display:none;}.bar-label{width:70px;font-size:12px;}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">PRISM Report</div>
+    <ul class="nav-links">
+      <li><a href="index.html">← 기획안</a></li>
+      <li><a href="#benchmark">벤치마크</a></li>
+      <li><a href="#segment">세그먼트</a></li>
+      <li><a href="#defector">이탈 경로</a></li>
+      <li><a href="#wallet">지갑 점유율</a></li>
+      <li><a href="#strategy">전략 제안</a></li>
+      <li><a href="#vip">VIP 방지</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══ HEADER ═══ -->
+<section style="padding:56px 0 48px;border-bottom:1px solid var(--border);">
+  <div class="c">
+    <div style="display:flex;align-items:center;gap:24px;margin-bottom:32px;font-size:14px;color:var(--text-m);flex-wrap:wrap;">
+      <span style="font-weight:700;color:var(--text-h);letter-spacing:.02em;">PRISM REPORT</span>
+      <span>2026.04. Q1분기</span>
+      <span style="color:var(--red);font-weight:700;">CONFIDENTIAL</span>
+    </div>
+    <h1 style="font-size:36px;font-weight:800;color:var(--text-h);line-height:1.25;margin-bottom:16px;letter-spacing:-.02em;">삼쩜삼 경쟁 분석 리포트</h1>
+    <p style="font-size:16px;color:var(--text-2);max-width:800px;line-height:1.7;">삼쩜삼(3o3)의 세금 환급·금융 서비스 시장 내 경쟁 포지션을 오디언스 기반 실행동 데이터로 진단하고, 토스/뱅크샐러드/카카오페이/NAVER 금융 등 경쟁사 대비 점유율 탈취 및 방어 전략을 제안합니다.</p>
+
+    <div class="g4" style="margin-top:36px;">
+      <div class="kpi">
+        <div class="kpi-label">삼쩜삼 MAU</div>
+        <div class="kpi-val" style="color:var(--text-h);">487만</div>
+        <div class="kpi-sub">전분기 대비 +12.4%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">토스 대비 체류시간 점유율</div>
+        <div class="kpi-val" style="color:var(--red);">6.8%</div>
+        <div class="kpi-sub">금융 앱 사용 시간 중 삼쩜삼 비중</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">이탈 위험 핵심 유저</div>
+        <div class="kpi-val" style="color:var(--orange);">38.4만</div>
+        <div class="kpi-sub">환급 완료 후 30일 내 미접속</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">탈취 가능 타겟</div>
+        <div class="kpi-val" style="color:var(--green);">124.7만</div>
+        <div class="kpi-sub">토스 세금 기능 미사용 금융 활성 유저</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXECUTIVE SUMMARY ═══ -->
+<section style="padding:32px 0;border-bottom:1px solid var(--border-light);">
+  <div class="c">
+    <div class="callout" style="margin:0;">
+      <p><strong>Executive Summary</strong> — 2026년 1분기 기준, 삼쩜삼은 MAU 487만으로 전분기 대비 12.4% 성장하며 세금 환급 시장에서 독보적 1위를 유지하고 있습니다. 그러나 토스가 '토스 세금 환급' 기능을 출시하며 삼쩜삼의 핵심 영역에 직접 진입했고, 카카오페이·뱅크샐러드 역시 금융 데이터 기반 부가 서비스를 확장 중입니다. 삼쩜삼의 가장 큰 구조적 약점은 '환급 시즌 의존성'입니다. 5월 종합소득세 신고 시즌에 MAU가 3.2배 급증하지만, 비시즌에는 월 사용 시간이 평균 4분에 불과하여 토스(월 128분)와 극단적 격차를 보입니다. 본 리포트는 삼쩜삼이 '세금 환급 앱'에서 '금융 생활 플랫폼'으로 진화하기 위한 3대 전략과 124.7만 명의 타겟 ADID 리스트를 제안합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 1: 업종 벤치마크 ═══ -->
+<section id="benchmark" class="sec">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-r">R-Tag</span><h2 class="st">Part 1. 업종 벤치마크 — 금융 앱 상위 10% 기준선</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">금융 앱 업종에서 사용 시간 기준 상위 10% 유저의 행동 패턴을 벤치마크로 제시합니다. 삼쩜삼이 이 기준선에 얼마나 가까운지를 비교합니다.</p>
+
+    <div class="g4" style="margin-bottom:32px;">
+      <div class="kpi"><div class="kpi-label">상위 10% 월 사용 시간</div><div class="kpi-val" style="color:var(--navy);">186분</div></div>
+      <div class="kpi"><div class="kpi-label">상위 10% 월 거래 횟수</div><div class="kpi-val" style="color:var(--navy);">42.8회</div></div>
+      <div class="kpi"><div class="kpi-label">상위 10% 앱 사용 수</div><div class="kpi-val" style="color:var(--navy);">3.8개</div></div>
+      <div class="kpi"><div class="kpi-label">상위 10% 30일 재방문율</div><div class="kpi-val" style="color:var(--navy);">89.2%</div></div>
+    </div>
+
+    <div class="label">MAU 비교 — 삼쩜삼 vs 금융 앱 경쟁사</div>
+    <div style="margin-bottom:32px;">
+      <div class="bar-row"><div class="bar-label">토스</div><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--navy);">2,340만</div></div><div style="width:50px;font-size:14px;font-weight:600;color:var(--green);">+8.7%</div></div>
+      <div class="bar-row"><div class="bar-label">카카오페이</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--deep-blue);">1,820만</div></div><div style="width:50px;font-size:14px;font-weight:600;color:var(--green);">+3.1%</div></div>
+      <div class="bar-row"><div class="bar-label">뱅크샐러드</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:#64748b;">712만</div></div><div style="width:50px;font-size:14px;font-weight:600;color:var(--red);">-2.4%</div></div>
+      <div class="bar-row"><div class="bar-label" style="color:var(--blue);font-weight:800;">삼쩜삼</div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--blue);">487만</div></div><div style="width:50px;font-size:14px;font-weight:600;color:var(--green);">+12.4%</div></div>
+      <div class="bar-row"><div class="bar-label">NAVER 금융</div><div class="bar-track"><div class="bar-fill" style="width:15%;background:#94a3b8;">384만</div></div><div style="width:50px;font-size:14px;font-weight:600;color:var(--green);">+18.2%</div></div>
+    </div>
+
+    <div class="label">핵심 지표 비교 (2026 Q1)</div>
+    <table class="tbl" style="margin-bottom:24px;">
+      <thead><tr><th>지표</th><th>삼쩜삼</th><th>토스</th><th>카카오페이</th><th>뱅크샐러드</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;">MAU</td><td class="num">487만</td><td class="num">2,340만</td><td class="num">1,820만</td><td class="num">712만</td></tr>
+        <tr><td style="font-weight:600;">월평균 사용 시간</td><td class="num" style="color:var(--red);">4분</td><td class="num">128분</td><td class="num">47분</td><td class="num">22분</td></tr>
+        <tr><td style="font-weight:600;">30일 재방문율</td><td class="num" style="color:var(--red);">18.4%</td><td class="num">84.7%</td><td class="num">62.3%</td><td class="num">41.8%</td></tr>
+        <tr><td style="font-weight:600;">교차 사용률 (삼쩜삼 기준)</td><td class="num">—</td><td class="num">78.2%</td><td class="num">54.6%</td><td class="num">32.1%</td></tr>
+        <tr><td style="font-weight:600;">5월 시즌 MAU 배율</td><td class="num" style="color:var(--orange);">×3.2</td><td class="num">×1.1</td><td class="num">×1.0</td><td class="num">×1.4</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-r">
+      <p><strong>핵심 경고:</strong> 삼쩜삼의 월평균 사용 시간은 4분으로, 토스(128분)의 3.1%에 불과합니다. 이는 삼쩜삼이 '앱'이 아닌 '연 1회 사용하는 도구'로 인식되고 있다는 의미입니다. 5월 시즌 MAU가 3.2배 급증하지만, 이는 동시에 비시즌에 고객의 78%가 사실상 이탈한다는 뜻이기도 합니다.</p>
+    </div>
+    <div class="callout" style="margin-top:12px;">
+      <p><strong>현상 해석:</strong> 삼쩜삼의 성장률(+12.4%)은 금융 앱 중 두 번째로 높지만, 이 성장은 '세금 환급 인지도 확대'에 의한 것이지 '플랫폼 록인'에 의한 것이 아닙니다. 토스는 송금→투자→보험→대출→세금으로 서비스를 확장하며 일상적 사용 습관을 만들었지만, 삼쩜삼은 여전히 '환급 시즌에만 열리는 앱'입니다. 토스가 세금 환급 기능을 본격화하면, 삼쩜삼의 유일한 존재 이유가 위협받게 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 2: 오디언스 심층 프로파일 ═══ -->
+<section class="sec sec-alt">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-f">F-Tag</span><h2 class="st">Part 2. 오디언스 심층 프로파일 — 세분화된 서브 세그먼트</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">삼쩜삼 핵심 고객을 R-Tag, F-Tag 기반으로 세분화하여 고가치 서브 세그먼트를 발견합니다.</p>
+
+    <div class="g3">
+      <div class="card ca-r">
+        <div class="label">서브 세그먼트 A</div>
+        <div class="ct">프리랜서/N잡러 2030</div>
+        <p style="color:var(--text-m);margin-bottom:8px;">142.3만 명 · 프리랜서 소득 + 연 2회 이상 환급 + 토스 헤비유저</p>
+        <p>삼쩜삼 환급 경험 있으나 비시즌 사용 제로. 토스에서 월 평균 87분 사용. 세금 외 금융 니즈(투자·대출)가 높으나 삼쩜삼에서는 해결 불가. <strong style="color:var(--red);">토스 세금 환급 출시 시 가장 먼저 이탈할 그룹.</strong></p>
+      </div>
+      <div class="card ca-g">
+        <div class="label">서브 세그먼트 B</div>
+        <div class="ct">소규모 사업자 4050</div>
+        <p style="color:var(--text-m);margin-bottom:8px;">87.6만 명 · 개인사업자 + 연매출 1억 미만 + 세무사 미이용</p>
+        <p>삼쩜삼 유료 서비스 전환율이 가장 높은 그룹(14.2%). 세무 지식이 부족하여 삼쩜삼의 '자동 환급'에 높은 의존도. <strong style="color:var(--green);">핵심 수익 기반이자 방어 최우선 대상.</strong></p>
+      </div>
+      <div class="card ca-o">
+        <div class="label">서브 세그먼트 C</div>
+        <div class="ct">직장인 연말정산 유저</div>
+        <p style="color:var(--text-m);margin-bottom:8px;">257.1만 명 · 직장인 + 연 1회 환급 + 금융 앱 2개 이상</p>
+        <p>삼쩜삼 전체 MAU의 52.8%를 차지하지만, 연 1회 사용 후 이탈. 인당 매출 기여도가 가장 낮음. <strong style="color:var(--orange);">규모는 크지만 LTV가 낮은 '볼륨 세그먼트'.</strong></p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px;">
+      <p><strong>오디언스의 전략적 의미:</strong> 삼쩜삼의 딜레마는 명확합니다. 가장 큰 세그먼트(C, 직장인 257만)는 연 1회만 쓰고 떠나며, 가장 가치 있는 세그먼트(B, 사업자 87만)는 규모가 작고, 가장 위험한 세그먼트(A, 프리랜서 142만)는 토스에 빼앗길 가능성이 높습니다. 세그먼트 A를 지키면서 세그먼트 C의 비시즌 사용을 만들어내는 것이 삼쩜삼의 생존 과제입니다. 세그먼트 B는 현재 삼쩜삼의 매출을 지탱하는 기둥이므로, 경쟁사가 이 시장에 진입하기 전에 록인을 강화해야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 3: 고객 세그먼트 ═══ -->
+<section id="segment" class="sec">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-f">F-Tag</span><h2 class="st">Part 3. 고객 세그먼트 — 누가 떠나고, 누가 남는가</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">서브 세그먼트별 삼쩜삼 충성도와 경쟁사 이동 현황을 진단합니다.</p>
+
+    <div class="g2">
+      <div class="card ca-r" style="padding:28px;">
+        <div style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:12px;">● 이탈 위험군: 프리랜서/N잡러 2030</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:2;">
+          규모: <strong style="color:var(--text-h);">142.3만 명</strong><br>
+          삼쩜삼 비시즌 사용: <strong style="color:var(--red);">월 0.4분 (사실상 미사용)</strong><br>
+          토스 월 사용: <strong style="color:var(--text-h);">87분</strong><br>
+          카카오페이 월 사용: <strong style="color:var(--text-h);">34분</strong><br>
+          토스 세금 환급 인지율: <strong style="color:var(--red);">62.8% (↑24%p)</strong>
+        </div>
+        <div class="callout callout-r" style="margin-bottom:0;margin-top:16px;">
+          <p><strong>진단:</strong> 이 그룹은 삼쩜삼의 원래 핵심 타겟이지만, 일상적 금융 생활은 이미 토스에서 이루어지고 있습니다. 토스가 세금 환급을 '토스 앱 내 기능'으로 제공하면, 이 그룹은 별도 앱(삼쩜삼)을 설치할 이유가 사라집니다. 프리랜서에게 세금 환급은 '연 1~2회 이벤트'이지만, 송금·투자·대출은 '매일의 습관'입니다. 습관이 있는 플랫폼이 이벤트까지 흡수하는 것은 시간 문제입니다.</p>
+        </div>
+      </div>
+      <div class="card ca-g" style="padding:28px;">
+        <div style="font-size:15px;font-weight:700;color:var(--green);margin-bottom:12px;">● 충성 유지군: 소규모 사업자 4050</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:2;">
+          규모: <strong style="color:var(--text-h);">87.6만 명</strong><br>
+          삼쩜삼 월 사용: <strong style="color:var(--green);">12분 (비시즌 포함)</strong><br>
+          유료 전환율: <strong style="color:var(--green);">14.2%</strong><br>
+          세무사 미이용률: <strong style="color:var(--text-h);">84.3%</strong><br>
+          삼쩜삼 추천 의향: <strong style="color:var(--green);">NPS +47</strong>
+        </div>
+        <div class="callout callout-g" style="margin-bottom:0;margin-top:16px;">
+          <p><strong>진단:</strong> 이 그룹이 삼쩜삼에 충성하는 이유는 '세무사를 고용할 여력은 없지만, 세금 문제는 해결해야 하는' 명확한 페인포인트 때문입니다. 토스나 카카오페이가 이 시장에 진입하더라도, 사업자 세무의 복잡성(부가세·종소세·원천세)을 삼쩜삼만큼 깊이 있게 다루기는 어렵습니다. 이 전문성이 삼쩜삼의 해자(moat)입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 4: 이탈 경로 추적 ═══ -->
+<section id="defector" class="sec sec-alt">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-r">R-Tag</span> <span class="tag tag-f">F-Tag</span><h2 class="st">Part 4. 이탈 경로 추적 — 삼쩜삼 고객은 어디로 가는가</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">환급 완료 후 30일 내 삼쩜삼 미접속 유저의 금융 앱 이동 패턴입니다. 삼쩜삼의 이탈은 '경쟁사로의 이동'이 아닌 '일상 금융 앱으로의 복귀'라는 점이 특징적입니다.</p>
+
+    <div class="g2" style="margin-bottom:24px;">
+      <div class="card" style="padding:28px;">
+        <div class="ct">이탈 규모 요약</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:2;">
+          환급 완료 후 30일 내 미접속: <strong style="color:var(--text-h);">38.4만 명</strong> (환급 유저의 78.2%)<br>
+          → 토스로 복귀 (금융 활동 지속): <strong style="color:var(--red);">24.1만 명 (62.8%)</strong><br>
+          → 카카오페이로 복귀: <strong style="color:var(--text-h);">7.3만 명 (19.0%)</strong><br>
+          → 뱅크샐러드로 복귀: <strong style="color:var(--text-h);">3.8만 명 (9.9%)</strong><br>
+          → 금융 앱 자체 비활성: <strong style="color:var(--text-m);">3.2만 명 (8.3%)</strong>
+        </div>
+      </div>
+      <div class="card" style="padding:28px;">
+        <div class="ct">시즌별 사용 패턴</div>
+        <div style="margin-top:8px;">
+          <div class="bar-row"><div class="bar-label" style="width:80px;">1~4월</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:#64748b;">비시즌</div></div><div style="width:60px;font-size:14px;font-weight:600;">MAU 152만</div></div>
+          <div class="bar-row"><div class="bar-label" style="width:80px;color:var(--green);font-weight:800;">5월</div><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--green);">종소세 시즌</div></div><div style="width:60px;font-size:14px;font-weight:600;color:var(--green);">MAU 1,558만</div></div>
+          <div class="bar-row"><div class="bar-label" style="width:80px;">6~12월</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:#64748b;">비시즌</div></div><div style="width:60px;font-size:14px;font-weight:600;">MAU 198만</div></div>
+          <div class="bar-row"><div class="bar-label" style="width:80px;color:var(--blue);">1월</div><div class="bar-track"><div class="bar-fill" style="width:38%;background:var(--blue);">연말정산</div></div><div style="width:60px;font-size:14px;font-weight:600;">MAU 487만</div></div>
+        </div>
+        <div class="callout" style="margin-bottom:0;margin-top:16px;">
+          <p><strong>삼쩜삼의 구조적 약점은 '시즌 의존성'입니다.</strong> 5월 MAU가 비시즌의 10.2배에 달하며, 이는 금융 앱 중 가장 극단적인 계절성입니다. 비시즌에 고객을 붙잡을 '일상적 사용 이유'를 만들지 못하면, 매년 5월마다 고객을 새로 획득해야 하는 비효율적 구조가 반복됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:0;">
+      <p><strong>이탈 패턴의 시사점:</strong> 삼쩜삼의 이탈은 일반적인 '경쟁사 전환'과 다릅니다. 고객이 삼쩜삼을 '떠나는' 것이 아니라, 환급이라는 '용건'이 끝나면 자연스럽게 일상 금융 앱(토스)으로 '돌아가는' 것입니다. 이는 삼쩜삼이 고객의 '금융 생활'에 편입되지 못했다는 의미입니다. 토스 사용자의 78.2%가 삼쩜삼도 사용하지만, 삼쩜삼 사용자의 관점에서 토스는 '메인 앱'이고 삼쩜삼은 '서브 도구'입니다. 이 관계를 역전시키지 않는 한, 토스가 세금 환급을 내재화하는 순간 삼쩜삼의 존재 이유가 사라집니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 5: 지갑 점유율 ═══ -->
+<section id="wallet" class="sec">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-f">F-Tag</span><h2 class="st">Part 5. 지갑 점유율(Wallet Share) 심층 분석</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">삼쩜삼 고객의 금융 서비스 지출 중 삼쩜삼에 얼마가 쓰이는지, 경쟁사에는 얼마가 가는지를 분석합니다.</p>
+
+    <div class="label">세그먼트별 금융 서비스 지갑 점유율</div>
+    <table class="tbl" style="margin-bottom:32px;">
+      <thead><tr><th>세그먼트</th><th>월 금융 서비스 지출</th><th>삼쩜삼</th><th>토스</th><th>카카오페이</th><th>기타</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;">프리랜서 2030 (A)</td><td class="num">8.4만 원</td><td class="num" style="color:var(--red);">4.2%</td><td class="num" style="color:var(--text-h);">52.4%</td><td class="num">28.1%</td><td class="num">15.3%</td></tr>
+        <tr><td style="font-weight:600;">소규모 사업자 4050 (B)</td><td class="num">14.7만 원</td><td class="num" style="color:var(--green);">18.6%</td><td class="num">31.2%</td><td class="num">22.4%</td><td class="num">27.8%</td></tr>
+        <tr><td style="font-weight:600;">직장인 연말정산 (C)</td><td class="num">3.2만 원</td><td class="num" style="color:var(--red);">1.8%</td><td class="num" style="color:var(--text-h);">61.7%</td><td class="num">24.3%</td><td class="num">12.2%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="label">연령대별 삼쩜삼 vs 토스 체류시간 점유율</div>
+    <table class="tbl" style="margin-bottom:24px;">
+      <thead><tr><th>연령대</th><th>삼쩜삼 체류시간</th><th>토스 체류시간</th><th>삼쩜삼 점유율</th><th>Gap</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;">20대</td><td class="num">2.1분</td><td class="num">142분</td><td class="num" style="color:var(--red);">1.5%</td><td style="color:var(--red);font-weight:600;">-139.9분</td></tr>
+        <tr><td style="font-weight:600;">30대</td><td class="num">4.8분</td><td class="num">134분</td><td class="num" style="color:var(--red);">3.5%</td><td style="color:var(--red);font-weight:600;">-129.2분</td></tr>
+        <tr><td style="font-weight:600;">40대</td><td class="num">6.2분</td><td class="num">98분</td><td class="num">5.9%</td><td style="color:var(--orange);font-weight:600;">-91.8분</td></tr>
+        <tr><td style="font-weight:600;">50대 이상</td><td class="num">3.4분</td><td class="num">67분</td><td class="num">4.8%</td><td style="color:var(--orange);font-weight:600;">-63.6분</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-o">
+      <p><strong>핵심 발견:</strong> 삼쩜삼의 지갑점유율은 전 세그먼트에서 한 자릿수입니다. 가장 높은 세그먼트 B(사업자)에서도 18.6%에 불과하며, 핵심 타겟인 세그먼트 A(프리랜서)에서는 4.2%로 토스(52.4%)의 12분의 1 수준입니다.</p>
+    </div>
+    <div class="callout" style="margin-top:12px;">
+      <p><strong>이 수치가 의미하는 것:</strong> 삼쩜삼은 고객의 '금융 생활'이 아닌 '세금 이벤트'만 담당하고 있습니다. 금융 서비스 지출의 95% 이상이 경쟁사에서 발생하고 있으며, 이는 삼쩜삼이 고객과의 접점을 연 1~2회로 스스로 제한하고 있기 때문입니다. 세그먼트 B(사업자)에서 18.6%를 확보한 것은 '세무 전문성'이라는 차별화가 작동하고 있다는 증거이며, 이 전문성을 다른 세그먼트로 확장하는 것이 지갑점유율 개선의 열쇠입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 6: 전략 제안 ═══ -->
+<section id="strategy" class="sec sec-alt">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-s">S-Tag</span><h2 class="st">Part 6. 전략 제안 — 3대 실행 시나리오</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">즉시 실행 가능한 전략입니다. 각 전략에는 타겟 ADID 리스트가 포함됩니다.</p>
+
+    <!-- 전략 1 -->
+    <div class="card" style="border-left:3px solid var(--red);padding:28px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="width:28px;height:28px;border-radius:var(--rx);background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">1</div>
+        <div><div style="font-size:16px;font-weight:700;color:var(--text-h);">토스 세금 미사용자 선제 탈취</div><div style="font-size:13px;color:var(--text-m);">Conquesting · 단기 2주 · 타겟 124.7만 명</div></div>
+      </div>
+      <div class="g2">
+        <div><div class="label">타겟 정의</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>토스 MAU 중 세금 환급 기능 미사용자</li><li>프리랜서/N잡러 소득 보유 (3.3% 원천징수 이력)</li><li>삼쩜삼 미설치 또는 12개월 이상 미사용</li><li>연소득 3천만~8천만 원 구간</li></ul></div>
+        <div><div class="label">실행 방안</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>DSP 타겟 광고: "돌려받을 세금, 아직 안 찾으셨나요?" 4~5월 집중</li><li>예상 환급액 미리보기 무료 제공 (앱 설치 유도)</li><li>첫 환급 수수료 50% 할인 캠페인</li><li>토스 앱 사용 직후 시점에 광고 노출 (Context Sequence)</li></ul></div>
+      </div>
+      <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:32px;flex-wrap:wrap;">
+        <div><div style="font-size:12px;color:var(--text-m);">타겟 ADID</div><div style="font-size:20px;font-weight:800;color:var(--text-h);">124.7만</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">예상 전환율</div><div style="font-size:20px;font-weight:800;">3.8%</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">예상 신규</div><div style="font-size:20px;font-weight:800;color:var(--blue);">47,386명</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">예상 환급 수수료 매출</div><div style="font-size:20px;font-weight:800;color:var(--green);">+18.9억</div></div>
+      </div>
+    </div>
+
+    <!-- 전략 2 -->
+    <div class="card" style="border-left:3px solid var(--navy);padding:28px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="width:28px;height:28px;border-radius:var(--rx);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">2</div>
+        <div><div style="font-size:16px;font-weight:700;color:var(--text-h);">비시즌 록인 — 프리랜서 금융 허브화</div><div style="font-size:13px;color:var(--text-m);">Wallet Share Defense · 중기 3개월 · 타겟 142.3만 명</div></div>
+      </div>
+      <div class="g2">
+        <div><div class="label">타겟 정의</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>삼쩜삼 환급 경험 있는 프리랜서/N잡러</li><li>환급 완료 후 30일 내 미접속 유저</li><li>토스에서 투자·대출 서비스 활발 이용</li></ul></div>
+        <div><div class="label">실행 방안</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>월별 세금 예상액 알림 서비스 (비시즌 접점 생성)</li><li>프리랜서 소득 관리 대시보드 무료 제공</li><li>분기별 절세 팁 + 예상 환급액 업데이트 푸시</li><li>사업자 전환 시 세무 상담 연계 (세그먼트 B로 업그레이드)</li></ul></div>
+      </div>
+      <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:32px;flex-wrap:wrap;">
+        <div><div style="font-size:12px;color:var(--text-m);">타겟 ADID</div><div style="font-size:20px;font-weight:800;color:var(--text-h);">142.3만</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">비시즌 재방문율 목표</div><div style="font-size:20px;font-weight:800;">18→35%</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">예상 LTV 증분</div><div style="font-size:20px;font-weight:800;color:var(--green);">+42억/년</div></div>
+      </div>
+    </div>
+
+    <!-- 전략 3 -->
+    <div class="card" style="border-left:3px solid var(--green);padding:28px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="width:28px;height:28px;border-radius:var(--rx);background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">3</div>
+        <div><div style="font-size:16px;font-weight:700;color:var(--text-h);">사업자 세그먼트 록인 강화</div><div style="font-size:13px;color:var(--text-m);">Retention · 중기 3개월 · 타겟 87.6만 명</div></div>
+      </div>
+      <div class="g2">
+        <div><div class="label">타겟 정의</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>삼쩜삼 유료 서비스 이용 소규모 사업자</li><li>세무사 미이용 (84.3%)</li><li>부가세·종소세·원천세 복합 신고 대상</li></ul></div>
+        <div><div class="label">실행 방안</div><ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;"><li>부가세 자동 신고 기능 출시 (분기별 접점 4회 확보)</li><li>사업자 전용 절세 리포트 월간 발송</li><li>세무사 매칭 서비스 (복잡한 케이스 대응)</li><li>연간 구독 모델 도입 (월 9,900원 → 연 99,000원)</li></ul></div>
+      </div>
+      <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:32px;flex-wrap:wrap;">
+        <div><div style="font-size:12px;color:var(--text-m);">타겟 ADID</div><div style="font-size:20px;font-weight:800;color:var(--text-h);">87.6만</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">유료 전환율 목표</div><div style="font-size:20px;font-weight:800;">14→22%</div></div>
+        <div><div style="font-size:12px;color:var(--text-m);">예상 구독 매출</div><div style="font-size:20px;font-weight:800;color:var(--green);">+19.1억/년</div></div>
+      </div>
+    </div>
+
+    <!-- 종합 -->
+    <div style="background:var(--bg);border:2px solid var(--navy);border-radius:var(--r);padding:28px;display:flex;justify-content:space-around;text-align:center;flex-wrap:wrap;gap:16px;">
+      <div><div style="font-size:13px;color:var(--text-m);">총 타겟 ADID</div><div style="font-size:28px;font-weight:800;color:var(--navy);">354.6만</div></div>
+      <div><div style="font-size:13px;color:var(--text-m);">예상 연간 매출 증분</div><div style="font-size:28px;font-weight:800;color:var(--green);">+80억</div></div>
+      <div><div style="font-size:13px;color:var(--text-m);">비시즌 재방문율 목표</div><div style="font-size:28px;font-weight:800;color:var(--text-h);">18→35%</div></div>
+    </div>
+
+    <div class="callout" style="margin-top:24px;">
+      <p><strong>전략의 핵심 논리:</strong> 3대 전략은 삼쩜삼의 생존 공식을 '세금 환급 도구 → 금융 생활 플랫폼'으로 전환하기 위한 것입니다. 전략 1(토스 탈취)은 토스가 세금 시장에 본격 진입하기 전에 선제적으로 고객을 확보하는 '시간 싸움'이며, 전략 2(비시즌 록인)는 삼쩜삼의 구조적 약점인 계절성을 해소하는 '체질 개선'이고, 전략 3(사업자 록인)은 경쟁사가 쉽게 따라올 수 없는 '전문성 해자'를 구축하는 것입니다. 세 전략이 동시에 작동하면, 삼쩜삼은 '연 1회 앱'에서 '월 4회 이상 접속하는 금융 파트너'로 진화할 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 7: VIP 이탈 방지 ═══ -->
+<section id="vip" class="sec">
+  <div class="c">
+    <div class="sec-head">
+      <div><span class="tag tag-s">S-Tag</span><h2 class="st">Part 7. VIP 이탈 방지 — Win-back 시나리오</h2></div>
+      <div class="sec-dl"><span class="sec-dl-btn">↓ PNG</span><span class="sec-dl-btn">↓ HTML</span></div>
+    </div>
+    <p class="sd">삼쩜삼 유료 서비스 이용자 중 토스 세금 환급으로의 전환 징후가 감지된 핵심 유저에 대한 선제 방어 전략입니다.</p>
+
+    <div class="g2" style="margin-bottom:24px;">
+      <div class="card ca-r" style="padding:28px;">
+        <div class="ct">이탈 징후 감지 기준</div>
+        <ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+          <li>토스 '세금 환급' 기능 탐색 이력 (최근 30일)</li>
+          <li>삼쩜삼 앱 알림 비활성화 또는 앱 삭제</li>
+          <li>전년 대비 삼쩜삼 접속 시점이 2주 이상 지연</li>
+          <li>경쟁사 세금 관련 광고 클릭 이력</li>
+        </ul>
+      </div>
+      <div class="card ca-n" style="padding:28px;">
+        <div class="ct">4단계 Win-back 시나리오</div>
+        <ul style="font-size:14px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+          <li><strong style="color:var(--text-h);">D+1</strong> 개인화 푸시 — "올해 예상 환급액이 업데이트되었습니다"</li>
+          <li><strong style="color:var(--text-h);">D+3</strong> 수수료 혜택 — 기존 고객 전용 수수료 30% 할인</li>
+          <li><strong style="color:var(--text-h);">D+7</strong> 전문성 어필 — "삼쩜삼만의 추가 공제 항목 3건 발견" 알림</li>
+          <li><strong style="color:var(--text-h);">D+14</strong> 1:1 세무 상담 — 무료 전화 상담 제공 (사업자 대상)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+      <div class="g3" style="text-align:center;">
+        <div><div style="font-size:13px;color:var(--text-m);margin-bottom:4px;">이탈 위험 유료 유저</div><div style="font-size:24px;font-weight:800;color:var(--red);">12.4만 명</div><div style="font-size:13px;color:var(--text-m);margin-top:2px;">인당 연 평균 수수료 4.2만 원</div></div>
+        <div><div style="font-size:13px;color:var(--text-m);margin-bottom:4px;">전원 이탈 시 연 손실</div><div style="font-size:24px;font-weight:800;color:var(--orange);">52.1억</div><div style="font-size:13px;color:var(--text-m);margin-top:2px;">전체 수수료 매출의 28.4%</div></div>
+        <div><div style="font-size:13px;color:var(--text-m);margin-bottom:4px;">Win-back 예상 회수율</div><div style="font-size:24px;font-weight:800;color:var(--green);">42%</div><div style="font-size:13px;color:var(--text-m);margin-top:2px;">연 21.9억 원 방어</div></div>
+      </div>
+    </div>
+
+    <div class="callout callout-r" style="margin-top:24px;">
+      <p><strong>긴급:</strong> 유료 유저 12.4만 명 전원 이탈 시 연간 52.1억 원(전체 수수료 매출의 28.4%) 손실. 특히 세그먼트 B(사업자)의 유료 유저가 이탈하면 삼쩜삼의 핵심 수익 모델 자체가 흔들립니다.</p>
+    </div>
+    <div class="callout" style="margin-top:12px;">
+      <p><strong>방어의 핵심은 '전문성 차별화'입니다.</strong> 토스는 '간편함'으로 승부하지만, 세금 환급의 실제 가치는 '얼마나 많은 공제 항목을 찾아내느냐'에 달려 있습니다. 삼쩜삼이 토스보다 평균 12.4% 더 많은 환급액을 찾아준다는 데이터를 Win-back 메시지의 핵심으로 활용해야 합니다. "간편하게 적게 받을 것인가, 꼼꼼하게 더 받을 것인가"라는 프레이밍이 삼쩜삼의 생존 메시지입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 플랫폼 연동 ═══ -->
+<section class="sec sec-alt">
+  <div class="c">
+    <h2 class="st">이 리포트의 인사이트를 바로 실행하세요</h2>
+    <p class="sd">PRISM 리포트에서 발견한 타겟 오디언스를 IGAWorks 제품군과 즉시 연동하여 분석에서 실행까지 원스톱으로 완성합니다.</p>
+    <div class="g3">
+      <div class="syn-card"><div style="font-size:24px;margin-bottom:12px;">📊</div><div class="ct">모바일인덱스 연동</div><p style="font-size:14px;color:var(--text-2);">삼쩜삼 vs 토스 앱 사용 데이터를 실시간 트렌드와 함께 모니터링</p><div class="syn-btn">모바일인덱스에서 보기 →</div></div>
+      <div class="syn-card"><div style="font-size:24px;margin-bottom:12px;">📡</div><div class="ct">트웍 / MI Ads 연동</div><p style="font-size:14px;color:var(--text-2);">124.7만 타겟 ADID를 DSP 타겟 광고로 즉시 집행. 4~5월 시즌 선점</p><div class="syn-btn">광고 캠페인 생성 →</div></div>
+      <div class="syn-card"><div style="font-size:24px;margin-bottom:12px;">🔬</div><div class="ct">디파이너리 연동</div><p style="font-size:14px;color:var(--text-2);">삼쩜삼 자사 CRM + PRISM 경쟁사 데이터 통합 분석</p><div class="syn-btn">디파이너리에서 분석 →</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="c">
+    <p style="margin-bottom:4px;">본 리포트는 IGAWORKS PRISM이 ADID 기반 실행동 데이터를 분석하여 자동 생성한 시뮬레이션 리포트입니다.</p>
+    <p style="margin-bottom:4px;">데이터 기준: 2026년 1월~3월 (Q1) · 분석 대상: 금융 앱 상위 5개 플랫폼</p>
+    <p>© 2026 IGAWorks PRISM · <a href="index.html" style="color:var(--blue);text-decoration:none;">기획안으로 돌아가기 →</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
