@@ -100,13 +100,18 @@
     .footer p{font-size:13px;color:var(--text-m);}
     @media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}.c{padding:0 20px;}.sec{padding:56px 0;}.st{font-size:24px;}.nav-links{display:none;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+    .nav-dropdown{position:relative;}
+    .nav-dropdown-menu{display:none;position:absolute;top:100%;right:0;background:#fff;border:1px solid var(--border);border-radius:var(--rx);box-shadow:var(--shadow);list-style:none;min-width:180px;padding:6px 0;z-index:200;margin-top:6px;}
+    .nav-dropdown-menu li a{display:block;padding:8px 16px;font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;white-space:nowrap;}
+    .nav-dropdown-menu li a:hover{background:var(--bg-alt);color:var(--text-h);}
+    .nav-dropdown:hover .nav-dropdown-menu{display:block;}
   </style>
 </head>
 <body>
 
 <nav class="nav" role="navigation" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <div class="nav-logo">IGAWORKS <span>PRISM</span></div>
+    <a href="#" class="nav-logo" style="text-decoration:none;color:var(--text-h);">IGAWORKS <span>PRISM</span></a>
     <ul class="nav-links">
       <li><a href="#overview">Overview</a></li>
       <li><a href="#phase1">1단계: 오디언스</a></li>
@@ -114,8 +119,13 @@
       <li><a href="#rfs">R-F-S 태그</a></li>
       <li><a href="#synergy">제품 시너지</a></li>
       <li><a href="#kiro">Kiro 활용</a></li>
-      <li><a href="report-ssg.html" style="color:var(--blue);">📊 SSG 시뮬레이션</a></li>
-      <li><a href="report-3o3.html" style="color:var(--blue);">📊 삼쩜삼 시뮬레이션</a></li>
+      <li style="position:relative;" class="nav-dropdown">
+        <a href="#" style="color:var(--blue);" onclick="event.preventDefault();">📊 기업 리포트 ▾</a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="report-ssg.html">SSG 시뮬레이션</a></li>
+          <li><a href="report-3o3.html">삼쩜삼 시뮬레이션</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>
