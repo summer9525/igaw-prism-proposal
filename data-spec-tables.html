@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISM — 데이터 테이블 명세서 (데이터팀 요청)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#fff;--bg-alt:#f7f8fa;--text-h:#111318;--text-1:#23272f;--text-2:#4a5060;--text-m:#7a8194;--border:#dfe2e8;--blue:#2563eb;--blue-bg:rgba(37,99,235,.06);--green:#16a34a;--green-bg:rgba(22,163,74,.06);--red:#dc2626;--orange:#d97706;--orange-bg:rgba(217,119,6,.06);--navy:#1a2744;--r:12px;--rs:8px;--rx:6px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+.c{max-width:960px;margin:0 auto;padding:0 32px;}
+h1{font-size:32px;font-weight:800;color:var(--text-h);letter-spacing:-.02em;margin-bottom:8px;}
+h2{font-size:20px;font-weight:700;color:var(--text-h);margin:48px 0 6px;padding-top:32px;border-top:1px solid var(--border);}
+h2:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+h3{font-size:16px;font-weight:700;color:var(--text-h);margin:24px 0 8px;}
+p.desc{font-size:14px;color:var(--text-2);margin-bottom:16px;line-height:1.7;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;margin-right:6px;}
+.badge-blue{background:var(--blue-bg);color:var(--blue);}
+.badge-green{background:var(--green-bg);color:var(--green);}
+.badge-orange{background:var(--orange-bg);color:var(--orange);}
+.badge-navy{background:rgba(26,39,68,.06);color:var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;}
+th{background:var(--bg-alt);font-weight:600;color:var(--text-h);padding:10px 14px;text-align:left;border-bottom:2px solid var(--border);}
+td{padding:10px 14px;border-bottom:1px solid #ebedf2;color:var(--text-2);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg-alt);}
+td code{font-family:'SF Mono',Consolas,monospace;font-size:12px;background:var(--bg-alt);padding:1px 6px;border-radius:3px;color:var(--navy);}
+td.type{color:var(--blue);font-weight:600;font-size:12px;}
+.callout{background:var(--bg-alt);border-left:3px solid var(--navy);border-radius:0 var(--rs) var(--rs) 0;padding:16px 20px;margin:20px 0;}
+.callout p{font-size:14px;color:var(--text-1);line-height:1.7;}
+.callout strong{color:var(--text-h);}
+.flow{display:flex;align-items:center;justify-content:center;gap:12px;margin:32px 0;flex-wrap:wrap;}
+.flow-s{background:var(--navy);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:14px;font-weight:600;}
+.flow-a{font-size:18px;color:var(--text-m);}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.summary-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--rs);padding:16px;text-align:center;}
+.summary-card .num{font-size:28px;font-weight:800;color:var(--navy);}
+.summary-card .label{font-size:12px;color:var(--text-m);margin-top:4px;}
+.footer{padding:32px 0;text-align:center;border-top:1px solid var(--border);margin-top:48px;}
+.footer p{font-size:12px;color:var(--text-m);}
+@media print{body{font-size:12px;}h1{font-size:24px;}h2{font-size:16px;page-break-before:auto;}table{font-size:11px;page-break-inside:avoid;}}
+@media(max-width:768px){.c{padding:0 20px;}.summary-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div style="padding:48px 0 32px;border-bottom:1px solid var(--border);">
+<div class="c">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;font-size:13px;color:var(--text-m);">
+<span style="font-weight:700;color:var(--text-h);letter-spacing:.02em;">IGAWORKS PRISM</span>
+<span>데이터팀 요청 문서</span>
+<span style="color:var(--orange);font-weight:700;">INTERNAL</span>
+</div>
+<h1>PRISM 리포트 자동 생성을 위한<br>데이터 테이블 명세서</h1>
+<p style="font-size:16px;color:var(--text-2);margin-top:12px;">아래 테이블에 데이터를 채워주시면, PRISM 리포트가 자동 생성됩니다. 업종/기업이 바뀌어도 동일한 테이블 구조를 사용합니다.</p>
+<div class="summary-grid" style="margin-top:24px;">
+<div class="summary-card"><div class="num">18</div><div class="label">총 테이블 수</div></div>
+<div class="summary-card"><div class="num">8</div><div class="label">리포트 파트</div></div>
+<div class="summary-card"><div class="num">~90</div><div class="label">총 컬럼 수</div></div>
+</div>
+</div>
+</div>
+<div class="c" style="padding-top:32px;">
+
+<div class="flow">
+<div class="flow-s">데이터팀이 테이블 채움</div><div class="flow-a">→</div>
+<div class="flow-s">PRISM 엔진이 읽음</div><div class="flow-a">→</div>
+<div class="flow-s">템플릿에 데이터 주입</div><div class="flow-a">→</div>
+<div class="flow-s">LLM이 해석 텍스트 생성</div><div class="flow-a">→</div>
+<div class="flow-s">HTML 리포트 자동 출력</div>
+</div>
+
+<div class="callout">
+<p><strong>참고:</strong> Executive Summary, callout 인사이트, 전략 제안 텍스트는 아래 테이블 데이터를 기반으로 LLM이 자동 생성합니다. <strong>데이터팀은 숫자만 채워주시면 됩니다.</strong></p>
+</div>
+
+<!-- ═══ 공통 파라미터 ═══ -->
+<h2>📌 공통 파라미터 <span class="badge badge-navy">리포트 생성 시 입력</span></h2>
+<p class="desc">리포트 1건을 생성할 때 필요한 기본 입력값입니다.</p>
+<table>
+<thead><tr><th>파라미터</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>report_company</code></td><td>분석 대상 기업</td><td>SSG.COM</td></tr>
+<tr><td><code>report_industry</code></td><td>업종</td><td>이커머스</td></tr>
+<tr><td><code>report_quarter</code></td><td>분석 기간</td><td>2026 Q1</td></tr>
+<tr><td><code>competitors</code></td><td>경쟁사 리스트 (최대 5개)</td><td>쿠팡, 컬리, 네이버쇼핑</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 1 ═══ -->
+<h2>테이블 1. 헤더 KPI <span class="badge badge-blue">→ 리포트 상단</span></h2>
+<p class="desc">리포트 최상단에 표시되는 4개 핵심 KPI입니다. 기업당 1행.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>company</code></td><td class="type">string</td><td>분석 대상 기업</td><td>SSG.COM</td></tr>
+<tr><td><code>mau</code></td><td class="type">integer</td><td>월간 활성 사용자 수</td><td>8,920,000</td></tr>
+<tr><td><code>mau_change_pct</code></td><td class="type">float</td><td>전분기 대비 MAU 변화율(%)</td><td>-3.2</td></tr>
+<tr><td><code>wallet_share_vs_top_competitor</code></td><td class="type">float</td><td>1위 경쟁사 대비 지갑점유율(%)</td><td>18.4</td></tr>
+<tr><td><code>wallet_share_description</code></td><td class="type">string</td><td>지갑점유율 설명</td><td>쿠팡 고객 중 SSG 결제 비중</td></tr>
+<tr><td><code>churn_risk_vip_count</code></td><td class="type">integer</td><td>이탈 위험 VIP 수</td><td>127,000</td></tr>
+<tr><td><code>churn_risk_criteria</code></td><td class="type">string</td><td>이탈 위험 기준</td><td>최근 30일 경쟁사 사용 급증</td></tr>
+<tr><td><code>conquest_target_count</code></td><td class="type">integer</td><td>탈취 가능 타겟 수</td><td>342,000</td></tr>
+<tr><td><code>conquest_target_description</code></td><td class="type">string</td><td>탈취 타겟 설명</td><td>경쟁사 헤비유저 중 전환 잠재력 상위</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 2 ═══ -->
+<h2>테이블 2. 업종 벤치마크 <span class="badge badge-blue">→ Part 1</span></h2>
+
+<h3>2-1. 상위 10% 유저 벤치마크</h3>
+<p class="desc">업종당 1행. 해당 업종 상위 10% 유저의 행동 기준선입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>industry</code></td><td class="type">string</td><td>업종</td><td>이커머스</td></tr>
+<tr><td><code>top10_monthly_usage_min</code></td><td class="type">integer</td><td>상위 10% 월 사용 시간(분)</td><td>128</td></tr>
+<tr><td><code>top10_monthly_payment</code></td><td class="type">integer</td><td>상위 10% 월 결제액(원)</td><td>324,000</td></tr>
+<tr><td><code>top10_conversion_rate</code></td><td class="type">float</td><td>상위 10% 결제 전환율(%)</td><td>34.7</td></tr>
+<tr><td><code>top10_30d_revisit_rate</code></td><td class="type">float</td><td>상위 10% 30일 재방문율(%)</td><td>72.6</td></tr>
+</tbody>
+</table>
+
+<h3>2-2. 경쟁사 MAU 비교</h3>
+<p class="desc">자사 포함 경쟁사 수만큼 행이 생깁니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>app_name</code></td><td class="type">string</td><td>앱 이름</td><td>쿠팡</td></tr>
+<tr><td><code>mau</code></td><td class="type">integer</td><td>MAU</td><td>31,420,000</td></tr>
+<tr><td><code>mau_change_pct</code></td><td class="type">float</td><td>전분기 대비 변화율(%)</td><td>+1.8</td></tr>
+<tr><td><code>is_target_company</code></td><td class="type">boolean</td><td>분석 대상 기업 여부</td><td>false</td></tr>
+</tbody>
+</table>
+
+<h3>2-3. 카테고리별 결제 점유율</h3>
+<p class="desc">카테고리 수만큼 행. 자사 고객 기준 각 플랫폼 결제 비중입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>category</code></td><td class="type">string</td><td>카테고리명</td><td>신선식품</td></tr>
+<tr><td><code>target_company_share</code></td><td class="type">float</td><td>자사 점유율(%)</td><td>28.3</td></tr>
+<tr><td><code>competitor_1_name</code></td><td class="type">string</td><td>경쟁사1 이름</td><td>쿠팡</td></tr>
+<tr><td><code>competitor_1_share</code></td><td class="type">float</td><td>경쟁사1 점유율(%)</td><td>31.7</td></tr>
+<tr><td><code>competitor_2_name</code></td><td class="type">string</td><td>경쟁사2 이름</td><td>컬리</td></tr>
+<tr><td><code>competitor_2_share</code></td><td class="type">float</td><td>경쟁사2 점유율(%)</td><td>32.4</td></tr>
+<tr><td><code>competitor_3_name</code></td><td class="type">string</td><td>경쟁사3 이름</td><td>네이버</td></tr>
+<tr><td><code>competitor_3_share</code></td><td class="type">float</td><td>경쟁사3 점유율(%)</td><td>7.6</td></tr>
+<tr><td><code>risk_level</code></td><td class="type">string</td><td>위험도 (높음/방어/강점)</td><td>높음</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 3 ═══ -->
+<h2>테이블 3. 오디언스 세그먼트 <span class="badge badge-green">→ Part 2, 3</span></h2>
+
+<h3>3-1. 서브 세그먼트 정의</h3>
+<p class="desc">세그먼트 수(3~5개)만큼 행. F-Tag 조건으로 정의된 오디언스입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>segment_id</code></td><td class="type">string</td><td>세그먼트 ID</td><td>A</td></tr>
+<tr><td><code>segment_name</code></td><td class="type">string</td><td>세그먼트 이름</td><td>판교 IT 맞벌이</td></tr>
+<tr><td><code>segment_size</code></td><td class="type">integer</td><td>규모(명)</td><td>84,000</td></tr>
+<tr><td><code>f_tag_conditions</code></td><td class="type">string</td><td>F-Tag 조건</td><td>GPS(판교) + IT직종 + 연봉 8천만↑</td></tr>
+<tr><td><code>strategy_type</code></td><td class="type">string</td><td>전략 유형 (공격/방어/확장)</td><td>공격</td></tr>
+<tr><td><code>strategy_label</code></td><td class="type">string</td><td>전략 라벨</td><td>반드시 공략 대상</td></tr>
+</tbody>
+</table>
+
+<h3>3-2. 세그먼트별 경쟁사 사용 현황</h3>
+<p class="desc">세그먼트 × 경쟁사 수만큼 행.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>segment_id</code></td><td class="type">string</td><td>세그먼트 ID</td><td>A</td></tr>
+<tr><td><code>app_name</code></td><td class="type">string</td><td>앱 이름</td><td>쿠팡</td></tr>
+<tr><td><code>monthly_payment</code></td><td class="type">integer</td><td>월 결제액(원)</td><td>287,000</td></tr>
+<tr><td><code>payment_change_pct</code></td><td class="type">float</td><td>전분기 대비 변화율(%)</td><td>+14</td></tr>
+<tr><td><code>monthly_usage_min</code></td><td class="type">integer</td><td>월 사용 시간(분)</td><td>—</td></tr>
+<tr><td><code>weekly_visit</code></td><td class="type">float</td><td>주간 방문 횟수</td><td>—</td></tr>
+<tr><td><code>usage_change_pct</code></td><td class="type">float</td><td>사용 변화율(%)</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h3>3-3. 세그먼트별 자사 사용 현황</h3>
+<p class="desc">세그먼트 수만큼 행.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>segment_id</code></td><td class="type">string</td><td>세그먼트 ID</td><td>A</td></tr>
+<tr><td><code>monthly_payment</code></td><td class="type">integer</td><td>자사 월 결제액(원)</td><td>31,000</td></tr>
+<tr><td><code>payment_change_pct</code></td><td class="type">float</td><td>전분기 대비 변화율(%)</td><td>-22</td></tr>
+<tr><td><code>weekly_visit</code></td><td class="type">float</td><td>주간 앱 사용 횟수</td><td>1.2</td></tr>
+<tr><td><code>visit_change_pct</code></td><td class="type">float</td><td>사용 변화율(%)</td><td>-40</td></tr>
+<tr><td><code>category_share_1</code></td><td class="type">string</td><td>주요 카테고리1 점유율</td><td>프리미엄 가전: 42.3%</td></tr>
+<tr><td><code>category_share_2</code></td><td class="type">string</td><td>주요 카테고리2 점유율</td><td>와인/주류: 28.1%</td></tr>
+<tr><td><code>offline_link_rate</code></td><td class="type">float</td><td>오프라인 연계율(%)</td><td>67.4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<!-- 나머지 테이블 -->
+<div class="c">
+
+<!-- ═══ 테이블 4 ═══ -->
+<h2>테이블 4. 이탈 경로 추적 <span class="badge badge-blue">→ Part 4</span></h2>
+
+<h3>4-1. 이탈 규모 요약</h3>
+<p class="desc">경쟁사 수 + 기타 행. 이탈 유저의 행선지별 분포입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>total_churn_users</code></td><td class="type">integer</td><td>전체 이탈 징후 유저 수</td><td>473,000</td></tr>
+<tr><td><code>churn_pct_of_mau</code></td><td class="type">float</td><td>MAU 대비 비율(%)</td><td>5.3</td></tr>
+<tr><td><code>destination_app</code></td><td class="type">string</td><td>이동 경쟁사</td><td>쿠팡</td></tr>
+<tr><td><code>destination_count</code></td><td class="type">integer</td><td>이동 유저 수</td><td>284,000</td></tr>
+<tr><td><code>destination_pct</code></td><td class="type">float</td><td>이동 비율(%)</td><td>60.0</td></tr>
+</tbody>
+</table>
+
+<h3>4-2. 이탈 시점 패턴</h3>
+<p class="desc">시간대 수(4~6개)만큼 행.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>time_slot</code></td><td class="type">string</td><td>시간대</td><td>19~21시</td></tr>
+<tr><td><code>time_label</code></td><td class="type">string</td><td>시간대 라벨</td><td>퇴근 후</td></tr>
+<tr><td><code>churn_pct</code></td><td class="type">float</td><td>해당 시간대 이탈 비율(%)</td><td>38.7</td></tr>
+<tr><td><code>is_peak</code></td><td class="type">boolean</td><td>피크 시간대 여부</td><td>true</td></tr>
+</tbody>
+</table>
+
+<h3>4-3. 카테고리별 이탈 현황</h3>
+<p class="desc">카테고리 수만큼 행.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>category</code></td><td class="type">string</td><td>이탈 카테고리</td><td>생활용품</td></tr>
+<tr><td><code>destination_app</code></td><td class="type">string</td><td>이동 경쟁사</td><td>쿠팡</td></tr>
+<tr><td><code>churn_rate</code></td><td class="type">float</td><td>이탈률(%)</td><td>-34.2</td></tr>
+<tr><td><code>churn_reason</code></td><td class="type">string</td><td>이탈 사유</td><td>로켓배송 당일/익일 + 가격 경쟁력</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 5 ═══ -->
+<h2>테이블 5. 지갑 점유율 <span class="badge badge-green">→ Part 5</span></h2>
+
+<h3>5-1. 소득 구간별 지갑 점유율</h3>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>income_bracket</code></td><td class="type">string</td><td>소득 구간</td><td>연봉 1억 이상</td></tr>
+<tr><td><code>target_user_count</code></td><td class="type">integer</td><td>자사 고객 수</td><td>142,000</td></tr>
+<tr><td><code>target_monthly_payment</code></td><td class="type">integer</td><td>자사 월 결제액(원)</td><td>84,000</td></tr>
+<tr><td><code>competitor_monthly_payment</code></td><td class="type">integer</td><td>1위 경쟁사 월 결제액(원)</td><td>321,000</td></tr>
+<tr><td><code>wallet_share</code></td><td class="type">float</td><td>자사 지갑점유율(%)</td><td>20.7</td></tr>
+<tr><td><code>gap</code></td><td class="type">integer</td><td>결제액 Gap(원)</td><td>-237,000</td></tr>
+</tbody>
+</table>
+
+<h3>5-2. 지역별 점유율</h3>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>region</code></td><td class="type">string</td><td>지역명</td><td>판교/분당</td></tr>
+<tr><td><code>worker_count</code></td><td class="type">integer</td><td>직장인 규모</td><td>421,000</td></tr>
+<tr><td><code>target_share</code></td><td class="type">float</td><td>자사 점유율(%)</td><td>8.2</td></tr>
+<tr><td><code>top_competitor_share</code></td><td class="type">float</td><td>1위 경쟁사 점유율(%)</td><td>48.7</td></tr>
+<tr><td><code>target_rank</code></td><td class="type">integer</td><td>자사 순위</td><td>4</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 6 ═══ -->
+<h2>테이블 6. 전략 제안 <span class="badge badge-navy">→ Part 6</span></h2>
+<p class="desc">전략 수(3개)만큼 행. 각 전략의 타겟 정의, 실행 방안, 예상 효과를 포함합니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>strategy_id</code></td><td class="type">integer</td><td>전략 번호</td><td>1</td></tr>
+<tr><td><code>strategy_name</code></td><td class="type">string</td><td>전략명</td><td>쿠팡 프리미엄 불만족군 탈취</td></tr>
+<tr><td><code>strategy_type</code></td><td class="type">string</td><td>전략 유형</td><td>Conquesting</td></tr>
+<tr><td><code>timeline</code></td><td class="type">string</td><td>실행 기간</td><td>단기 2주</td></tr>
+<tr><td><code>target_count</code></td><td class="type">integer</td><td>타겟 수(명)</td><td>184,000</td></tr>
+<tr><td><code>target_conditions</code></td><td class="type">string[]</td><td>타겟 조건 리스트</td><td>["쿠팡 월 결제 15만↑", "강남/서초 거주"]</td></tr>
+<tr><td><code>action_plans</code></td><td class="type">string[]</td><td>실행 방안 리스트</td><td>["DSP 타겟 광고 19~21시", "15% 할인"]</td></tr>
+<tr><td><code>expected_conversion_rate</code></td><td class="type">float</td><td>예상 전환율(%)</td><td>4.2</td></tr>
+<tr><td><code>expected_new_users</code></td><td class="type">integer</td><td>예상 신규 확보(명)</td><td>7,728</td></tr>
+<tr><td><code>expected_monthly_revenue</code></td><td class="type">integer</td><td>예상 월 매출 증분(원)</td><td>1,160,000,000</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 7 ═══ -->
+<h2>테이블 7. VIP 이탈 방지 <span class="badge badge-navy">→ Part 7</span></h2>
+
+<h3>7-1. 이탈 징후 기준</h3>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>criteria_id</code></td><td class="type">integer</td><td>기준 번호</td><td>1</td></tr>
+<tr><td><code>criteria_description</code></td><td class="type">string</td><td>기준 설명</td><td>최근 30일 앱 사용 시간 40%↑ 감소</td></tr>
+</tbody>
+</table>
+
+<h3>7-2. VIP 현황</h3>
+<p class="desc">1행. 이탈 위험 VIP 전체 요약입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>churn_risk_vip_count</code></td><td class="type">integer</td><td>이탈 위험 VIP 수</td><td>127,000</td></tr>
+<tr><td><code>avg_monthly_payment</code></td><td class="type">integer</td><td>월 평균 결제액(원)</td><td>193,000</td></tr>
+<tr><td><code>total_monthly_loss</code></td><td class="type">integer</td><td>전원 이탈 시 월 손실(원)</td><td>24,460,000,000</td></tr>
+<tr><td><code>annual_loss</code></td><td class="type">integer</td><td>연간 손실(원)</td><td>293,500,000,000</td></tr>
+<tr><td><code>winback_rate</code></td><td class="type">float</td><td>Win-back 예상 회수율(%)</td><td>30</td></tr>
+<tr><td><code>monthly_defense</code></td><td class="type">integer</td><td>월 방어 매출(원)</td><td>7,340,000,000</td></tr>
+</tbody>
+</table>
+
+<h3>7-3. Win-back 시나리오</h3>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>step_day</code></td><td class="type">string</td><td>실행 시점</td><td>D+1</td></tr>
+<tr><td><code>action_type</code></td><td class="type">string</td><td>액션 유형</td><td>개인화 푸시</td></tr>
+<tr><td><code>action_description</code></td><td class="type">string</td><td>액션 상세</td><td>자주 찾던 카테고리 신상품 알림</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 테이블 8 ═══ -->
+<h2>테이블 8. P-Tag 예측 오디언스 <span class="badge badge-orange">→ Part 6-2</span></h2>
+
+<h3>8-1. 이탈 예측 오디언스</h3>
+<p class="desc">경쟁사 수만큼 행. P-Tag 앱 이탈 예측 축 기반입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>prediction_type</code></td><td class="type">string</td><td>예측 유형</td><td>이탈 예측</td></tr>
+<tr><td><code>probability_threshold</code></td><td class="type">float</td><td>확률 임계값(%)</td><td>70</td></tr>
+<tr><td><code>audience_count</code></td><td class="type">integer</td><td>식별 오디언스 수</td><td>184,000</td></tr>
+<tr><td><code>competitor_app</code></td><td class="type">string</td><td>경쟁 앱</td><td>쿠팡</td></tr>
+<tr><td><code>competitor_usage_rate</code></td><td class="type">float</td><td>경쟁 앱 사용률(%)</td><td>92.4</td></tr>
+<tr><td><code>competitor_monthly_usage_min</code></td><td class="type">integer</td><td>경쟁 앱 월 사용 시간(분)</td><td>48</td></tr>
+<tr><td><code>competitor_usage_trend</code></td><td class="type">string</td><td>추세</td><td>급증</td></tr>
+<tr><td><code>competitor_monthly_payment</code></td><td class="type">integer</td><td>경쟁 앱 월 결제액(원)</td><td>248,000</td></tr>
+<tr><td><code>competitor_top_category</code></td><td class="type">string</td><td>경쟁 앱 주요 카테고리</td><td>생활용품, 식품</td></tr>
+<tr><td><code>demo_age_range</code></td><td class="type">string</td><td>주요 연령대</td><td>30~44세</td></tr>
+<tr><td><code>demo_gender_ratio</code></td><td class="type">string</td><td>성별 비율</td><td>여성 68%</td></tr>
+<tr><td><code>demo_region</code></td><td class="type">string</td><td>주요 거주지</td><td>판교·분당</td></tr>
+<tr><td><code>demo_income_bracket</code></td><td class="type">string</td><td>소득 구간</td><td>7천~1억</td></tr>
+</tbody>
+</table>
+
+<h3>8-2. 구매 예측 오디언스</h3>
+<p class="desc">예측 구매 카테고리 수만큼 행. P-Tag 구매 예측 축 기반입니다.</p>
+<table>
+<thead><tr><th>컬럼명</th><th>타입</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>prediction_type</code></td><td class="type">string</td><td>예측 유형</td><td>구매 예측</td></tr>
+<tr><td><code>probability_threshold</code></td><td class="type">float</td><td>확률 임계값(%)</td><td>60</td></tr>
+<tr><td><code>audience_count</code></td><td class="type">integer</td><td>식별 오디언스 수</td><td>228,000</td></tr>
+<tr><td><code>predicted_category</code></td><td class="type">string</td><td>예측 구매 카테고리</td><td>프리미엄 가전</td></tr>
+<tr><td><code>purchase_probability</code></td><td class="type">float</td><td>구매 확률(%)</td><td>72.4</td></tr>
+<tr><td><code>expected_avg_price</code></td><td class="type">integer</td><td>예상 객단가(원)</td><td>480,000</td></tr>
+<tr><td><code>competitive_position</code></td><td class="type">string</td><td>경쟁 포지션</td><td>SSG 우위</td></tr>
+<tr><td><code>demo_age_range</code></td><td class="type">string</td><td>주요 연령대</td><td>35~54세</td></tr>
+<tr><td><code>demo_gender_ratio</code></td><td class="type">string</td><td>성별 비율</td><td>여성 54%</td></tr>
+<tr><td><code>demo_region</code></td><td class="type">string</td><td>주요 거주지</td><td>강남·서초</td></tr>
+<tr><td><code>demo_income_bracket</code></td><td class="type">string</td><td>소득 구간</td><td>1억 이상</td></tr>
+</tbody>
+</table>
+
+<!-- ═══ 요약 ═══ -->
+<h2>📋 전체 테이블 요약</h2>
+<table>
+<thead><tr><th>#</th><th>테이블명</th><th>리포트 파트</th><th>행 수 기준</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>헤더 KPI</td><td>상단</td><td>1행 (기업당)</td></tr>
+<tr><td>2-1</td><td>상위 10% 벤치마크</td><td>Part 1</td><td>1행 (업종당)</td></tr>
+<tr><td>2-2</td><td>경쟁사 MAU</td><td>Part 1</td><td>경쟁사 수 + 1</td></tr>
+<tr><td>2-3</td><td>카테고리별 점유율</td><td>Part 1</td><td>카테고리 수</td></tr>
+<tr><td>3-1</td><td>세그먼트 정의</td><td>Part 2</td><td>세그먼트 수 (3~5개)</td></tr>
+<tr><td>3-2</td><td>세그먼트별 경쟁사 사용</td><td>Part 2, 3</td><td>세그먼트 × 경쟁사</td></tr>
+<tr><td>3-3</td><td>세그먼트별 자사 사용</td><td>Part 2, 3</td><td>세그먼트 수</td></tr>
+<tr><td>4-1</td><td>이탈 규모</td><td>Part 4</td><td>경쟁사 수 + 1</td></tr>
+<tr><td>4-2</td><td>이탈 시점</td><td>Part 4</td><td>시간대 수 (4~6개)</td></tr>
+<tr><td>4-3</td><td>카테고리별 이탈</td><td>Part 4</td><td>카테고리 수</td></tr>
+<tr><td>5-1</td><td>소득별 지갑점유율</td><td>Part 5</td><td>소득 구간 수</td></tr>
+<tr><td>5-2</td><td>지역별 점유율</td><td>Part 5</td><td>지역 수</td></tr>
+<tr><td>6</td><td>전략 제안</td><td>Part 6</td><td>전략 수 (3개)</td></tr>
+<tr><td>7-1</td><td>이탈 징후 기준</td><td>Part 7</td><td>기준 수 (4~5개)</td></tr>
+<tr><td>7-2</td><td>VIP 현황</td><td>Part 7</td><td>1행</td></tr>
+<tr><td>7-3</td><td>Win-back 시나리오</td><td>Part 7</td><td>단계 수 (4개)</td></tr>
+<tr><td>8-1</td><td>이탈 예측 오디언스</td><td>Part 6-2</td><td>경쟁사 수</td></tr>
+<tr><td>8-2</td><td>구매 예측 오디언스</td><td>Part 6-2</td><td>카테고리 수</td></tr>
+</tbody>
+</table>
+
+<footer class="footer">
+<p style="margin-bottom:4px;">IGAWORKS PRISM — 데이터 테이블 명세서 v1.0</p>
+<p>문의: PRISM 기획팀 · <a href="index.html" style="color:var(--blue);text-decoration:none;">기획안 보기 →</a></p>
+</footer>
+
+</div>
+</body>
+</html>
