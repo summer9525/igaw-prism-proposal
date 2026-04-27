@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISM — 리포트 생성 체험</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#fff;--bg-alt:#f8f9fb;--text-h:#1a1d24;--text-1:#2d3340;--text-2:#4b5563;--text-m:#6b7280;--border:#e5e7eb;--blue:#3366ff;--blue-bg:rgba(51,102,255,.08);--green:#22c55e;--r:16px;--rs:12px;--rx:8px;--shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;background:var(--bg-alt);color:var(--text-1);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;min-height:100vh;display:flex;flex-direction:column;}
+.nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text-h);letter-spacing:-0.02em;text-decoration:none;} .nav-logo span{color:var(--blue);}
+.back{font-size:13px;color:var(--text-m);text-decoration:none;padding:6px 12px;border-radius:var(--rx);transition:all .2s;} .back:hover{background:var(--bg-alt);color:var(--text-h);}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 32px;}
+.container{max-width:720px;width:100%;text-align:center;}
+h1{font-size:36px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:12px;letter-spacing:-0.02em;}
+.sub{font-size:17px;color:var(--text-2);margin-bottom:48px;}
+.steps{display:flex;gap:24px;margin-bottom:48px;text-align:left;}
+.step{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;transition:box-shadow .2s;}
+.step:hover{box-shadow:var(--shadow);}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--rx);background:var(--blue);color:#fff;font-size:13px;font-weight:700;margin-bottom:12px;}
+.step-title{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;}
+.step-desc{font-size:14px;color:var(--text-m);line-height:1.6;}
+.cta{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--rs);font-size:16px;font-weight:700;color:#fff;background:var(--blue);text-decoration:none;transition:all .2s;cursor:pointer;border:none;}
+.cta:hover{background:#2952cc;transform:translateY(-1px);box-shadow:0 4px 12px rgba(51,102,255,.3);}
+.coming{display:inline-block;margin-top:16px;font-size:13px;color:var(--text-m);}
+@media(max-width:768px){.steps{flex-direction:column;}h1{font-size:24px;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-inner">
+<a href="index.html" class="nav-logo">IGAWORKS <span>PRISM</span></a>
+<a href="index.html" class="back">← 기획안으로 돌아가기</a>
+</div>
+</nav>
+<div class="main">
+<div class="container">
+<div style="font-size:48px;margin-bottom:16px;">🔬</div>
+<h1>PRISM 리포트 생성 체험</h1>
+<p class="sub">업종을 선택하고, 오디언스를 고르면<br>경쟁 분석 리포트가 자동으로 생성됩니다.</p>
+<div class="steps">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-title">업종 선택</div>
+<div class="step-desc">이커머스, 금융, 교육, 게임 등 분석할 시장을 선택합니다.</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-title">오디언스 선택</div>
+<div class="step-desc">S-Tag 기반 오디언스 × 전략 목적 조합을 선택합니다.</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-title">리포트 자동 생성</div>
+<div class="step-desc">데이터 기반 경쟁 분석 리포트가 실시간으로 생성됩니다.</div>
+</div>
+</div>
+<button class="cta" onclick="alert('체험 데모는 준비 중입니다. 시뮬레이션 리포트를 먼저 확인해보세요!')">리포트 만들기 시작 →</button>
+<div class="coming">현재 체험 데모를 준비 중입니다. <a href="report-ssg.html" style="color:var(--blue);">SSG 시뮬레이션 리포트</a>를 먼저 확인해보세요.</div>
+</div>
+</div>
+</body>
+</html>
