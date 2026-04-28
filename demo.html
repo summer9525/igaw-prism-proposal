@@ -6,61 +6,768 @@
 <title>PRISM — 리포트 생성 체험</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-:root{--bg:#fff;--bg-alt:#f8f9fb;--text-h:#1a1d24;--text-1:#2d3340;--text-2:#4b5563;--text-m:#6b7280;--border:#e5e7eb;--blue:#3366ff;--blue-bg:rgba(51,102,255,.08);--green:#22c55e;--r:16px;--rs:12px;--rx:8px;--shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);}
+:root{--bg:#fff;--bg-alt:#f7f8fa;--bg-dark:#0f1117;--text-h:#111318;--text-1:#23272f;--text-2:#4a5060;--text-m:#7a8194;--border:#dfe2e8;--border-light:#ebedf2;--blue:#2563eb;--blue-bg:rgba(37,99,235,.06);--green:#16a34a;--green-bg:rgba(22,163,74,.06);--red:#dc2626;--red-bg:rgba(220,38,38,.06);--orange:#d97706;--orange-bg:rgba(217,119,6,.06);--navy:#1a2744;--deep-blue:#1e3a5f;--purple:#7c3aed;--purple-bg:rgba(124,58,237,.06);--r:12px;--rs:8px;--rx:6px;--shadow:0 0 0 1px rgba(0,0,0,.03),0 2px 4px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.05);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;background:var(--bg-alt);color:var(--text-1);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;min-height:100vh;display:flex;flex-direction:column;}
-.nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-size:15px;font-weight:700;color:var(--text-h);letter-spacing:-0.02em;text-decoration:none;} .nav-logo span{color:var(--blue);}
-.back{font-size:13px;color:var(--text-m);text-decoration:none;padding:6px 12px;border-radius:var(--rx);transition:all .2s;} .back:hover{background:var(--bg-alt);color:var(--text-h);}
-.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 32px;}
-.container{max-width:720px;width:100%;text-align:center;}
-h1{font-size:36px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:12px;letter-spacing:-0.02em;}
-.sub{font-size:17px;color:var(--text-2);margin-bottom:48px;}
-.steps{display:flex;gap:24px;margin-bottom:48px;text-align:left;}
-.step{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;transition:box-shadow .2s;}
-.step:hover{box-shadow:var(--shadow);}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--rx);background:var(--blue);color:#fff;font-size:13px;font-weight:700;margin-bottom:12px;}
-.step-title{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;}
-.step-desc{font-size:14px;color:var(--text-m);line-height:1.6;}
-.cta{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--rs);font-size:16px;font-weight:700;color:#fff;background:var(--blue);text-decoration:none;transition:all .2s;cursor:pointer;border:none;}
-.cta:hover{background:#2952cc;transform:translateY(-1px);box-shadow:0 4px 12px rgba(51,102,255,.3);}
-.coming{display:inline-block;margin-top:16px;font-size:13px;color:var(--text-m);}
-@media(max-width:768px){.steps{flex-direction:column;}h1{font-size:24px;}}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;background:var(--bg-alt);color:var(--text-1);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+.nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 40px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-size:13px;font-weight:700;color:var(--text-h);letter-spacing:.02em;text-decoration:none;} .nav-logo span{color:var(--blue);}
+.back{font-size:13px;color:var(--text-m);text-decoration:none;padding:6px 12px;border-radius:var(--rx);}
+.c{max-width:1120px;margin:0 auto;padding:0 40px;}
+
+/* Steps wizard */
+.wizard{min-height:calc(100vh - 52px);display:flex;align-items:center;justify-content:center;padding:40px 0;}
+.wizard-box{max-width:680px;width:100%;text-align:center;}
+.wizard-step{display:none;} .wizard-step.active{display:block;}
+.wizard-progress{display:flex;gap:8px;justify-content:center;margin-bottom:32px;}
+.wizard-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s;} .wizard-dot.done{background:var(--blue);}
+.wizard-title{font-size:28px;font-weight:800;color:var(--text-h);margin-bottom:8px;letter-spacing:-.02em;}
+.wizard-sub{font-size:16px;color:var(--text-2);margin-bottom:36px;}
+.wizard-grid{display:grid;gap:12px;text-align:left;}
+.wizard-grid.g2{grid-template-columns:repeat(2,1fr);}
+.wizard-grid.g4{grid-template-columns:repeat(4,1fr);}
+.wizard-card{background:var(--bg);border:2px solid var(--border);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;}
+.wizard-card:hover{border-color:var(--blue);box-shadow:var(--shadow);}
+.wizard-card.selected{border-color:var(--blue);background:var(--blue-bg);}
+.wizard-card .icon{font-size:24px;margin-bottom:8px;}
+.wizard-card .name{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;}
+.wizard-card .desc{font-size:13px;color:var(--text-m);line-height:1.5;}
+.wizard-next{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:var(--rs);font-size:15px;font-weight:700;color:#fff;background:var(--blue);border:none;cursor:pointer;margin-top:32px;transition:all .2s;opacity:.4;pointer-events:none;}
+.wizard-next.enabled{opacity:1;pointer-events:auto;}
+.wizard-next.enabled:hover{background:#1d4ed8;}
+
+/* Loading */
+.loading-screen{display:none;min-height:calc(100vh - 52px);align-items:center;justify-content:center;flex-direction:column;gap:24px;text-align:center;padding:40px;}
+.loading-screen.active{display:flex;}
+.spinner{width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:18px;font-weight:700;color:var(--text-h);}
+.loading-sub{font-size:14px;color:var(--text-m);}
+.loading-steps{text-align:left;max-width:400px;width:100%;}
+.loading-step{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:14px;color:var(--text-m);opacity:.3;transition:all .4s;}
+.loading-step.active{opacity:1;color:var(--text-h);font-weight:600;}
+.loading-step.done{opacity:.6;color:var(--green);}
+.loading-step .check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all .3s;}
+.loading-step.active .check{border-color:var(--blue);background:var(--blue-bg);}
+.loading-step.done .check{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+
+/* Report */
+.report{display:none;background:var(--bg);}
+.report.active{display:block;}
+.sec{padding:64px 0;border-bottom:1px solid var(--border-light);}
+.sec-alt{background:var(--bg-alt);}
+.st{font-size:22px;font-weight:700;color:var(--text-h);line-height:1.4;margin-bottom:6px;letter-spacing:-.01em;}
+.sd{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:32px;}
+.label{font-size:12px;font-weight:600;color:var(--text-m);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.03em;margin-bottom:6px;border:1px solid;}
+.tag-r{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,.15);}
+.tag-f{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,.15);}
+.tag-s{background:rgba(26,39,68,.06);color:var(--navy);border-color:rgba(26,39,68,.12);}
+.tag-p{background:var(--orange-bg);color:var(--orange);border-color:rgba(217,119,6,.15);}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:24px;}
+.ct{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:6px;line-height:1.4;}
+.card p,.card li{font-size:14px;color:var(--text-2);line-height:1.7;}
+.card ul{padding-left:16px;margin-top:6px;} .card li{margin-bottom:3px;}
+.ca-b{border-left:3px solid var(--blue);} .ca-g{border-left:3px solid var(--green);} .ca-r{border-left:3px solid var(--red);} .ca-n{border-left:3px solid var(--navy);} .ca-o{border-left:3px solid var(--orange);}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:20px;text-align:center;}
+.kpi-label{font-size:13px;color:var(--text-m);margin-bottom:8px;font-weight:500;}
+.kpi-val{font-size:28px;font-weight:800;letter-spacing:-.02em;}
+.kpi-sub{font-size:13px;color:var(--text-m);margin-top:4px;}
+.callout{background:var(--bg-alt);border-left:3px solid var(--navy);border-radius:0 var(--rs) var(--rs) 0;padding:20px 24px;margin:24px 0;}
+.callout p{font-size:14px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--text-h);}
+.callout-r{border-left-color:var(--red);background:var(--red-bg);} .callout-r strong{color:var(--red);}
+.callout-g{border-left-color:var(--green);background:var(--green-bg);} .callout-g strong{color:var(--green);}
+.callout-o{border-left-color:var(--orange);background:var(--orange-bg);} .callout-o strong{color:var(--orange);}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.bar-label{width:100px;font-size:14px;font-weight:600;color:var(--text-h);text-align:right;flex-shrink:0;}
+.bar-track{flex:1;height:24px;background:var(--bg-alt);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:700;color:#fff;min-width:36px;width:0;transition:width 1.2s ease-out;}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;}
+.tbl th{background:var(--bg-alt);font-weight:600;color:var(--text-h);padding:12px 16px;text-align:left;border-bottom:2px solid var(--border);}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--border-light);color:var(--text-2);}
+.tbl .num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text-h);}
+.sec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px;}
+.cta-action{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:var(--rs);font-size:14px;font-weight:700;color:#fff;background:var(--blue);border:none;cursor:pointer;text-decoration:none;transition:all .2s;margin-top:16px;}
+.cta-action:hover{background:#1d4ed8;}
+.footer{padding:40px 0;text-align:center;border-top:1px solid var(--border);} .footer p{font-size:12px;color:var(--text-m);}
+
+/* Animate in */
+.fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease-out;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.g2,.g3,.g4,.wizard-grid.g2,.wizard-grid.g4{grid-template-columns:1fr;}.c{padding:0 24px;}.sec{padding:40px 0;}.wizard-title{font-size:22px;}.bar-label{width:70px;font-size:12px;}}
 </style>
 </head>
 <body>
+
 <nav class="nav">
 <div class="nav-inner">
 <a href="index.html" class="nav-logo">IGAWORKS <span>PRISM</span></a>
-<a href="index.html" class="back">← 기획안으로 돌아가기</a>
+<a href="index.html" class="back">← 기획안</a>
 </div>
 </nav>
-<div class="main">
-<div class="container">
-<div style="font-size:48px;margin-bottom:16px;">🔬</div>
-<h1>PRISM 리포트 생성 체험</h1>
-<p class="sub">업종을 선택하고, 오디언스를 고르면<br>경쟁 분석 리포트가 자동으로 생성됩니다.</p>
-<div class="steps">
-<div class="step">
-<div class="step-num">1</div>
-<div class="step-title">업종 선택</div>
-<div class="step-desc">이커머스, 금융, 교육, 게임 등 분석할 시장을 선택합니다.</div>
+
+<!-- ===== WIZARD ===== -->
+<div class="wizard" id="wizard">
+<div class="wizard-box">
+
+<!-- Progress dots -->
+<div class="wizard-progress">
+<div class="wizard-dot done"></div>
+<div class="wizard-dot"></div>
+<div class="wizard-dot"></div>
 </div>
-<div class="step">
-<div class="step-num">2</div>
-<div class="step-title">오디언스 선택</div>
-<div class="step-desc">S-Tag 기반 오디언스 × 전략 목적 조합을 선택합니다.</div>
+
+<!-- STEP 1: Industry -->
+<div class="wizard-step active" data-step="1">
+<h2 class="wizard-title">업종을 선택하세요</h2>
+<p class="wizard-sub">분석할 업종을 선택하면 맞춤 전략을 추천합니다</p>
+<div class="wizard-grid g4">
+<div class="wizard-card selected" data-value="이커머스">
+<div class="icon">🛒</div>
+<div class="name">이커머스</div>
+<div class="desc">온라인 쇼핑·마켓플레이스</div>
 </div>
-<div class="step">
-<div class="step-num">3</div>
-<div class="step-title">리포트 자동 생성</div>
-<div class="step-desc">데이터 기반 경쟁 분석 리포트가 실시간으로 생성됩니다.</div>
+<div class="wizard-card" data-value="금융">
+<div class="icon">🏦</div>
+<div class="name">금융</div>
+<div class="desc">은행·증권·보험</div>
+</div>
+<div class="wizard-card" data-value="교육">
+<div class="icon">📚</div>
+<div class="name">교육</div>
+<div class="desc">에듀테크·학습 플랫폼</div>
+</div>
+<div class="wizard-card" data-value="게임">
+<div class="icon">🎮</div>
+<div class="name">게임</div>
+<div class="desc">모바일·PC 게임</div>
+</div>
+<div class="wizard-card" data-value="F&B">
+<div class="icon">🍽️</div>
+<div class="name">F&amp;B</div>
+<div class="desc">외식·배달·식음료</div>
+</div>
+<div class="wizard-card" data-value="여행">
+<div class="icon">✈️</div>
+<div class="name">여행</div>
+<div class="desc">OTA·항공·숙박</div>
+</div>
+<div class="wizard-card" data-value="헬스케어">
+<div class="icon">💊</div>
+<div class="name">헬스케어</div>
+<div class="desc">건강관리·의료</div>
+</div>
+<div class="wizard-card" data-value="부동산">
+<div class="icon">🏠</div>
+<div class="name">부동산</div>
+<div class="desc">프롭테크·중개</div>
 </div>
 </div>
-<button class="cta" onclick="alert('체험 데모는 준비 중입니다. 시뮬레이션 리포트를 먼저 확인해보세요!')">리포트 만들기 시작 →</button>
-<div class="coming">현재 체험 데모를 준비 중입니다. <a href="report-ssg.html" style="color:var(--blue);">SSG 시뮬레이션 리포트</a>를 먼저 확인해보세요.</div>
+<button class="wizard-next enabled" data-next="2">다음 →</button>
+</div>
+
+<!-- STEP 2: Strategy -->
+<div class="wizard-step" data-step="2">
+<h2 class="wizard-title">전략 목표를 선택하세요</h2>
+<p class="wizard-sub">이커머스 업종에 최적화된 전략을 추천합니다</p>
+<div class="wizard-grid g2">
+<div class="wizard-card" data-value="탈취">
+<div class="icon">⚔️</div>
+<div class="name">경쟁 앱에서 주요 오디언스 탈취</div>
+<div class="desc">경쟁사 핵심 고객을 타겟팅하여 우리 앱으로 전환</div>
+</div>
+<div class="wizard-card" data-value="발굴">
+<div class="icon">🔍</div>
+<div class="name">잠재 고객 발굴</div>
+<div class="desc">아직 우리 앱을 모르는 고가치 잠재 고객 발견</div>
+</div>
+<div class="wizard-card" data-value="이탈방지">
+<div class="icon">🛡️</div>
+<div class="name">이탈 방지</div>
+<div class="desc">이탈 징후 고객을 사전 감지하여 선제 대응</div>
+</div>
+<div class="wizard-card" data-value="오프라인">
+<div class="icon">📍</div>
+<div class="name">오프라인 거점 공략</div>
+<div class="desc">특정 지역 기반 오프라인 매장 방문 유도</div>
 </div>
 </div>
+<button class="wizard-next" data-next="3">다음 →</button>
+</div>
+
+<!-- STEP 3: S-Tag Audience -->
+<div class="wizard-step" data-step="3">
+<h2 class="wizard-title">타겟 오디언스를 선택하세요</h2>
+<p class="wizard-sub">S-Tag 기반으로 생성된 맞춤 오디언스입니다</p>
+<div class="wizard-grid g2">
+<div class="wizard-card" data-value="seg-a">
+<div class="icon">👨‍💻</div>
+<div class="name">판교 IT 맞벌이 → 쿠팡에서 탈취</div>
+<div class="desc">쿠팡 로켓배송 Heavy User 중 SSG 미경험자<br><strong style="color:var(--blue);">8.4만명</strong></div>
+</div>
+<div class="wizard-card" data-value="seg-b">
+<div class="icon">👜</div>
+<div class="name">강남 프리미엄 쇼퍼 → 지갑점유율 방어</div>
+<div class="desc">월 50만원+ 소비, 프리미엄 브랜드 선호<br><strong style="color:var(--blue);">3.2만명</strong></div>
+</div>
+<div class="wizard-card" data-value="seg-c">
+<div class="icon">🏢</div>
+<div class="name">분당 트레이더스 인근 직장인 → 로컬 거점 공략</div>
+<div class="desc">트레이더스 반경 3km 직장인, 점심시간 활동<br><strong style="color:var(--blue);">6.1만명</strong></div>
+</div>
+<div class="wizard-card" data-value="seg-d">
+<div class="icon">💰</div>
+<div class="name">2030 가격민감 직장인 → 네이버쇼핑에서 탈취</div>
+<div class="desc">네이버쇼핑 가격비교 Heavy User, 할인 민감<br><strong style="color:var(--blue);">12.8만명</strong></div>
+</div>
+</div>
+<button class="wizard-next" data-next="go">리포트 생성 →</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===== LOADING ===== -->
+<div class="loading-screen" id="loading">
+<div class="spinner"></div>
+<div class="loading-text">PRISM 리포트를 생성하고 있습니다</div>
+<div class="loading-sub">R-Tag · F-Tag · S-Tag · P-Tag 데이터를 분석 중입니다</div>
+<div class="loading-steps">
+<div class="loading-step" data-idx="0"><div class="check">✓</div><span>R-Tag 데이터 로딩</span></div>
+<div class="loading-step" data-idx="1"><div class="check">✓</div><span>F-Tag 오디언스 생성</span></div>
+<div class="loading-step" data-idx="2"><div class="check">✓</div><span>경쟁사 데이터 매칭</span></div>
+<div class="loading-step" data-idx="3"><div class="check">✓</div><span>리포트 생성 중</span></div>
+<div class="loading-step" data-idx="4"><div class="check">✓</div><span>완료</span></div>
+</div>
+</div>
+
+<!-- ===== REPORT ===== -->
+<div class="report" id="report">
+
+<!-- Report Header -->
+<div class="sec sec-alt">
+<div class="c fade-in">
+<div class="label">PRISM COMPETITIVE INTELLIGENCE REPORT</div>
+<h1 class="st" style="font-size:32px;margin-bottom:4px;">SSG.COM 경쟁 분석 리포트</h1>
+<p class="sd" style="margin-bottom:24px;">2025 Q1 기준 · 이커머스 업종 · 탈취 전략 &nbsp;<span class="tag tag-r">CONFIDENTIAL</span></p>
+<div class="g4">
+<div class="kpi">
+<div class="kpi-label">SSG MAU</div>
+<div class="kpi-val">892만</div>
+<div class="kpi-sub" style="color:var(--red);">▼ -3.2% QoQ</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">쿠팡 교차사용률</div>
+<div class="kpi-val">68.4%</div>
+<div class="kpi-sub">SSG 유저 중</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">이탈 위험 VIP</div>
+<div class="kpi-val" style="color:var(--red);">12.7만</div>
+<div class="kpi-sub">30일 내 이탈 예측</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">탈취 가능 타겟</div>
+<div class="kpi-val" style="color:var(--blue);">34.2만</div>
+<div class="kpi-sub">ADID 기반</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Executive Summary -->
+<div class="sec">
+<div class="c fade-in">
+<div class="callout">
+<p><strong>Executive Summary</strong><br>SSG.COM은 MAU 892만으로 전분기 대비 3.2% 하락하며, 쿠팡(3,142만)과의 격차가 확대되고 있습니다. 특히 SSG 유저의 68.4%가 쿠팡을 교차 사용하고 있으며, 생활용품 카테고리에서 월 34.2%의 장바구니 점유율을 빼앗기고 있습니다. 그러나 신선식품·프리미엄 가전 카테고리에서는 여전히 경쟁 우위를 보유하고 있어, 이를 기반으로 한 타겟 탈취 전략이 유효합니다. PRISM이 식별한 34.2만 탈취 가능 타겟에 대한 즉시 실행 가능한 전략을 제안합니다.</p>
+</div>
+</div>
+</div>
+
+<!-- PART 1: 업종 벤치마크 -->
+<div class="sec fade-in">
+<div class="c">
+<span class="tag tag-r">R-TAG</span>
+<h2 class="st">Part 1. 업종 벤치마크</h2>
+<p class="sd">이커머스 상위 10% 앱 대비 SSG.COM의 현재 위치를 진단합니다</p>
+
+<div class="g4" style="margin-bottom:40px;">
+<div class="kpi">
+<div class="kpi-label">평균 체류시간</div>
+<div class="kpi-val">128분</div>
+<div class="kpi-sub">상위 10% 기준/월</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">월 활성 구매자</div>
+<div class="kpi-val">32.4만</div>
+<div class="kpi-sub">SSG 기준</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">재구매율</div>
+<div class="kpi-val">34.7%</div>
+<div class="kpi-sub">30일 내</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">앱 설치 유지율</div>
+<div class="kpi-val">72.6%</div>
+<div class="kpi-sub">90일 기준</div>
+</div>
+</div>
+
+<!-- MAU Bar Chart -->
+<h3 style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">이커머스 MAU 비교</h3>
+<div class="bar-chart" style="margin-bottom:40px;">
+<div class="bar-row">
+<div class="bar-label">쿠팡</div>
+<div class="bar-track"><div class="bar-fill" data-width="100%" style="background:var(--navy);">3,142만</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">네이버쇼핑</div>
+<div class="bar-track"><div class="bar-fill" data-width="85%" style="background:var(--green);">2,687만</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label" style="color:var(--blue);font-weight:800;">SSG</div>
+<div class="bar-track"><div class="bar-fill" data-width="28%" style="background:var(--blue);">892만</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">컬리</div>
+<div class="bar-track"><div class="bar-fill" data-width="20%" style="background:var(--orange);">614만</div></div>
+</div>
+</div>
+
+<!-- Category Basket Share Table -->
+<h3 style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">카테고리별 장바구니 점유율</h3>
+<div style="overflow-x:auto;margin-bottom:32px;">
+<table class="tbl">
+<thead>
+<tr><th>카테고리</th><th>SSG</th><th>쿠팡</th><th>컬리</th><th>네이버</th><th>위험도</th></tr>
+</thead>
+<tbody>
+<tr><td>신선식품</td><td class="num">38.2%</td><td class="num">28.4%</td><td class="num">22.1%</td><td class="num">11.3%</td><td><span style="color:var(--green);font-weight:600;">● 안전</span></td></tr>
+<tr><td>생활용품</td><td class="num">18.7%</td><td class="num">52.9%</td><td class="num">4.2%</td><td class="num">24.2%</td><td><span style="color:var(--red);font-weight:600;">● 위험</span></td></tr>
+<tr><td>프리미엄가전</td><td class="num">31.4%</td><td class="num">26.8%</td><td class="num">—</td><td class="num">41.8%</td><td><span style="color:var(--orange);font-weight:600;">● 주의</span></td></tr>
+<tr><td>와인/주류</td><td class="num">44.6%</td><td class="num">12.3%</td><td class="num">28.7%</td><td class="num">14.4%</td><td><span style="color:var(--green);font-weight:600;">● 안전</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- 3 Callouts -->
+<div class="g3">
+<div class="callout callout-r" style="margin:0;">
+<p><strong>핵심 경고</strong><br>생활용품 카테고리에서 쿠팡에 52.9% 점유율을 빼앗기고 있으며, 이 추세가 지속되면 Q2에 신선식품까지 위협받을 수 있습니다.</p>
+</div>
+<div class="callout" style="margin:0;">
+<p><strong>현상 해석</strong><br>쿠팡 로켓배송의 당일배송 경험이 생활용품 반복구매를 고착화시키고 있습니다. SSG의 새벽배송 강점이 신선식품에만 국한된 상황입니다.</p>
+</div>
+<div class="callout callout-g" style="margin:0;">
+<p><strong>기회 포착</strong><br>와인/주류(44.6%)와 신선식품(38.2%)에서의 우위를 활용한 번들 전략으로 생활용품 교차구매를 유도할 수 있습니다.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PART 2: 오디언스 심층 프로파일 -->
+<div class="sec sec-alt fade-in">
+<div class="c">
+<span class="tag tag-f">F-TAG</span>
+<h2 class="st">Part 2. 오디언스 심층 프로파일</h2>
+<p class="sd">S-Tag 기반으로 생성된 핵심 세그먼트의 행동 패턴을 분석합니다</p>
+
+<div class="g3">
+<div class="card ca-b">
+<div class="ct">세그먼트 A: 판교 IT 맞벌이</div>
+<p><strong style="color:var(--blue);">8.4만명 · 공격</strong></p>
+<ul>
+<li>쿠팡 주 3.2회 주문</li>
+<li>평균 객단가 4.7만원</li>
+<li>새벽배송 니즈 높음</li>
+<li>SSG 앱 미설치 62%</li>
+</ul>
+</div>
+<div class="card ca-g">
+<div class="ct">세그먼트 B: 강남 프리미엄 쇼퍼</div>
+<p><strong style="color:var(--green);">3.2만명 · 방어</strong></p>
+<ul>
+<li>월 소비 50만원+</li>
+<li>프리미엄 브랜드 선호</li>
+<li>SSG 기존 VIP 고객</li>
+<li>쿠팡 사용 빈도 증가 중</li>
+</ul>
+</div>
+<div class="card ca-o">
+<div class="ct">세그먼트 C: 분당 트레이더스 직장인</div>
+<p><strong style="color:var(--orange);">6.1만명 · 확장</strong></p>
+<ul>
+<li>트레이더스 반경 3km 근무</li>
+<li>점심시간 모바일 쇼핑</li>
+<li>대용량 생필품 선호</li>
+<li>오프라인 연계 가능</li>
+</ul>
+</div>
+</div>
+
+<div class="callout" style="margin-top:32px;">
+<p><strong>전략적 의미</strong><br>세그먼트 A(8.4만)는 쿠팡에서 직접 탈취 가능한 공격 타겟이며, 세그먼트 B(3.2만)는 이탈 방지가 시급한 방어 타겟입니다. 세그먼트 C(6.1만)는 트레이더스 오프라인 매장과 연계한 O2O 확장 기회를 제공합니다.</p>
+</div>
+</div>
+</div>
+
+<!-- PART 3: 세그먼트별 충성도 -->
+<div class="sec fade-in">
+<div class="c">
+<span class="tag tag-s">S-TAG</span>
+<h2 class="st">Part 3. 세그먼트별 충성도 분석</h2>
+<p class="sd">이탈 위험군과 충성 유지군의 행동 차이를 비교합니다</p>
+
+<div class="g2">
+<div class="card" style="border-left:3px solid var(--red);">
+<div class="ct" style="color:var(--red);">⚠️ 이탈 위험군</div>
+<p style="margin-bottom:12px;"><strong>12.7만명</strong> · 30일 내 이탈 예측</p>
+<ul>
+<li>SSG 방문 빈도: 주 0.8회 (↓ 62%)</li>
+<li>쿠팡 사용 증가: +47% MoM</li>
+<li>장바구니 이탈률: 78.3%</li>
+<li>마지막 구매: 평균 23일 전</li>
+<li>푸시 알림 반응률: 2.1%</li>
+</ul>
+</div>
+<div class="card" style="border-left:3px solid var(--green);">
+<div class="ct" style="color:var(--green);">✓ 충성 유지군</div>
+<p style="margin-bottom:12px;"><strong>18.9만명</strong> · 안정적 유지</p>
+<ul>
+<li>SSG 방문 빈도: 주 4.2회</li>
+<li>쿠팡 교차사용: 32% (평균 이하)</li>
+<li>장바구니 전환률: 64.7%</li>
+<li>마지막 구매: 평균 3일 전</li>
+<li>푸시 알림 반응률: 18.4%</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PART 4: 이탈 경로 추적 -->
+<div class="sec sec-alt fade-in">
+<div class="c">
+<span class="tag tag-r">R-TAG</span>
+<h2 class="st">Part 4. 이탈 경로 추적</h2>
+<p class="sd">SSG에서 이탈한 고객이 어디로, 언제, 왜 이동하는지 추적합니다</p>
+
+<!-- Churn Summary -->
+<div class="callout callout-r" style="margin-bottom:32px;">
+<p><strong>이탈 규모 요약</strong><br>최근 90일간 총 <strong>47.3만명</strong>이 SSG 사용을 중단하거나 감소했습니다.<br>→ 쿠팡 이동: 28.4만 (60.0%) · 네이버쇼핑 이동: 11.2만 (23.7%) · 컬리 이동: 7.7만 (16.3%)</p>
+</div>
+
+<!-- Time Pattern -->
+<h3 style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">이탈 시간대 패턴</h3>
+<div class="bar-chart" style="margin-bottom:40px;">
+<div class="bar-row">
+<div class="bar-label">07-09시</div>
+<div class="bar-track"><div class="bar-fill" data-width="45%" style="background:var(--orange);">출근길</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">12-13시</div>
+<div class="bar-track"><div class="bar-fill" data-width="62%" style="background:var(--orange);">점심시간</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">19-21시</div>
+<div class="bar-track"><div class="bar-fill" data-width="88%" style="background:var(--red);">퇴근 후 피크</div></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">22-24시</div>
+<div class="bar-track"><div class="bar-fill" data-width="54%" style="background:var(--navy);">취침 전</div></div>
+</div>
+</div>
+
+<!-- Category Churn Cards -->
+<h3 style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">카테고리별 이탈 현황</h3>
+<div class="g3">
+<div class="card ca-r">
+<div class="ct">생활용품 → 쿠팡</div>
+<p style="font-size:28px;font-weight:800;color:var(--red);margin:8px 0;">-34.2%</p>
+<p>로켓배송 당일도착이 핵심 이탈 요인. 반복구매 패턴이 쿠팡에 고착화됨</p>
+</div>
+<div class="card ca-o">
+<div class="ct">신선식품 → 컬리</div>
+<p style="font-size:28px;font-weight:800;color:var(--orange);margin:8px 0;">-18.7%</p>
+<p>컬리의 큐레이션과 프리미엄 이미지가 SSG 새벽배송 고객을 흡수 중</p>
+</div>
+<div class="card ca-n">
+<div class="ct">패션 → 네이버</div>
+<p style="font-size:28px;font-weight:800;color:var(--navy);margin:8px 0;">-12.4%</p>
+<p>네이버 브랜드스토어의 가격 비교 편의성이 패션 카테고리 이탈 유도</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PART 6: 전략 제안 -->
+<div class="sec fade-in">
+<div class="c">
+<span class="tag tag-s">S-TAG</span>
+<h2 class="st">Part 6. 전략 제안</h2>
+<p class="sd">PRISM이 식별한 타겟에 대한 즉시 실행 가능한 액션 플랜</p>
+
+<!-- Total Target Summary -->
+<div class="callout callout-g" style="margin-bottom:32px;">
+<p><strong>총 타겟 ADID: 34.2만 명</strong><br>예상 월 매출 증가: <strong>+24.5억원</strong> · 연간 환산: <strong>+294억원</strong><br>PRISM S-Tag 기반 정밀 타겟팅으로 즉시 매체 집행이 가능합니다.</p>
+</div>
+
+<div class="g3">
+<!-- Strategy 1 -->
+<div class="card ca-b">
+<div class="ct">전략 1: 쿠팡 Heavy User 탈취</div>
+<p style="margin-bottom:8px;"><strong>타겟:</strong> 쿠팡 주 3회+ 주문, SSG 미경험 판교/분당 IT 직장인</p>
+<p style="margin-bottom:8px;"><strong>액션 플랜:</strong></p>
+<ul>
+<li>SSG 새벽배송 첫 주문 무료 쿠폰</li>
+<li>신선식품 번들 할인 (쿠팡 대비 가격 우위)</li>
+<li>프리미엄 PB 상품 체험팩 제공</li>
+</ul>
+<p style="margin-top:12px;"><strong>예상 효과:</strong> 전환율 12.4%, 월 매출 +8.2억</p>
+<a href="#" class="cta-action">지금 바로 매체 광고하기 →</a>
+</div>
+<!-- Strategy 2 -->
+<div class="card ca-g">
+<div class="ct">전략 2: VIP 이탈 방어</div>
+<p style="margin-bottom:8px;"><strong>타겟:</strong> SSG VIP 중 쿠팡 사용 빈도 증가, 30일 내 이탈 예측 고객</p>
+<p style="margin-bottom:8px;"><strong>액션 플랜:</strong></p>
+<ul>
+<li>VIP 전용 프리미엄 혜택 강화</li>
+<li>개인화 추천 알림 (구매 패턴 기반)</li>
+<li>와인/주류 독점 할인 이벤트</li>
+</ul>
+<p style="margin-top:12px;"><strong>예상 효과:</strong> 이탈률 -38%, 월 매출 방어 +9.7억</p>
+<a href="#" class="cta-action">지금 바로 매체 광고하기 →</a>
+</div>
+<!-- Strategy 3 -->
+<div class="card ca-o">
+<div class="ct">전략 3: 오프라인 거점 연계</div>
+<p style="margin-bottom:8px;"><strong>타겟:</strong> 트레이더스/이마트 반경 3km 직장인, 점심시간 모바일 활동</p>
+<p style="margin-bottom:8px;"><strong>액션 플랜:</strong></p>
+<ul>
+<li>점심시간 타겟 푸시 (11:30-12:30)</li>
+<li>트레이더스 픽업 서비스 프로모션</li>
+<li>대용량 생필품 온라인 주문 → 매장 수령</li>
+</ul>
+<p style="margin-top:12px;"><strong>예상 효과:</strong> O2O 전환율 8.7%, 월 매출 +6.6억</p>
+<a href="#" class="cta-action">지금 바로 매체 광고하기 →</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PART 7: 이탈 예측 오디언스 (P-Tag) -->
+<div class="sec sec-alt fade-in">
+<div class="c">
+<span class="tag tag-p">P-TAG</span>
+<h2 class="st">Part 7. 이탈 예측 오디언스</h2>
+<p class="sd">P-Tag 예측 모델이 생성한 선제 대응 오디언스입니다</p>
+
+<!-- 4 Prediction Axis Cards -->
+<div class="g4" style="margin-bottom:32px;">
+<div class="kpi">
+<div class="kpi-label">구매예측</div>
+<div class="kpi-val" style="color:var(--green);">22.8만</div>
+<div class="kpi-sub">7일 내 구매 확률 높음</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">클릭예측</div>
+<div class="kpi-val" style="color:var(--blue);">41.2만</div>
+<div class="kpi-sub">광고 반응 확률 상위</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">앱설치/이탈예측</div>
+<div class="kpi-val" style="color:var(--red);">18.4만</div>
+<div class="kpi-sub">30일 내 이탈 위험</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">위치방문</div>
+<div class="kpi-val" style="color:var(--orange);">9.6만</div>
+<div class="kpi-sub">매장 방문 확률 높음</div>
+</div>
+</div>
+
+<!-- Churn Prediction Audience -->
+<div class="g2" style="margin-bottom:32px;">
+<div class="card ca-r">
+<div class="ct">이탈 예측 오디언스</div>
+<p style="margin-bottom:12px;">30일 내 SSG 이탈 확률 80%+ 고객군</p>
+<table class="tbl" style="margin-bottom:12px;">
+<thead><tr><th>경쟁사</th><th>사용 증가율</th><th>이탈 확률</th></tr></thead>
+<tbody>
+<tr><td>쿠팡</td><td class="num">+47%</td><td class="num" style="color:var(--red);">92.3%</td></tr>
+<tr><td>네이버쇼핑</td><td class="num">+31%</td><td class="num" style="color:var(--red);">84.1%</td></tr>
+<tr><td>컬리</td><td class="num">+28%</td><td class="num" style="color:var(--orange);">76.8%</td></tr>
+</tbody>
+</table>
+<p><strong>데모 프로파일:</strong> 30-45세, 맞벌이, 수도권, 월 구매 3회 이하로 감소</p>
+</div>
+<div class="card ca-g">
+<div class="ct">구매 예측 오디언스</div>
+<p style="margin-bottom:12px;">7일 내 구매 전환 확률 75%+ 고객군</p>
+<table class="tbl" style="margin-bottom:12px;">
+<thead><tr><th>카테고리</th><th>관심도</th><th>전환 확률</th></tr></thead>
+<tbody>
+<tr><td>신선식품</td><td class="num">높음</td><td class="num" style="color:var(--green);">89.2%</td></tr>
+<tr><td>와인/주류</td><td class="num">높음</td><td class="num" style="color:var(--green);">82.4%</td></tr>
+<tr><td>프리미엄가전</td><td class="num">중간</td><td class="num" style="color:var(--blue);">71.6%</td></tr>
+</tbody>
+</table>
+<p><strong>데모 프로파일:</strong> 35-50세, 고소득, 강남/서초/판교, 프리미엄 선호</p>
+</div>
+</div>
+
+<!-- Summary KPIs -->
+<div class="g4">
+<div class="kpi">
+<div class="kpi-label">이탈예측 타겟</div>
+<div class="kpi-val">18.4만</div>
+<div class="kpi-sub">선제 대응 가능</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">구매예측 타겟</div>
+<div class="kpi-val">22.8만</div>
+<div class="kpi-sub">전환 캠페인 대상</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">예측 정확도</div>
+<div class="kpi-val">84.7%</div>
+<div class="kpi-sub">검증 완료</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">선제 대응</div>
+<div class="kpi-val">+14일</div>
+<div class="kpi-sub">이탈 전 평균 감지</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="c">
+<p>© 2025 IGAWORKS. PRISM Competitive Intelligence Platform.<br>본 리포트는 데모 목적으로 생성되었으며, 실제 데이터와 다를 수 있습니다.</p>
+</div>
+</div>
+
+</div><!-- /report -->
+
+<!-- ===== SCRIPT ===== -->
+<script>
+(function(){
+  const wizard = document.getElementById('wizard');
+  const loading = document.getElementById('loading');
+  const report = document.getElementById('report');
+  const dots = document.querySelectorAll('.wizard-dot');
+
+  // --- Wizard Navigation ---
+  document.querySelectorAll('.wizard-card').forEach(card => {
+    card.addEventListener('click', function(){
+      const step = this.closest('.wizard-step');
+      // Deselect siblings
+      step.querySelectorAll('.wizard-card').forEach(c => c.classList.remove('selected'));
+      // Select this
+      this.classList.add('selected');
+      // Enable next button
+      const btn = step.querySelector('.wizard-next');
+      if(btn) btn.classList.add('enabled');
+    });
+  });
+
+  document.querySelectorAll('.wizard-next').forEach(btn => {
+    btn.addEventListener('click', function(){
+      if(!this.classList.contains('enabled')) return;
+      const target = this.getAttribute('data-next');
+
+      if(target === 'go'){
+        // Start loading
+        wizard.style.display = 'none';
+        loading.classList.add('active');
+        runLoading();
+        return;
+      }
+
+      // Advance step
+      const currentStep = this.closest('.wizard-step');
+      const nextStep = document.querySelector('.wizard-step[data-step="'+target+'"]');
+      if(currentStep && nextStep){
+        currentStep.classList.remove('active');
+        nextStep.classList.add('active');
+        // Update dots
+        const stepNum = parseInt(target);
+        dots.forEach((d,i) => {
+          d.classList.toggle('done', i < stepNum);
+        });
+      }
+    });
+  });
+
+  // --- Loading Animation ---
+  function runLoading(){
+    const steps = document.querySelectorAll('.loading-step');
+    let idx = 0;
+    function activateStep(){
+      if(idx >= steps.length){
+        // Done - show report
+        setTimeout(()=>{
+          loading.classList.remove('active');
+          report.classList.add('active');
+          initReport();
+        }, 400);
+        return;
+      }
+      // Mark previous as done
+      if(idx > 0) steps[idx-1].classList.remove('active');
+      if(idx > 0) steps[idx-1].classList.add('done');
+      // Activate current
+      steps[idx].classList.add('active');
+      idx++;
+      setTimeout(activateStep, 800);
+    }
+    activateStep();
+  }
+
+  // --- Report Animations ---
+  function initReport(){
+    // Intersection Observer for fade-in
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Bar chart animation
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const bars = entry.target.querySelectorAll('.bar-fill');
+          bars.forEach((bar, i) => {
+            setTimeout(() => {
+              bar.style.width = bar.getAttribute('data-width');
+            }, i * 150);
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.bar-chart').forEach(chart => {
+      barObserver.observe(chart);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
