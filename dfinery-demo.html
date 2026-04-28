@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dfinery 2.0 — AI 크루 · 클레어</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;background:#f4f5f7;color:#1a1d24;font-size:14px;line-height:1.6;overflow:hidden;height:100vh;}
+
+/* ═══ SHELL ═══ */
+.shell{display:flex;height:100vh;}
+
+/* Sidebar */
+.sidebar{width:220px;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-logo{padding:20px 20px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e5e7eb;}
+.sidebar-logo svg{width:20px;height:20px;fill:#6366f1;}
+.sidebar-logo span{font-size:14px;font-weight:700;color:#1a1d24;letter-spacing:-.01em;}
+.sidebar-logo .crm{font-size:11px;font-weight:600;color:#6366f1;margin-left:2px;}
+.sidebar-app{padding:12px 16px;font-size:13px;font-weight:600;color:#6366f1;background:#eef2ff;border-radius:8px;margin:12px 12px 8px;}
+.sidebar-nav{flex:1;padding:4px 8px;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;margin-bottom:2px;}
+.sidebar-item:hover{background:#f9fafb;color:#1a1d24;}
+.sidebar-item.active{background:#eef2ff;color:#6366f1;font-weight:600;}
+.sidebar-item .icon{width:18px;text-align:center;font-size:15px;}
+.sidebar-item .sparkle{color:#6366f1;}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* Top bar */
+.topbar{height:52px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-title{font-size:15px;font-weight:700;color:#1a1d24;}
+.topbar-badge{font-size:11px;font-weight:600;color:#6366f1;background:#eef2ff;padding:2px 8px;border-radius:4px;}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.topbar-icon{width:32px;height:32px;border-radius:8px;background:#f9fafb;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;}
+.topbar-user{display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7280;}
+.topbar-avatar{width:28px;height:28px;border-radius:50%;background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+
+/* Chat area */
+.chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.chat-header{padding:16px 24px;border-bottom:1px solid #e5e7eb;background:#fff;display:flex;align-items:center;gap:12px;}
+.chat-agent{display:flex;align-items:center;gap:8px;}
+.chat-agent-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+.chat-agent-name{font-size:14px;font-weight:700;color:#1a1d24;}
+.chat-agent-role{font-size:12px;color:#6b7280;}
+.chat-new{margin-left:auto;padding:6px 14px;border-radius:6px;border:1px solid #e5e7eb;font-size:13px;font-weight:500;color:#6b7280;cursor:pointer;background:#fff;}
+
+.chat-messages{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px;}
+
+/* Messages */
+.msg{max-width:720px;display:flex;gap:12px;}
+.msg-user{flex-direction:row-reverse;align-self:flex-end;}
+.msg-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.msg-avatar-ai{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;}
+.msg-avatar-user{background:#1a1d24;color:#fff;}
+.msg-bubble{padding:14px 18px;border-radius:12px;font-size:14px;line-height:1.7;color:#1a1d24;}
+.msg-bubble-ai{background:#fff;border:1px solid #e5e7eb;}
+.msg-bubble-user{background:#1a1d24;color:#fff;}
+.msg-label{font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;}
+
+/* Thinking */
+.thinking{display:flex;align-items:center;gap:8px;padding:12px 18px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;font-size:13px;color:#6366f1;font-weight:500;}
+.thinking-dot{display:flex;gap:3px;}
+.thinking-dot span{width:6px;height:6px;border-radius:50%;background:#6366f1;animation:blink 1.4s infinite both;}
+.thinking-dot span:nth-child(2){animation-delay:.2s;}
+.thinking-dot span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+
+/* Report card */
+.report-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-top:8px;}
+.report-card-header{padding:14px 18px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;}
+.report-card-title{font-size:14px;font-weight:700;color:#1a1d24;}
+.report-card-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;}
+.report-card-body{padding:18px;}
+
+/* Chart bars */
+.chart-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.chart-label{width:100px;font-size:13px;font-weight:500;color:#4b5563;text-align:right;flex-shrink:0;}
+.chart-track{flex:1;height:20px;background:#f3f4f6;border-radius:4px;overflow:hidden;}
+.chart-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:11px;font-weight:600;color:#fff;}
+
+/* Table */
+.mini-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+.mini-tbl th{background:#f9fafb;font-weight:600;color:#1a1d24;padding:10px 14px;text-align:left;border-bottom:1px solid #e5e7eb;}
+.mini-tbl td{padding:10px 14px;border-bottom:1px solid #f3f4f6;color:#4b5563;}
+.mini-tbl tr:last-child td{border-bottom:none;}
+.mini-tbl .num{font-weight:600;color:#1a1d24;font-variant-numeric:tabular-nums;}
+.mini-tbl .up{color:#16a34a;} .mini-tbl .down{color:#dc2626;}
+
+/* PRISM badge */
+.prism-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;background:#eef2ff;color:#6366f1;border:1px solid rgba(99,102,241,.15);}
+
+/* Condition card */
+.condition{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;margin-top:12px;font-size:13px;color:#4b5563;line-height:1.6;}
+.condition strong{color:#1a1d24;}
+
+/* Input bar */
+.chat-input{padding:16px 24px;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.chat-input-field{flex:1;padding:10px 16px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;color:#1a1d24;background:#f9fafb;outline:none;font-family:inherit;}
+.chat-input-btn{width:36px;height:36px;border-radius:8px;background:#6366f1;color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;}
+.chat-input-plus{width:36px;height:36px;border-radius:8px;background:#f9fafb;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;font-size:18px;color:#6b7280;cursor:pointer;}
+.chat-input-deep{padding:6px 12px;border-radius:6px;border:1px solid #6366f1;font-size:12px;font-weight:600;color:#6366f1;background:#fff;cursor:pointer;}
+
+/* Demo banner */
+.demo-banner{position:fixed;top:0;left:0;right:0;height:36px;background:#1a1d24;color:#fff;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13px;font-weight:500;z-index:1000;}
+.demo-banner a{color:#818cf8;text-decoration:none;font-weight:600;}
+.shell{margin-top:36px;height:calc(100vh - 36px);}
+
+@media(max-width:768px){.sidebar{display:none;}.shell{margin-top:36px;}}
+</style>
+</head>
+<body>
+
+<!-- Demo banner -->
+<div class="demo-banner">
+  PRISM × Dfinery 2.0 연동 데모 시연
+  <a href="demo.html">← 리포트로 돌아가기</a>
+</div>
+
+<div class="shell">
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#6366f1" opacity=".15"/><path d="M12 6v12M6 12h12" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>DFINERY<span class="crm"> CRM</span></span>
+  </div>
+  <div class="sidebar-app">SSG.COM<br><span style="font-size:11px;font-weight:400;color:#6366f1;">데모 프로젝트</span></div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-item"><span class="icon">🏠</span> 홈 대시보드</div>
+    <div class="sidebar-item active"><span class="icon sparkle">✨</span> AI 크루</div>
+    <div class="sidebar-item"><span class="icon">📊</span> 분석</div>
+    <div class="sidebar-item"><span class="icon">🚀</span> 액션</div>
+    <div class="sidebar-item"><span class="icon">👥</span> 고객</div>
+    <div class="sidebar-item"><span class="icon">⚙️</span> 초기 설정</div>
+  </nav>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title">AI 크루</div>
+      <div class="topbar-badge">클레어 · 데이터 분석</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-icon">⚙️</div>
+      <div class="topbar-icon">🔔</div>
+      <div class="topbar-user">
+        <div class="topbar-avatar">P</div>
+        PRISM 데모
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="chat-agent">
+        <div class="chat-agent-avatar">C</div>
+        <div>
+          <div class="chat-agent-name">클레어 <span style="font-size:12px;color:#6366f1;font-weight:500;">Claire</span></div>
+          <div class="chat-agent-role">데이터 분석 전문 에이전트</div>
+        </div>
+      </div>
+      <div class="chat-new">+ 새 대화</div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <!-- Messages will be injected by JS -->
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input">
+      <div class="chat-input-plus">+</div>
+      <input class="chat-input-field" value="" placeholder="클레어에게 질문하세요..." readonly>
+      <div class="chat-input-deep">심층 분석</div>
+      <div class="chat-input-btn">↑</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var chat = document.getElementById('chatMessages');
+  var steps = [
+    // Step 1: PRISM auto-input
+    {delay:800, type:'system', html:'<div style="text-align:center;font-size:12px;color:#6b7280;padding:8px;background:#f9fafb;border-radius:8px;">🔗 PRISM 리포트에서 연동 요청이 전달되었습니다</div>'},
+    // Step 2: User message
+    {delay:1500, type:'user', html:'지난 달 신규 가입자 수와 그들의 이탈률을 분석해줘. 그리고 PRISM에서 찾아낸 이탈 가능성이 있는 오디언스도 함께 보여줘.'},
+    // Step 3: Thinking
+    {delay:2000, type:'thinking', html:''},
+    // Step 4: Claire response - conditions
+    {delay:3500, type:'ai', html:'<div class="msg-label">클레어의 분석</div><p>네, 요청하신 내용을 분석하겠습니다. 먼저 적용된 조건을 확인해 주세요.</p><div class="condition"><strong>적용된 조건</strong><br>• 분석 기간: 2026년 3월 1일 ~ 3월 31일<br>• 대상: 신규 가입자 (해당 기간 내 df_sign_up 이벤트 발생 유저)<br>• 이탈 기준: 가입 후 14일 이내 재방문 없음<br>• PRISM 연동: SSG.COM 경쟁 분석 리포트 내 이탈 위험 오디언스 매칭</div>'},
+    // Step 5: Chart - new users
+    {delay:2000, type:'ai-chart', html:'<div class="report-card"><div class="report-card-header"><div class="report-card-title">📊 지난 달 신규 가입자 현황</div><div class="report-card-badge" style="background:#eef2ff;color:#6366f1;">1st Party Data</div></div><div class="report-card-body"><div style="display:flex;gap:24px;margin-bottom:16px;"><div style="text-align:center;"><div style="font-size:11px;color:#6b7280;">신규 가입자 수</div><div style="font-size:28px;font-weight:800;color:#1a1d24;">24,847명</div><div style="font-size:12px;color:#16a34a;">전월 대비 +8.3%</div></div><div style="text-align:center;"><div style="font-size:11px;color:#6b7280;">14일 내 이탈률</div><div style="font-size:28px;font-weight:800;color:#dc2626;">34.2%</div><div style="font-size:12px;color:#dc2626;">전월 대비 +2.1%p</div></div><div style="text-align:center;"><div style="font-size:11px;color:#6b7280;">이탈 인원</div><div style="font-size:28px;font-weight:800;color:#d97706;">8,498명</div><div style="font-size:12px;color:#6b7280;">가입 후 14일 내 미재방문</div></div></div><div style="font-size:13px;font-weight:600;color:#1a1d24;margin-bottom:8px;">주차별 신규 가입자 추이</div><div class="chart-bar"><div class="chart-label">1주차</div><div class="chart-track"><div class="chart-fill" style="width:72%;background:#6366f1;">5,842</div></div></div><div class="chart-bar"><div class="chart-label">2주차</div><div class="chart-track"><div class="chart-fill" style="width:84%;background:#6366f1;">6,821</div></div></div><div class="chart-bar"><div class="chart-label">3주차</div><div class="chart-track"><div class="chart-fill" style="width:78%;background:#6366f1;">6,334</div></div></div><div class="chart-bar"><div class="chart-label">4주차</div><div class="chart-track"><div class="chart-fill" style="width:72%;background:#6366f1;">5,850</div></div></div></div></div>'},
+    // Step 6: Churn analysis table
+    {delay:2000, type:'ai-chart', html:'<div class="report-card"><div class="report-card-header"><div class="report-card-title">📉 신규 가입자 이탈 분석</div><div class="report-card-badge" style="background:#fef2f2;color:#dc2626;">이탈 분석</div></div><div class="report-card-body"><table class="mini-tbl"><thead><tr><th>세그먼트</th><th>가입자 수</th><th>이탈률</th><th>주요 이탈 시점</th><th>이탈 후 이동</th></tr></thead><tbody><tr><td style="font-weight:600;">2030 직장인</td><td class="num">9,412</td><td class="num down">41.2%</td><td>가입 후 3일</td><td>쿠팡 (62%)</td></tr><tr><td style="font-weight:600;">3040 주부</td><td class="num">7,834</td><td class="num down">28.7%</td><td>가입 후 7일</td><td>컬리 (44%)</td></tr><tr><td style="font-weight:600;">4050 고소득</td><td class="num">4,218</td><td class="num">22.4%</td><td>가입 후 10일</td><td>네이버 (38%)</td></tr><tr><td style="font-weight:600;">기타</td><td class="num">3,383</td><td class="num down">38.9%</td><td>가입 후 2일</td><td>복합</td></tr></tbody></table></div></div>'},
+    // Step 7: PRISM audience
+    {delay:2000, type:'ai-chart', html:'<div class="report-card" style="border-color:#6366f1;"><div class="report-card-header" style="background:#eef2ff;"><div class="report-card-title">🔗 PRISM 연동 — 이탈 가능성 오디언스</div><div class="prism-badge">PRISM × Dfinery</div></div><div class="report-card-body"><p style="font-size:13px;color:#4b5563;margin-bottom:16px;">PRISM 경쟁 분석 리포트에서 식별된 이탈 위험 오디언스와 Dfinery 1st Party 데이터를 매칭한 결과입니다.</p><table class="mini-tbl"><thead><tr><th>PRISM 오디언스</th><th>Dfinery 매칭</th><th>이탈 위험도</th><th>예상 이탈 인원</th><th>권장 액션</th></tr></thead><tbody><tr><td><span style="font-weight:600;">판교 IT 맞벌이</span><br><span style="font-size:11px;color:#6b7280;">쿠팡 월결제 28.7만 원</span></td><td class="num">3,847명</td><td><span style="color:#dc2626;font-weight:600;">● 매우 높음</span></td><td class="num down">2,412명</td><td style="font-size:12px;">퇴근 시간 푸시 + 새벽배송 쿠폰</td></tr><tr><td><span style="font-weight:600;">강남 프리미엄 쇼퍼</span><br><span style="font-size:11px;color:#6b7280;">컬리 침투율 +8.3%p</span></td><td class="num">1,284명</td><td><span style="color:#d97706;font-weight:600;">● 높음</span></td><td class="num">487명</td><td style="font-size:12px;">프리미엄 PB 큐레이션 발송</td></tr><tr><td><span style="font-weight:600;">분당 트레이더스 인근</span><br><span style="font-size:11px;color:#6b7280;">SSG 점유율 8.2%</span></td><td class="num">2,156명</td><td><span style="color:#d97706;font-weight:600;">● 높음</span></td><td class="num">892명</td><td style="font-size:12px;">트레이더스 픽업 프로모션</td></tr></tbody></table><div style="background:#f9fafb;border-radius:8px;padding:14px 16px;margin-top:16px;font-size:13px;color:#4b5563;line-height:1.6;"><strong style="color:#6366f1;">💡 클레어의 인사이트:</strong> PRISM 이탈 위험 오디언스 7,287명 중 3,791명(52%)이 Dfinery 1st Party 데이터에서도 이탈 징후가 확인됩니다. 특히 <strong style="color:#1a1d24;">판교 IT 맞벌이 세그먼트</strong>는 가입 후 3일 내 이탈률이 41.2%로 가장 높으며, 이들의 62%가 쿠팡으로 이동합니다. <strong style="color:#dc2626;">Win-back 시나리오를 D+1부터 즉시 가동</strong>하는 것을 권장합니다.</div></div></div>'},
+    // Step 8: Action buttons
+    {delay:1500, type:'ai', html:'<div style="display:flex;gap:8px;flex-wrap:wrap;"><div style="padding:8px 16px;border-radius:6px;border:1px solid #6366f1;font-size:13px;font-weight:600;color:#6366f1;cursor:pointer;">📋 리포트 CSV 다운로드</div><div style="padding:8px 16px;border-radius:6px;border:1px solid #6366f1;font-size:13px;font-weight:600;color:#6366f1;cursor:pointer;">👥 이안에게 오디언스 생성 요청</div><div style="padding:8px 16px;border-radius:6px;border:1px solid #6366f1;font-size:13px;font-weight:600;color:#6366f1;cursor:pointer;">🚀 Win-back 캠페인 생성</div></div>'}
+  ];
+
+  var i = 0;
+  var totalDelay = 0;
+
+  function addMsg(step){
+    var el = document.createElement('div');
+    if(step.type==='system'){
+      el.innerHTML = step.html;
+      el.style.maxWidth = '480px';
+      el.style.margin = '0 auto';
+    } else if(step.type==='user'){
+      el.className = 'msg msg-user';
+      el.innerHTML = '<div class="msg-avatar msg-avatar-user">P</div><div class="msg-bubble msg-bubble-user">'+step.html+'</div>';
+    } else if(step.type==='thinking'){
+      el.className = 'msg';
+      el.id = 'thinking';
+      el.innerHTML = '<div class="msg-avatar msg-avatar-ai">C</div><div class="thinking"><div class="thinking-dot"><span></span><span></span><span></span></div>클레어가 분석 중입니다...</div>';
+    } else if(step.type==='ai'){
+      var th = document.getElementById('thinking');
+      if(th) th.remove();
+      el.className = 'msg';
+      el.innerHTML = '<div class="msg-avatar msg-avatar-ai">C</div><div class="msg-bubble msg-bubble-ai">'+step.html+'</div>';
+    } else if(step.type==='ai-chart'){
+      el.className = 'msg';
+      el.innerHTML = '<div class="msg-avatar msg-avatar-ai" style="visibility:hidden;">C</div><div style="flex:1;max-width:680px;">'+step.html+'</div>';
+    }
+    chat.appendChild(el);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  steps.forEach(function(step){
+    totalDelay += step.delay;
+    setTimeout(function(){ addMsg(step); }, totalDelay);
+  });
+})();
+</script>
+
+</body>
+</html>
