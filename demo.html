@@ -110,8 +110,198 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
 </div>
 </nav>
 
+<!-- ===== LANDING ===== -->
+<div id="landing" style="position:relative;width:100%;height:calc(100vh - 52px);background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+<canvas id="prismCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
+<div style="position:relative;z-index:10;text-align:center;pointer-events:none;">
+<div id="prismLabel" style="font-size:14px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.0);transition:color 2s ease 2.5s;margin-bottom:320px;">IGAWORKS PRISM</div>
+<button id="startBtn" style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:14px 36px;border-radius:12px;font-size:16px;font-weight:700;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer;backdrop-filter:blur(8px);transition:all .3s;opacity:0;transform:translateY(10px);font-family:inherit;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">지금 체험하기 →</button>
+</div>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('prismCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, cx, cy, dpr;
+  let startTime = 0;
+  const beamColors = ['#ff3333','#ff6600','#ffcc00','#33cc33','#3399ff','#6633ff','#cc33ff'];
+
+  function resize(){
+    dpr = window.devicePixelRatio || 1;
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    cx = W / 2; cy = H / 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Triangle geometry
+  function tri(){
+    const s = Math.min(W, H) * 0.28;
+    const h = s * Math.sqrt(3) / 2;
+    const topX = cx, topY = cy - h * 0.45;
+    const blX = cx - s/2, blY = cy + h * 0.55;
+    const brX = cx + s/2, brY = cy + h * 0.55;
+    // Entry point (left side, ~40% from bottom)
+    const entryX = blX + (topX - blX) * 0.42;
+    const entryY = blY + (topY - blY) * 0.42;
+    // Exit point (right side, ~40% from bottom)
+    const exitX = brX + (topX - brX) * 0.42;
+    const exitY = brY + (topY - brY) * 0.42;
+    return {topX, topY, blX, blY, brX, brY, entryX, entryY, exitX, exitY, s};
+  }
+
+  function draw(t){
+    const elapsed = (t - startTime) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    const T = tri();
+
+    // Phase 1: White beam enters (0-2s)
+    const beamProgress = Math.min(elapsed / 1.8, 1);
+    if(beamProgress > 0){
+      const fromX = -50;
+      const fromY = T.entryY + 60;
+      const toX = T.entryX;
+      const toY = T.entryY;
+      const curX = fromX + (toX - fromX) * easeOut(beamProgress);
+      const curY = fromY + (toY - fromY) * easeOut(beamProgress);
+
+      // Glow
+      const grd = ctx.createLinearGradient(fromX, fromY, curX, curY);
+      grd.addColorStop(0, 'rgba(255,255,255,0)');
+      grd.addColorStop(0.7, 'rgba(255,255,255,0.06)');
+      grd.addColorStop(1, 'rgba(255,255,255,0.3)');
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(fromX, fromY - 12);
+      ctx.lineTo(curX, curY - 3);
+      ctx.lineTo(curX, curY + 3);
+      ctx.lineTo(fromX, fromY + 12);
+      ctx.closePath();
+      ctx.fillStyle = grd;
+      ctx.fill();
+      ctx.restore();
+
+      // Core beam
+      ctx.save();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#fff';
+      ctx.shadowBlur = 20;
+      ctx.beginPath();
+      ctx.moveTo(fromX, fromY);
+      ctx.lineTo(curX, curY);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Phase 2: Rainbow beams exit (1.8s+)
+    const rainbowDelay = 1.8;
+    const rainbowProgress = Math.max(0, Math.min((elapsed - rainbowDelay) / 2.0, 1));
+    if(rainbowProgress > 0){
+      const spread = 38;
+      const startAngle = -spread / 2;
+      const len = Math.max(W, H) * 0.9;
+
+      beamColors.forEach((color, i) => {
+        const delay = i * 0.06;
+        const p = Math.max(0, Math.min((rainbowProgress - delay) / (1 - delay * beamColors.length * 0.3), 1));
+        if(p <= 0) return;
+        const angle = (startAngle + (spread / (beamColors.length - 1)) * i) * Math.PI / 180;
+        const endX = T.exitX + Math.cos(angle) * len * easeOut(p);
+        const endY = T.exitY + Math.sin(angle) * len * easeOut(p);
+
+        // Wide glow
+        const grd = ctx.createLinearGradient(T.exitX, T.exitY, endX, endY);
+        grd.addColorStop(0, color + '00');
+        grd.addColorStop(0.3, color + '18');
+        grd.addColorStop(1, color + '08');
+        ctx.save();
+        ctx.beginPath();
+        const perpX = -Math.sin(angle) * (8 + i * 3) * easeOut(p);
+        const perpY = Math.cos(angle) * (8 + i * 3) * easeOut(p);
+        ctx.moveTo(T.exitX, T.exitY);
+        ctx.lineTo(endX + perpX, endY + perpY);
+        ctx.lineTo(endX - perpX, endY - perpY);
+        ctx.closePath();
+        ctx.fillStyle = grd;
+        ctx.fill();
+        ctx.restore();
+
+        // Core ray
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.7 + 0.3 * Math.sin(elapsed * 2 + i);
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 16;
+        ctx.beginPath();
+        ctx.moveTo(T.exitX, T.exitY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+        ctx.restore();
+      });
+    }
+
+    // Triangle (always on top)
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255,255,255,' + (0.35 + 0.1 * Math.sin(elapsed * 1.5)) + ')';
+    ctx.lineWidth = 1.5;
+    ctx.lineJoin = 'miter';
+    ctx.beginPath();
+    ctx.moveTo(T.topX, T.topY);
+    ctx.lineTo(T.blX, T.blY);
+    ctx.lineTo(T.brX, T.brY);
+    ctx.closePath();
+    ctx.stroke();
+    // Subtle fill
+    ctx.fillStyle = 'rgba(255,255,255,0.02)';
+    ctx.fill();
+    ctx.restore();
+
+    // Shimmer on triangle edges
+    if(elapsed > 1){
+      const shimmer = (elapsed % 3) / 3;
+      const sx = T.blX + (T.topX - T.blX) * shimmer;
+      const sy = T.blY + (T.topY - T.blY) * shimmer;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + (0.6 - shimmer * 0.5) + ')';
+      ctx.shadowColor = '#fff';
+      ctx.shadowBlur = 12;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+
+  startTime = performance.now();
+  requestAnimationFrame(draw);
+
+  // Show label and button after animation
+  setTimeout(()=>{ document.getElementById('prismLabel').style.color = 'rgba(255,255,255,.7)'; }, 100);
+  setTimeout(()=>{
+    const btn = document.getElementById('startBtn');
+    btn.style.opacity = '1';
+    btn.style.transform = 'translateY(0)';
+  }, 3200);
+
+  // Start button
+  document.getElementById('startBtn').addEventListener('click', function(){
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('wizard').style.display = 'flex';
+  });
+})();
+</script>
+
 <!-- ===== WIZARD ===== -->
-<div class="wizard" id="wizard">
+<div class="wizard" id="wizard" style="display:none;">
 <div class="wizard-box">
 
 <!-- Progress dots -->
