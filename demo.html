@@ -99,6 +99,16 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
 .fade-in.visible{opacity:1;transform:translateY(0);}
 @media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:768px){.g2,.g3,.g4,.wizard-grid.g2,.wizard-grid.g4{grid-template-columns:1fr;}.c{padding:0 24px;}.sec{padding:40px 0;}.wizard-title{font-size:22px;}.bar-label{width:70px;font-size:12px;}}
+
+/* Dfinery card animations */
+@keyframes cardPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.15);}50%{box-shadow:0 0 0 8px rgba(37,99,235,.0);}}
+@keyframes badgeBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-2px);}}
+@keyframes ctaGlow{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.4);}50%{box-shadow:0 0 12px 4px rgba(37,99,235,.2);}}
+
+/* Toast popup */
+.toast-popup{position:fixed;bottom:24px;right:24px;background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:var(--rs);padding:16px 20px;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200;transform:translateX(120%);transition:transform .4s ease;font-size:14px;}
+.toast-popup.show{transform:translateX(0);}
+.toast-popup .toast-close{position:absolute;top:8px;right:10px;background:none;border:none;font-size:16px;color:var(--text-m);cursor:pointer;padding:4px;}
 </style>
 </head>
 <body>
@@ -980,14 +990,26 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
       <p style="font-size:14px;color:var(--text-2);">타겟 ADID를 DSP 타겟 광고로 즉시 집행</p>
       <div style="display:inline-block;margin-top:16px;padding:8px 20px;border:1px solid var(--navy);border-radius:var(--rx);font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;">광고 캠페인 생성 →</div>
     </div>
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;">
+    <div id="dfineryCard" style="background:var(--bg);border:2px solid var(--blue);border-radius:var(--r);padding:28px;text-align:center;position:relative;overflow:hidden;animation:cardPulse 2s ease-in-out infinite;">
+      <div style="position:absolute;top:12px;right:12px;background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;animation:badgeBounce 1s ease-in-out infinite;">🔔 연동준비완료</div>
       <div style="font-size:24px;margin-bottom:12px;">🔬</div>
       <div class="ct">디파이너리 연동</div>
       <p style="font-size:14px;color:var(--text-2);">자사 CRM + PRISM 경쟁사 데이터 통합 분석</p>
-      <a href="dfinery-demo.html" style="display:inline-block;margin-top:16px;padding:8px 20px;border:1px solid var(--navy);border-radius:var(--rx);font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;text-decoration:none;">디파이너리에서 분석 →</a>
+      <a href="dfinery-demo.html" style="display:inline-block;margin-top:16px;padding:10px 24px;border:none;border-radius:var(--rs);font-size:14px;font-weight:700;color:#fff;background:var(--blue);cursor:pointer;text-decoration:none;animation:ctaGlow 2s ease-in-out infinite;">디파이너리에서 분석 →</a>
     </div>
   </div>
 </div>
+</div>
+
+<!-- Toast Popup -->
+<div class="toast-popup" id="toastPopup">
+  <button class="toast-close" onclick="document.getElementById('toastPopup').classList.remove('show')">✕</button>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <div style="width:32px;height:32px;border-radius:8px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;">🔬</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);">디파이너리 연동</div>
+  </div>
+  <p style="font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:12px;">자사 데이터와 경쟁사 데이터 통합 분석 준비가 완료되었습니다.</p>
+  <a href="dfinery-demo.html" style="display:inline-block;padding:8px 16px;border-radius:var(--rx);font-size:13px;font-weight:600;color:#fff;background:var(--blue);text-decoration:none;">지금 확인하기 →</a>
 </div>
 
 <!-- FOOTER -->
@@ -1148,6 +1170,28 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
 
   // --- Report Animations ---
   function initReport(){
+    // Toast popup after 10 seconds
+    const toast = document.getElementById('toastPopup');
+    let toastDismissed = false;
+    setTimeout(()=>{
+      if(!toastDismissed) toast.classList.add('show');
+    }, 10000);
+
+    // Dismiss toast on scroll to bottom
+    window.addEventListener('scroll', function(){
+      if(toastDismissed) return;
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      if(scrollBottom >= docHeight - 100){
+        toast.classList.remove('show');
+        toastDismissed = true;
+      }
+    });
+
+    // Also dismiss on X click
+    const closeBtn = toast.querySelector('.toast-close');
+    if(closeBtn) closeBtn.addEventListener('click', ()=>{ toastDismissed = true; });
+
     // Intersection Observer for fade-in
     const fadeEls = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
