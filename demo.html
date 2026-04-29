@@ -319,16 +319,31 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
 <!-- STEP 1: 내 앱 등록 -->
 <div class="wizard-step active" data-step="1">
 <h2 class="wizard-title">내 앱을 등록하세요</h2>
-<p class="wizard-sub">분석할 앱을 등록하면 경쟁사 분석이 시작됩니다</p>
-<div style="display:flex;justify-content:center;margin:32px 0;">
-  <div class="wizard-card selected" data-value="ssg" style="max-width:280px;text-align:center;padding:32px;">
-    <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#ff5a5f,#ff2d55);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;">S</div>
-    <div class="name" style="font-size:18px;">SSG.COM</div>
-    <div class="desc">신세계그룹 이커머스 플랫폼</div>
-    <div style="margin-top:12px;font-size:13px;color:var(--green);font-weight:600;">✓ 등록 완료</div>
+<p class="wizard-sub">분석할 앱을 검색하여 등록하면 경쟁사 분석이 시작됩니다</p>
+
+<!-- 검색창 -->
+<div style="max-width:480px;margin:24px auto;position:relative;" id="appSearchWrap">
+  <input type="text" id="appSearchInput" placeholder="앱 이름을 검색하세요 (예: SSG, 쿠팡, 토스...)" autocomplete="off"
+    style="width:100%;padding:14px 20px 14px 44px;border:2px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:inherit;color:var(--text-h);background:var(--bg);outline:none;transition:border-color .2s;"
+    onfocus="this.style.borderColor='var(--blue)'" onblur="setTimeout(()=>{this.style.borderColor='var(--border)'},200)">
+  <div style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text-m);pointer-events:none;">🔍</div>
+  <!-- 검색 결과 드롭다운 -->
+  <div id="appSearchResults" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);max-height:280px;overflow-y:auto;z-index:10;box-shadow:0 8px 24px rgba(0,0,0,.1);"></div>
+</div>
+
+<!-- 선택된 앱 표시 -->
+<div id="selectedAppCard" style="display:none;max-width:480px;margin:20px auto;">
+  <div class="wizard-card selected" data-value="ssg" style="display:flex;align-items:center;gap:16px;padding:20px 24px;">
+    <div id="selectedAppIcon" style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;"></div>
+    <div style="flex:1;">
+      <div id="selectedAppName" style="font-size:16px;font-weight:700;color:var(--text-h);"></div>
+      <div id="selectedAppDesc" style="font-size:13px;color:var(--text-m);"></div>
+    </div>
+    <div style="font-size:13px;color:var(--green);font-weight:600;">✓ 선택됨</div>
   </div>
 </div>
-<button class="wizard-next enabled" data-next="2">다음 →</button>
+
+<button class="wizard-next" id="step1Next" data-next="2">다음 →</button>
 </div>
 
 <!-- STEP 2: 업종 선택 -->
@@ -990,6 +1005,79 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
   const loading = document.getElementById('loading');
   const report = document.getElementById('report');
   const dots = document.querySelectorAll('.wizard-dot');
+
+  // --- App Search Database ---
+  const apps = [
+    {name:'SSG.COM',desc:'신세계그룹 이커머스 플랫폼',color:'linear-gradient(135deg,#ff5a5f,#ff2d55)',letter:'S',cat:'이커머스'},
+    {name:'쿠팡',desc:'로켓배송 이커머스',color:'#1a1d24',letter:'C',cat:'이커머스'},
+    {name:'컬리',desc:'프리미엄 새벽배송',color:'#5f0080',letter:'K',cat:'이커머스'},
+    {name:'네이버쇼핑',desc:'네이버 쇼핑 플랫폼',color:'#03c75a',letter:'N',cat:'이커머스'},
+    {name:'11번가',desc:'SK 이커머스 플랫폼',color:'#ff0038',letter:'11',cat:'이커머스'},
+    {name:'G마켓',desc:'글로벌 오픈마켓',color:'#00a650',letter:'G',cat:'이커머스'},
+    {name:'옥션',desc:'오픈마켓 플랫폼',color:'#e00034',letter:'A',cat:'이커머스'},
+    {name:'위메프',desc:'특가 이커머스',color:'#ff4081',letter:'W',cat:'이커머스'},
+    {name:'티몬',desc:'타임커머스 플랫폼',color:'#ff6900',letter:'T',cat:'이커머스'},
+    {name:'올리브영',desc:'헬스&뷰티 스토어',color:'#00a170',letter:'O',cat:'이커머스'},
+    {name:'무신사',desc:'패션 플랫폼',color:'#1a1a1a',letter:'M',cat:'이커머스'},
+    {name:'오늘의집',desc:'인테리어 플랫폼',color:'#35c5f0',letter:'오',cat:'이커머스'},
+    {name:'에이블리',desc:'패션 쇼핑 플랫폼',color:'#ff2d55',letter:'A',cat:'이커머스'},
+    {name:'지그재그',desc:'패션 쇼핑 플랫폼',color:'#ff6b6b',letter:'Z',cat:'이커머스'},
+    {name:'토스',desc:'금융 슈퍼앱',color:'#0064ff',letter:'T',cat:'금융'},
+    {name:'카카오페이',desc:'간편결제·금융',color:'#fee500',letter:'K',cat:'금융'},
+    {name:'뱅크샐러드',desc:'자산관리 플랫폼',color:'#00d4aa',letter:'B',cat:'금융'},
+    {name:'삼쩜삼',desc:'세금 환급 서비스',color:'#6366f1',letter:'3',cat:'금융'},
+    {name:'카카오뱅크',desc:'인터넷 전문은행',color:'#fee500',letter:'K',cat:'금융'},
+    {name:'케이뱅크',desc:'인터넷 전문은행',color:'#ff6b00',letter:'K',cat:'금융'},
+    {name:'배달의민족',desc:'배달 플랫폼',color:'#2ac1bc',letter:'배',cat:'F&B'},
+    {name:'요기요',desc:'배달 플랫폼',color:'#fa0050',letter:'요',cat:'F&B'},
+    {name:'쿠팡이츠',desc:'배달 플랫폼',color:'#1a1d24',letter:'C',cat:'F&B'},
+    {name:'야놀자',desc:'여행·숙박 플랫폼',color:'#ff3478',letter:'Y',cat:'여행'},
+    {name:'여기어때',desc:'여행·숙박 플랫폼',color:'#3d5afe',letter:'여',cat:'여행'},
+    {name:'웅진씽크빅',desc:'교육 플랫폼',color:'#ff8c00',letter:'W',cat:'교육'},
+    {name:'밀크T',desc:'천재교육 학습 플랫폼',color:'#00bcd4',letter:'M',cat:'교육'},
+    {name:'엘리하이',desc:'메가스터디 초등 학습',color:'#7c4dff',letter:'E',cat:'교육'},
+    {name:'리니지M',desc:'NCSOFT MMORPG',color:'#1a1a1a',letter:'L',cat:'게임'},
+    {name:'리니지W',desc:'NCSOFT MMORPG',color:'#c0a36e',letter:'W',cat:'게임'},
+  ];
+
+  const searchInput = document.getElementById('appSearchInput');
+  const searchResults = document.getElementById('appSearchResults');
+  const selectedCard = document.getElementById('selectedAppCard');
+  const step1Next = document.getElementById('step1Next');
+
+  searchInput.addEventListener('input', function(){
+    const q = this.value.trim().toLowerCase();
+    if(q.length === 0){ searchResults.style.display='none'; return; }
+    const matches = apps.filter(a => a.name.toLowerCase().includes(q) || a.desc.includes(q) || a.cat.includes(q));
+    if(matches.length === 0){ searchResults.style.display='none'; return; }
+    searchResults.innerHTML = matches.map(a =>
+      '<div class="app-result" data-app="'+a.name+'" style="display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--border-light);" onmouseover="this.style.background=\'var(--bg-alt)\'" onmouseout="this.style.background=\'transparent\'">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:'+a.color+';display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;">'+a.letter+'</div>' +
+        '<div><div style="font-size:14px;font-weight:600;color:var(--text-h);">'+a.name+'</div><div style="font-size:12px;color:var(--text-m);">'+a.desc+' · '+a.cat+'</div></div>' +
+      '</div>'
+    ).join('');
+    searchResults.style.display='block';
+
+    searchResults.querySelectorAll('.app-result').forEach(el => {
+      el.addEventListener('click', function(){
+        const appName = this.getAttribute('data-app');
+        const app = apps.find(a => a.name === appName);
+        if(!app) return;
+        searchInput.value = app.name;
+        searchResults.style.display = 'none';
+        document.getElementById('selectedAppIcon').style.background = app.color;
+        document.getElementById('selectedAppIcon').textContent = app.letter;
+        document.getElementById('selectedAppName').textContent = app.name;
+        document.getElementById('selectedAppDesc').textContent = app.desc + ' · ' + app.cat;
+        selectedCard.style.display = 'block';
+        step1Next.classList.add('enabled');
+      });
+    });
+  });
+
+  searchInput.addEventListener('focus', function(){
+    if(this.value.trim().length > 0) this.dispatchEvent(new Event('input'));
+  });
 
   // --- Wizard Navigation ---
   document.querySelectorAll('.wizard-card').forEach(card => {
