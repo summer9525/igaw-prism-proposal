@@ -1180,6 +1180,35 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-s
       barObserver.observe(chart);
     });
   }
+
+  // --- Hash Routing (직접 URL 접근) ---
+  // demo.html#step1, #step2, #step3, #step4, #report
+  function goToHash(){
+    const hash = window.location.hash.replace('#','');
+    if(!hash) return;
+
+    if(hash === 'report'){
+      document.getElementById('landing').style.display = 'none';
+      wizard.style.display = 'none';
+      loading.classList.remove('active');
+      report.classList.add('active');
+      initReport();
+      return;
+    }
+
+    const stepNum = hash.replace('step','');
+    if(stepNum >= 1 && stepNum <= 4){
+      document.getElementById('landing').style.display = 'none';
+      wizard.style.display = 'flex';
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      const target = document.querySelector('.wizard-step[data-step="'+stepNum+'"]');
+      if(target) target.classList.add('active');
+      dots.forEach((d,i) => d.classList.toggle('done', i < parseInt(stepNum)));
+    }
+  }
+  goToHash();
+  window.addEventListener('hashchange', goToHash);
+
 })();
 </script>
 
