@@ -61,6 +61,29 @@ body {
 }
 .nav-links a:hover { background: var(--bg-alt); color: var(--text-h); }
 
+/* Dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-menu {
+  display: none; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%); background: #fff;
+  border: 1px solid var(--border); border-radius: var(--rs);
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  list-style: none; min-width: 220px; padding: 8px 0;
+  z-index: 200; margin-top: 8px;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a {
+  display: block; padding: 10px 20px; font-size: 15px;
+  color: var(--text-1); text-decoration: none; font-weight: 500;
+}
+.nav-dropdown-menu a:hover { background: var(--bg-alt); color: var(--blue); }
+.nav-cta {
+  background: var(--blue); color: #fff !important;
+  padding: 8px 20px !important; border-radius: var(--rs);
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: #1d4ed8; }
+
 /* Sections */
 .container { max-width: 1400px; margin: 0 auto; padding: 0 60px; }
 .slide {
@@ -282,14 +305,21 @@ body {
   <div class="nav-inner">
     <div class="nav-logo">IGAWORKS <span>PRISM</span></div>
     <ul class="nav-links">
-      <li><a href="#market-reality">시장 현실</a></li>
-      <li><a href="#prism">PRISM 제안</a></li>
-      <li><a href="#rfs">R-F-S 태그</a></li>
-      <li><a href="#ux">UX/UI 명세</a></li>
-      <li><a href="#competitive">경쟁사 뷰</a></li>
+      <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">기획안</a></li>
+      <li><a href="data-spec-tables.html">데이터 명세</a></li>
+      <li class="nav-dropdown" onclick="this.classList.toggle('open');event.stopPropagation();">
+        <a href="#" onclick="event.preventDefault();">리포트 예시 ▾</a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="report-ssg.html">📊 SSG.COM 리포트</a></li>
+          <li><a href="report-3o3.html">📊 삼쩜삼 리포트</a></li>
+          <li><a href="report-ncsoft.html">📊 NC Soft 리포트</a></li>
+        </ul>
+      </li>
+      <li><a href="demo.html" class="nav-cta">체험하기 →</a></li>
     </ul>
   </div>
 </nav>
+<script>document.addEventListener('click',function(){document.querySelectorAll('.nav-dropdown.open').forEach(function(el){el.classList.remove('open')})});</script>
 
 <!-- Hero -->
 <section class="hero">
