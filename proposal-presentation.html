@@ -450,14 +450,14 @@ body {
         <div class="ux-step-num">1</div>
         <div class="ux-step-title">전사 데이터 기반 약 만 개의 F-Tag 생성</div>
       </div>
-      <p class="ux-step-desc">11개 도메인에서 총 약 10,579개의 F-Tag를 생성하여, 사용자의 온·오프라인 행동을 360도로 커버합니다.</p>
+      <p class="ux-step-desc">11개 도메인에서 총 약 10,579개의 R-Tag를 생성하여, 사용자의 온·오프라인 행동을 360도로 커버합니다.</p>
       <div style="overflow-x:auto;margin-bottom:32px;">
         <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);font-size:16px;">
           <thead>
             <tr style="background:var(--bg-dark);color:#fff;">
               <th style="padding:16px 20px;text-align:center;font-weight:700;width:50px;">#</th>
               <th style="padding:16px 20px;text-align:left;font-weight:700;">도메인</th>
-              <th style="padding:16px 20px;text-align:center;font-weight:700;">F-Tag 수</th>
+              <th style="padding:16px 20px;text-align:center;font-weight:700;">R-Tag 수</th>
               <th style="padding:16px 20px;text-align:left;font-weight:700;">시간축</th>
             </tr>
           </thead>
@@ -480,7 +480,7 @@ body {
       <div style="display:flex;align-items:center;gap:16px;background:var(--bg-alt);border-radius:var(--rs);padding:20px 28px;">
         <span style="font-size:28px;">📊</span>
         <div>
-          <div style="font-size:20px;font-weight:800;color:var(--text-h);">총 F-Tag: 약 10,579개</div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-h);">총 R-Tag: 약 10,579개</div>
           <div style="font-size:16px;color:var(--text-2);">커머스, 앱 사용성, GPS 위치, 광고 반응, TV 시청 데이터까지 — 사용자의 온·오프라인 행동을 360도로 커버</div>
         </div>
       </div>
@@ -521,24 +521,29 @@ body {
           <thead>
             <tr style="background:var(--bg-dark);color:#fff;">
               <th style="padding:16px 24px;text-align:left;font-weight:700;width:20%;">태그</th>
-              <th style="padding:16px 24px;text-align:left;font-weight:700;width:30%;">목적</th>
+              <th style="padding:16px 24px;text-align:left;font-weight:700;width:30%;">역할</th>
               <th style="padding:16px 24px;text-align:left;font-weight:700;width:50%;">활용 모델</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:18px 24px;"><span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:14px;font-weight:700;background:var(--blue-bg);color:var(--blue);">R-Tag</span></td>
+              <td style="padding:18px 24px;font-weight:600;color:var(--text-h);">전사 데이터를 수집·정제하여 분석의 원천 데이터 구축</td>
+              <td style="padding:18px 24px;color:var(--text-2);"><strong style="color:var(--text-h);">데이터 파이프라인</strong> (Athena, Spark)<br><span style="font-size:14px;color:var(--text-m);">11개 도메인에서 약 만 개의 R-Tag 생성</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--bg-alt);">
               <td style="padding:18px 24px;"><span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:14px;font-weight:700;background:var(--green-bg);color:var(--green);">F-Tag</span></td>
               <td style="padding:18px 24px;font-weight:600;color:var(--text-h);">다양한 도메인의 R-Tag를 결합하여 고객 페르소나 생성</td>
               <td style="padding:18px 24px;color:var(--text-2);"><strong style="color:var(--text-h);">FT-Transformer</strong> 기반 Cross-Domain Prediction<br><span style="font-size:14px;color:var(--text-m);">서로 다른 도메인(커머스, 앱, GPS 등)의 데이터를 하나의 모델에서 통합 예측</span></td>
             </tr>
-            <tr style="border-bottom:1px solid var(--border);background:var(--bg-alt);">
+            <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:18px 24px;"><span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:14px;font-weight:700;background:hsl(270,70%,94%);color:var(--purple);">S-Tag</span></td>
               <td style="padding:18px 24px;font-weight:600;color:var(--text-h);">유사 행동 패턴의 고객군을 묶어 전략 단위 생성</td>
               <td style="padding:18px 24px;color:var(--text-2);"><strong style="color:var(--text-h);">Clustering</strong> (K-Means, DBSCAN 등)<br><span style="font-size:14px;color:var(--text-m);">F-Tag 조합에서 의미 있는 고객 군집을 자동 발견</span></td>
             </tr>
-            <tr>
-              <td style="padding:18px 24px;"><span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:14px;font-weight:700;background:hsl(30,90%,93%);color:var(--orange);">P-Tag</span></td>
-              <td style="padding:18px 24px;font-weight:600;color:var(--text-h);">이탈, 구매, 행동 변화를 사전 예측</td>
+            <tr style="background:hsl(30,90%,93%,.3);">
+              <td style="padding:18px 24px;"><span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:14px;font-weight:700;background:hsl(30,90%,93%);color:var(--orange);">*추가 P-Tag</span></td>
+              <td style="padding:18px 24px;font-weight:600;color:var(--text-h);">이탈, 구매, 행동 변화를 사전 예측<br><span style="font-size:13px;color:var(--text-m);font-weight:400;">R-F-S 위에 얹어지는 '미래 예측' 태깅값</span></td>
               <td style="padding:18px 24px;color:var(--text-2);"><strong style="color:var(--text-h);">iTransformer</strong><br><span style="font-size:14px;color:var(--text-m);">시계열 행동 데이터의 패턴을 학습하여 14일 후 행동을 예측</span></td>
             </tr>
           </tbody>
