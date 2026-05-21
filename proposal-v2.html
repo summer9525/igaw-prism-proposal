@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IGAWORKS PRISM — 기획안 v2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8f9fb;
+      --bg-dark: #1a1d24;
+      --bg-dark-card: #22262e;
+      --text-h: #1a1d24;
+      --text-1: #2d3340;
+      --text-2: #4b5563;
+      --text-m: #6b7280;
+      --text-w: #ffffff;
+      --text-wm: #a0a7b4;
+      --border: #e5e7eb;
+      --blue: #3366ff;
+      --blue-bg: rgba(51,102,255,0.08);
+      --green: #22c55e;
+      --green-bg: rgba(34,197,94,0.08);
+      --red: #ef4444;
+      --red-bg: rgba(239,68,68,0.08);
+      --orange: #f59e0b;
+      --orange-bg: rgba(245,158,11,0.08);
+      --purple: #8b5cf6;
+      --purple-bg: rgba(139,92,246,0.08);
+      --teal: #14b8a6;
+      --teal-bg: rgba(20,184,166,0.08);
+      --r: 16px; --rs: 12px; --rx: 8px;
+      --shadow: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text-1);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;}
+    .nav{position:sticky;top:0;z-index:100;background:hsla(0,0%,100%,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-size:15px;font-weight:700;color:var(--text-h);letter-spacing:-0.02em;}
+    .nav-logo span{color:var(--blue);}
+    .nav-links{display:flex;gap:4px;list-style:none;flex-wrap:wrap;}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:var(--rx);transition:all 0.2s;}
+    .nav-links a:hover{background:var(--bg-alt);color:var(--text-h);}
+    .c{max-width:1200px;margin:0 auto;padding:0 32px;}
+    .sec{padding:80px 0;} .sec-alt{background:var(--bg-alt);} .sec-dark{background:var(--bg-dark);color:var(--text-w);}
+    .sn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:var(--rx);background:var(--blue);color:#fff;font-size:15px;font-weight:700;margin-bottom:12px;}
+    .st{font-size:34px;font-weight:800;color:var(--text-h);line-height:1.3;margin-bottom:10px;letter-spacing:-0.01em;}
+    .sd{font-size:16px;color:var(--text-2);line-height:1.7;margin-bottom:40px;}
+    .sec-dark .st{color:var(--text-w);} .sec-dark .sd{color:var(--text-wm);}
+    .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:0.04em;margin-bottom:6px;}
+    .tag-r{background:var(--blue-bg);color:var(--blue);} .tag-f{background:var(--green-bg);color:var(--green);} .tag-s{background:var(--purple-bg);color:var(--purple);}
+    .tag-phase{background:var(--orange-bg);color:var(--orange);} .tag-kiro{background:var(--teal-bg);color:var(--teal);}
+    .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;transition:box-shadow 0.2s;}
+    .card:hover{box-shadow:var(--shadow);}
+    .card-d{background:var(--bg-dark-card);border-color:rgba(255,255,255,0.06);}
+    .card-d .ct{color:var(--text-w);} .card-d p,.card-d li{color:var(--text-wm);}
+    .ct{font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:8px;line-height:1.4;}
+    .card p{font-size:15px;color:var(--text-2);line-height:1.7;}
+    .card ul{padding-left:16px;margin-top:8px;} .card li{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:4px;}
+    .ca-blue{border-left:4px solid var(--blue);} .ca-green{border-left:4px solid var(--green);} .ca-red{border-left:4px solid var(--red);} .ca-purple{border-left:4px solid var(--purple);} .ca-orange{border-left:4px solid var(--orange);} .ca-teal{border-left:4px solid var(--teal);}
+    .icon{width:44px;height:44px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+    .icon-r{background:var(--red-bg);} .icon-b{background:var(--blue-bg);} .icon-g{background:var(--green-bg);} .icon-p{background:var(--purple-bg);} .icon-o{background:var(--orange-bg);} .icon-t{background:var(--teal-bg);}
+    .flow{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap;}
+    .flow-s{background:var(--bg-dark);color:var(--text-w);padding:10px 24px;border-radius:var(--rs);font-size:15px;font-weight:600;}
+    .flow-a{font-size:20px;color:var(--text-m);}
+    .callout{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:0 var(--rs) var(--rs) 0;padding:24px 28px;margin:32px 0;}
+    .callout p{font-size:15px;color:var(--text-1);line-height:1.7;} .callout strong{color:var(--blue);}
+    .callout-g{background:var(--green-bg);border-left-color:var(--green);} .callout-g strong{color:var(--green);}
+    .scenario{background:var(--bg-dark);border-radius:var(--r);padding:36px;margin:32px 0;}
+    .scenario h4{font-size:18px;font-weight:700;color:var(--text-w);margin-bottom:20px;} .scenario h4 span{color:#7da0ff;}
+    .scenario-step{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+    .scenario-step p{font-size:15px;line-height:1.7;color:var(--text-wm);}
+    .phase-box{background:var(--bg-dark);border-radius:var(--r);padding:40px;margin-bottom:40px;}
+    .phase-num{font-size:48px;font-weight:900;color:rgba(255,255,255,0.06);position:absolute;top:16px;right:24px;}
+    .phase-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+    .phase-icon{width:56px;height:56px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+    .phase-title{font-size:24px;font-weight:800;color:var(--text-w);}
+    .phase-sub{font-size:15px;color:var(--text-wm);}
+    .synergy-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;}
+    .synergy-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+    .synergy-mi::before{background:var(--blue);} .synergy-tw::before{background:var(--orange);} .synergy-df::before{background:var(--green);}
+    .synergy-card .ct{margin-bottom:4px;}
+    .synergy-formula{font-size:15px;font-weight:600;color:var(--blue);margin-bottom:12px;}
+    .ux-mock{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r);padding:32px;margin:24px 0;}
+    .ux-mock-header{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+    .ux-dot{width:10px;height:10px;border-radius:50%;}
+    .ux-tab{display:inline-block;padding:8px 20px;border-radius:var(--rx);font-size:15px;font-weight:600;cursor:default;margin-right:8px;margin-bottom:8px;}
+    .ux-tab-active{background:var(--blue);color:#fff;} .ux-tab-inactive{background:var(--bg-alt);color:var(--text-m);border:1px solid var(--border);}
+    .ux-audience{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:12px;cursor:default;transition:all 0.2s;}
+    .ux-audience:hover{border-color:var(--blue);background:var(--blue-bg);}
+    .ux-audience-icon{width:40px;height:40px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .ux-audience-name{font-size:16px;font-weight:600;color:var(--text-h);}
+    .ux-audience-desc{font-size:15px;color:var(--text-m);}
+    .ux-audience-count{margin-left:auto;font-size:15px;font-weight:700;color:var(--blue);}
+    .footer{padding:40px 0;text-align:center;border-top:1px solid var(--border);}
+    .footer p{font-size:13px;color:var(--text-m);}
+    @media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}.c{padding:0 20px;}.sec{padding:56px 0;}.st{font-size:24px;}.nav-links{display:none;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+    .nav-dropdown{position:relative;}
+    .nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:var(--rx);box-shadow:var(--shadow);list-style:none;min-width:200px;padding:6px 0;z-index:200;margin-top:6px;}
+    .nav-dropdown-menu li a{display:block;padding:8px 16px;font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;white-space:nowrap;}
+    .nav-dropdown-menu li a:hover{background:var(--bg-alt);color:var(--text-h);}
+    .nav-dropdown.open .nav-dropdown-menu{display:block;}
+    .nav-cta{display:inline-flex;align-items:center;padding:6px 16px;border-radius:var(--rx);font-size:13px;font-weight:600;color:var(--text-m);background:transparent;text-decoration:none;letter-spacing:-0.01em;cursor:default;}
+  </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="메인 네비게이션">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" style="text-decoration:none;color:var(--text-h);">IGAWORKS <span>PRISM</span></a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">기획안</a></li>
+      <li><a href="data-spec-tables.html">데이터 명세서</a></li>
+      <li class="nav-dropdown" onclick="this.classList.toggle('open');event.stopPropagation();">
+        <a href="#" onclick="event.preventDefault();" style="color:var(--blue);">시뮬레이션 ▾</a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="report-ssg.html">📊 SSG.COM 리포트</a></li>
+          <li><a href="report-3o3.html">📊 삼쩜삼 리포트</a></li>
+          <li><a href="report-ncsoft.html">📊 NC Soft 리포트</a></li>
+        </ul>
+      </li>
+      <li><a href="demo.html" class="nav-cta">체험하기 →</a></li>
+    </ul>
+  </div>
+</nav>
+<script>document.addEventListener('click',function(){document.querySelectorAll('.nav-dropdown.open').forEach(function(el){el.classList.remove('open')})});</script>
+
+<!-- ═══ HERO ═══ -->
+<section style="background:var(--bg-alt);padding:96px 0 72px;text-align:center;border-bottom:1px solid var(--border);">
+  <div class="c">
+    <span class="tag tag-phase" style="margin-bottom:20px;">Project Proposal 2026 — v2</span>
+    <h1 style="font-size:56px;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin-bottom:20px;color:var(--text-h);">IGAWORKS <span style="color:var(--blue);">PRISM</span></h1>
+    <p style="font-size:20px;color:var(--text-2);max-width:100%;margin:0 auto;line-height:1.7;">기존 컨설팅의 한계를 넘어, 실시간 행동 데이터 기반의 실행형 경쟁 분석 플랫폼을 제안합니다.</p>
+    <p style="font-size:15px;color:var(--text-m);margin-top:24px;letter-spacing:0.04em;">Precise Reporting &amp; Intelligence Strategy Module</p>
+
+    <div class="g4" style="margin-top:48px;text-align:left;">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:15px;color:var(--text-m);margin-bottom:6px;">핵심 가치 1</div>
+        <div style="font-size:22px;font-weight:800;color:var(--blue);">데이터 규모</div>
+        <div style="font-size:15px;color:var(--text-2);margin-top:4px;">국내 최대 ADID 기반 행동 데이터</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:15px;color:var(--text-m);margin-bottom:6px;">핵심 가치 2</div>
+        <div style="font-size:22px;font-weight:800;color:var(--green);">클린 데이터</div>
+        <div style="font-size:15px;color:var(--text-2);margin-top:4px;">R-F-S 태그 체계로 정제된 신뢰 데이터</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:15px;color:var(--text-m);margin-bottom:6px;">핵심 가치 3</div>
+        <div style="font-size:22px;font-weight:800;color:var(--purple);">기술력</div>
+        <div style="font-size:15px;color:var(--text-2);margin-top:4px;">ML 모델 + AI 기반 오디언스 가공</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+        <div style="font-size:15px;color:var(--text-m);margin-bottom:6px;">핵심 가치 4</div>
+        <div style="font-size:22px;font-weight:800;color:var(--orange);">경쟁사 분석</div>
+        <div style="font-size:15px;color:var(--text-2);margin-top:4px;">실행형 경쟁 분석 리포트 자동 생성</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OVERVIEW: 2단계 로드맵 ═══ -->
+<section id="overview" class="sec">
+  <div class="c">
+    <div class="sn">0</div>
+    <h2 class="st">프로젝트 로드맵: 2단계 구조</h2>
+    <p class="sd">PRISM은 크게 두 단계로 나뉩니다. 1단계에서 오디언스 태깅으로 자사 데이터를 구축하고, 2단계에서 그 데이터를 활용해 경쟁사 분석 리포트를 생성합니다.</p>
+
+    <div class="g2">
+      <!-- Phase 1 -->
+      <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(0,0,0,0.03);position:absolute;top:8px;right:20px;">01</div>
+        <span class="tag tag-phase">PHASE 1</span>
+        <h3 style="font-size:24px;font-weight:800;color:var(--text-h);margin:8px 0 12px;">오디언스 태깅을 통한 자사 데이터 구축</h3>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">기존 Raw Data를 R-Tag, F-Tag로 정제하고, 업종+카테고리별 주요 오디언스(S-Tag)를 사전 구축합니다.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-r" style="margin:0;">R-Tag</span>
+            <span style="font-size:15px;color:var(--text-2);">Raw Data 태깅 (w. Kiro)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-f" style="margin:0;">F-Tag</span>
+            <span style="font-size:15px;color:var(--text-2);">고객 속성 페르소나 생성</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="tag tag-s" style="margin:0;">S-Tag</span>
+            <span style="font-size:15px;color:var(--text-2);">업종별 주요 오디언스 × 전략 사전 구축</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="background:var(--bg);border:2px solid var(--blue);border-radius:var(--r);padding:36px;position:relative;overflow:hidden;">
+        <div style="font-size:80px;font-weight:900;color:rgba(51,102,255,0.04);position:absolute;top:8px;right:20px;">02</div>
+        <span class="tag" style="background:var(--blue-bg);color:var(--blue);">PHASE 2</span>
+        <h3 style="font-size:24px;font-weight:800;color:var(--text-h);margin:8px 0 12px;">자사 데이터를 활용한 경쟁사 분석 리포트</h3>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">업종+카테고리 선택 → S-Tag(오디언스×전략) 선택 → 기본 분석 + 경쟁사 분석 리포트를 자동 생성합니다.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;font-weight:600;color:var(--blue);">①</span>
+            <span style="font-size:15px;color:var(--text-2);">업종 + 카테고리 선택</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;font-weight:600;color:var(--blue);">②</span>
+            <span style="font-size:15px;color:var(--text-2);">S-Tag 선택 (오디언스 × 전략)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;font-weight:600;color:var(--blue);">③</span>
+            <span style="font-size:15px;color:var(--text-2);">기본 분석 + 경쟁사 분석 리포트 제공</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <p>💡 <strong>핵심 포인트:</strong> 기존에는 '분석'에서 끝나면 현상만 알려주는 느낌이었지만, PRISM은 <strong>'경쟁 분석'이 메인이고, 그것을 뒷받침하는 것이 오디언스</strong>입니다. 오디언스의 신뢰도를 경쟁 분석 결과로 증명하는 구조입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 1: 기존 컨설팅/리서치 시장의 현실 ═══ -->
+<section class="sec sec-alt">
+  <div class="c">
+    <div class="sn">1</div>
+    <h2 class="st">📊 기존 컨설팅/리서치 시장의 현실</h2>
+    <p class="sd">컨설팅 업체와 광고주 모두가 느끼는 '비용 대비 효율성'의 격차는 실제 수치로 증명됩니다. 변화하는 모바일 시장의 속도를 기존의 '인적 서비스'가 따라가지 못하고 있습니다.</p>
+
+    <!-- 비교 테이블 -->
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:40px;">
+      <table style="width:100%;border-collapse:collapse;font-size:15px;">
+        <thead>
+          <tr style="background:var(--bg-dark);color:var(--text-w);">
+            <th style="padding:16px 20px;text-align:left;font-weight:700;width:20%;">구분</th>
+            <th style="padding:16px 20px;text-align:left;font-weight:700;width:40%;">글로벌 전략 컨설팅 (MBB 등)</th>
+            <th style="padding:16px 20px;text-align:left;font-weight:700;width:40%;">일반 시장조사 기관</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;color:var(--text-h);">평균 비용</td>
+            <td style="padding:14px 20px;color:var(--text-2);">프로젝트당 <strong style="color:var(--red);">$50,000 ~ $200,000+</strong></td>
+            <td style="padding:14px 20px;color:var(--text-2);">리포트당 <strong style="color:var(--orange);">$3,000 ~ $10,000</strong></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;color:var(--text-h);">소요 시간</td>
+            <td style="padding:14px 20px;color:var(--text-2);">최소 <strong style="color:var(--text-h);">4주 ~ 3개월</strong> 이상</td>
+            <td style="padding:14px 20px;color:var(--text-2);">최소 <strong style="color:var(--text-h);">2주 ~ 1개월</strong></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;color:var(--text-h);">데이터 특징</td>
+            <td style="padding:14px 20px;color:var(--text-2);">정성적 분석 위주 (FGI, 전문가 인터뷰)</td>
+            <td style="padding:14px 20px;color:var(--text-2);">정량적 설문 데이터 위주 (기억에 의존)</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 20px;font-weight:600;color:var(--text-h);">업데이트</td>
+            <td style="padding:14px 20px;color:var(--text-2);">일회성 (Snapshot)</td>
+            <td style="padding:14px 20px;color:var(--text-2);">분기/반기별 업데이트</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3대 문제점 + 듀얼 메시지 -->
+    <div class="g3" style="margin-bottom:32px;">
+
+      <!-- 1. 휘발성 -->
+      <div class="card ca-red">
+        <div class="icon icon-r">⏳</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div class="ct" style="margin:0;">휘발성 및 적시성 부족</div>
+          <span class="tag tag-r" style="margin:0;font-size:10px;">Real-time Intelligence</span>
+        </div>
+        <div style="background:var(--blue-bg);border-radius:var(--rx);padding:14px 16px;margin-bottom:10px;">
+          <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:4px;">🏢 광고주</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"보고서를 받는 순간 이미 어제의 데이터입니다. 실시간 변동하는 커머스 트렌드를 '생중계' 수준으로 확인하세요."</p>
+        </div>
+        <div style="background:var(--purple-bg);border-radius:var(--rx);padding:14px 16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:4px;">🤝 컨설팅사</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"데이터 수집에 쏟는 80%의 시간을 전략 수립에 쓰세요. 수작업 리서치를 자동화된 인텔리전스로 대체해 프로젝트 마진을 높여드립니다."</p>
+        </div>
+      </div>
+
+      <!-- 2. 표본의 한계 -->
+      <div class="card ca-orange">
+        <div class="icon icon-o">📋</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div class="ct" style="margin:0;">표본의 한계</div>
+          <span class="tag tag-f" style="margin:0;font-size:10px;">Behavioral Big Data</span>
+        </div>
+        <div style="background:var(--blue-bg);border-radius:var(--rx);padding:14px 16px;margin-bottom:10px;">
+          <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:4px;">🏢 광고주</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"기억에 의존한 설문조사는 거짓말을 합니다. 유저의 실제 클릭, 구매, 앱 이동 경로 등 '행동 로그' 기반의 팩트만 전달합니다."</p>
+        </div>
+        <div style="background:var(--purple-bg);border-radius:var(--rx);padding:14px 16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:4px;">🤝 컨설팅사</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"Client에게 더 이상 '추정치'를 제안하지 마세요. 방대한 로우 데이터를 시각화된 인사이트로 즉시 전환해 논리적 완성도를 더해줍니다."</p>
+        </div>
+      </div>
+
+      <!-- 3. 낮은 실행력 -->
+      <div class="card ca-purple">
+        <div class="icon icon-p">💸</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div class="ct" style="margin:0;">높은 비용 대비 낮은 실행력</div>
+          <span class="tag tag-s" style="margin:0;font-size:10px;">Actionable Solutions</span>
+        </div>
+        <div style="background:var(--blue-bg);border-radius:var(--rx);padding:14px 16px;margin-bottom:10px;">
+          <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:4px;">🏢 광고주</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"수억 원짜리 전략 리포트가 캐비닛에 잠들어 있진 않나요? 내일 아침 바로 집행 가능한 타겟 리스트와 메시지 가이드를 드립니다."</p>
+        </div>
+        <div style="background:var(--purple-bg);border-radius:var(--rx);padding:14px 16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:4px;">🤝 컨설팅사</div>
+          <p style="font-size:14px;color:var(--text-1);line-height:1.6;">"전략 제언에서 끝내지 말고, 직접적인 성과(ROI)를 증명하는 툴을 Client에게 제공하여 리테이너(고정 계약) 비중을 높이세요."</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <p>💡 <strong>PRISM의 포지셔닝:</strong> 단순히 "기존 업체가 못한다"가 아니라, <strong>"변화하는 모바일 시장의 속도를 기존의 '인적 서비스'가 따라가지 못하고 있다"</strong>는 점이 핵심입니다. PRISM은 광고주에게는 실시간 실행력을, 컨설팅사에게는 자동화된 인텔리전스를 제공합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PHASE 1: 오디언스 태깅 ═══ -->
+<section id="phase1" class="sec">
+  <div class="c">
+    <div class="sn">2</div>
+    <span class="tag tag-phase">PHASE 1</span>
+    <h2 class="st">오디언스 태깅을 통한 자사 데이터 구축</h2>
+    <p class="sd">기존 Raw Data를 R-F-S 태그 체계로 정제하여, 경쟁사 분석에 특화된 오디언스를 생성합니다. 기존 '오디언스 메이커'의 진화 버전입니다.</p>
+
+    <!-- 데이터 플로우 -->
+    <div class="flow">
+      <div class="flow-s">Raw Data</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--blue);">R-Tag 태깅</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--green);color:#fff;">F-Tag 생성</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s" style="background:var(--purple);color:#fff;">S-Tag 오디언스</div>
+    </div>
+
+    <!-- R-Tag -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-r" style="font-size:15px;padding:5px 14px;">R-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Root: 근거 데이터 (w. Kiro 태깅)</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-m);margin-bottom:12px;">📌 SCI팀 기준 <strong style="color:var(--blue);">F tag</strong></p>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:20px;">비즈니스 분석의 가장 밑단이 되는 '팩트(Fact)' 레이어. 조작이나 해석이 가미되지 않은 순수한 행동의 기록입니다.</p>
+      <div class="card ca-blue" style="padding:0;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);">
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">데모 및 기본 정보</div>
+            <div style="font-size:15px;color:var(--text-2);">나이, 성별, 결혼 유무, 연애 상태</div>
+          </div>
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">경제력 지표</div>
+            <div style="font-size:15px;color:var(--text-2);">소득 분위별 자산지수, 연봉, 회사 규모, 직종</div>
+          </div>
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">공간 및 이동</div>
+            <div style="font-size:15px;color:var(--text-2);">GPS 기반 거주지 및 활동지 좌표</div>
+          </div>
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">앱 활동성</div>
+            <div style="font-size:15px;color:var(--text-2);">설치, 사용량, 사용 시간, 유입/이탈 경로</div>
+          </div>
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">커머스 트랜잭션</div>
+            <div style="font-size:15px;color:var(--text-2);">카테고리별 매출, 유니크 상품 수, 평균 단가</div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px;">결합 데이터</div>
+            <div style="font-size:15px;color:var(--text-2);">DSP, ADID 1st Party, 애드팝콘 데이터 등</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F-Tag -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-f" style="font-size:15px;padding:5px 14px;">F-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Feature: 고객 속성 페르소나</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-m);margin-bottom:12px;">📌 SCI팀 기준 <strong style="color:var(--green);">S tag</strong> · <span style="color:var(--text-m);">*F tag는 단순 조합, S tag는 스코어링</span></p>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:20px;">R-Tag를 조합하여 고객의 '페르소나와 라이프스타일'을 정의하는 속성 레이어. 컨설팅의 '가설'을 검증하는 핵심 지표입니다.</p>
+      <div class="g2">
+        <div class="card ca-green">
+          <div class="ct">초정밀 직장인 프로파일링</div>
+          <p>'여의도 금융권 고연봉자', '판교 대기업 IT 기획자', '울산 제조 현장직'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:15px;">GPS + 직종 + 회사 규모 + 연봉 결합</p>
+        </div>
+        <div class="card ca-green">
+          <div class="ct">쇼핑 페르소나</div>
+          <p>'계절가전 얼리어답터', '마트 주중 방문형 체리피커', '프리미엄 카테고리 헤비 쇼퍼'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:15px;">커머스 카테고리 + 평균 단가 결합</p>
+        </div>
+        <div class="card ca-green">
+          <div class="ct">경쟁사 관계 정의</div>
+          <p>'경쟁사 A 전용 유저', '우리 앱-경쟁사 B 교차 사용자', '최근 경쟁사로의 이탈 징후군'</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:15px;">앱 사용성 + 이탈 경로 결합</p>
+        </div>
+        <div class="card ca-green">
+          <div class="ct">관심사 세그먼트</div>
+          <p>대분류 25개 및 중분류 214개 카테고리별 고관여 유저</p>
+          <p style="margin-top:6px;color:var(--green);font-weight:500;font-size:15px;">앱 사용 패턴 + 커머스 데이터 결합</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- S-Tag (오디언스 × 전략 목적 조합) -->
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span class="tag tag-s" style="font-size:15px;padding:5px 14px;">S-Tag</span>
+        <span style="font-size:20px;font-weight:700;color:var(--text-h);">Strategy: 오디언스 × 전략 목적</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-m);margin-bottom:12px;">📌 SCI팀 기준 <strong style="color:var(--purple);">P tag</strong> · <span style="color:var(--text-m);">*S tag는 전략 목적에 초점, P tag는 미래 예측에 초점</span></p>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:8px;">S-Tag는 <strong style="color:var(--purple);">"누구를(오디언스)" + "어떻게 할 것인가(전략 목적)"</strong>의 조합입니다. 업종+카테고리별로 사전 구축된 오디언스에 전략 방향을 결합하여, 선택 즉시 경쟁사 분석 리포트가 생성됩니다.</p>
+      <p style="font-size:15px;color:var(--text-m);margin-bottom:24px;">오디언스만으로는 '현상 파악'에 그치고, 전략만으로는 '누구에게'가 빠집니다. S-Tag는 이 둘을 하나로 묶어 실행 가능한 단위로 만듭니다.</p>
+
+      <!-- S-Tag 구조 설명 -->
+      <div style="background:var(--bg-alt);border:2px solid var(--border);border-radius:var(--r);padding:32px;margin-bottom:32px;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+          <div style="background:var(--green-bg);border:1px solid var(--green);border-radius:var(--rs);padding:14px 24px;text-align:center;">
+            <div style="font-size:15px;color:var(--green);font-weight:600;margin-bottom:4px;">F-Tag 오디언스</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">판교 IT 맞벌이</div>
+          </div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-m);">×</div>
+          <div style="background:var(--red-bg);border:1px solid var(--red);border-radius:var(--rs);padding:14px 24px;text-align:center;">
+            <div style="font-size:15px;color:var(--red);font-weight:600;margin-bottom:4px;">전략 목적</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">쿠팡에서 탈취</div>
+          </div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-m);">=</div>
+          <div style="background:var(--purple-bg);border:1px solid var(--purple);border-radius:var(--rs);padding:14px 24px;text-align:center;">
+            <div style="font-size:15px;color:var(--purple);font-weight:600;margin-bottom:4px;">S-Tag</div>
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);">실행 가능한 전략 단위</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전략 목적 4가지 -->
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">전략 목적 유형</h3>
+      <div class="g4" style="margin-bottom:32px;">
+        <div class="card ca-red" style="padding:20px;">
+          <div style="font-size:18px;margin-bottom:6px;">⚔️</div>
+          <div class="ct" style="font-size:15px;">점유율 탈취</div>
+          <p style="font-size:15px;">경쟁사 핵심 고객을 뺏어오기 위한 공격 전략</p>
+        </div>
+        <div class="card ca-blue" style="padding:20px;">
+          <div style="font-size:18px;margin-bottom:6px;">🛡️</div>
+          <div class="ct" style="font-size:15px;">지갑점유율 방어</div>
+          <p style="font-size:15px;">우리 VIP의 경쟁사 이탈을 막는 방어 전략</p>
+        </div>
+        <div class="card ca-green" style="padding:20px;">
+          <div style="font-size:18px;margin-bottom:6px;">📍</div>
+          <div class="ct" style="font-size:15px;">로컬 거점 공략</div>
+          <p style="font-size:15px;">특정 지역 점유율이 낮은 거점을 공략</p>
+        </div>
+        <div class="card ca-orange" style="padding:20px;">
+          <div style="font-size:18px;margin-bottom:6px;">🔍</div>
+          <div class="ct" style="font-size:15px;">잠재 고객 발굴</div>
+          <p style="font-size:15px;">미개척 고가치 페르소나 탐색</p>
+        </div>
+      </div>
+
+      <!-- 업종별 S-Tag 조합 예시 -->
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">업종별 S-Tag 조합 예시</h3>
+      <div class="g3" style="margin-bottom:24px;">
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <span style="font-size:18px;">🛒</span>
+            <span style="font-size:15px;font-weight:700;color:var(--purple);">이커머스</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">판교 IT 맞벌이 <span style="color:var(--red);">→ 쿠팡에서 탈취</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">8.4만 명 · 쿠팡 월결제 28.7만 원</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">강남 프리미엄 쇼퍼 <span style="color:var(--blue);">→ 지갑점유율 방어</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">3.2만 명 · 컬리 침투율 +8.3%p 상승</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">분당 트레이더스 인근 직장인 <span style="color:var(--green);">→ 로컬 거점 공략</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">6.1만 명 · SSG 점유율 8.2%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <span style="font-size:18px;">🎓</span>
+            <span style="font-size:15px;font-weight:700;color:var(--purple);">교육 · 학습지</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">강남 3구 상위자 학부모 <span style="color:var(--red);">→ 밀크T에서 탈취</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">24.7만 명 · 경쟁 앱 침투율 46.2%</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">제주 국제학교 학부모 <span style="color:var(--orange);">→ 잠재 고객 발굴</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">3.2만 명 · 우리 앱 침투율 12.8%</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">초등 영어교육 학부모 <span style="color:var(--blue);">→ 이탈 방지</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">41.8만 명 · 최근 경쟁 앱 설치 급증</div>
+            </div>
+          </div>
+        </div>
+        <div class="card ca-purple">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <span style="font-size:18px;">💳</span>
+            <span style="font-size:15px;font-weight:700;color:var(--purple);">금융</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">토스 헤비유저 2030 <span style="color:var(--red);">→ 시중은행 전환 유도</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">18.9만 명 · 토스 월 사용 128분</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">여의도 금융권 고연봉자 <span style="color:var(--blue);">→ 자산관리 록인</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">7.4만 명 · 투자앱 3개 이상 교차 사용</div>
+            </div>
+            <div style="background:var(--bg-alt);border-radius:var(--rx);padding:12px 16px;">
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);">보험 비교 3040 가장 <span style="color:var(--green);">→ 거점 공략</span></div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:2px;">12.1만 명 · 오프라인 상담 선호</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:0;">
+        <p>💡 <strong>S-Tag = 오디언스 × 전략:</strong> "누구를"만 알면 현상 파악에 그치고, "어떻게"만 알면 타겟이 없습니다. S-Tag는 <strong>오디언스의 선명함</strong>과 <strong>전략의 실행력</strong>을 하나로 묶어, 선택 즉시 경쟁사 분석 리포트가 생성되는 구조입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PHASE 2: 경쟁사 분석 리포트 ═══ -->
+<section id="phase2" class="sec sec-alt">
+  <div class="c">
+    <div class="sn">3</div>
+    <span class="tag" style="background:rgba(51,102,255,0.15);color:var(--blue);">PHASE 2</span>
+    <h2 class="st">경쟁사 분석 리포트 생성</h2>
+    <p class="sd">1단계에서 구축한 오디언스 데이터를 기반으로, 업종 선택 → 오디언스 선택 → 리포트 자동 생성의 흐름으로 경쟁사 분석을 제공합니다.</p>
+
+    <!-- UX 흐름 시뮬레이션 -->
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;">🖥️ UX 흐름 시뮬레이션</h3>
+
+    <!-- Step 1: 업종 선택 -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:15px;font-weight:600;color:var(--text-m);">PRISM — Step 1: 업종 + 카테고리 선택</span>
+      </div>
+      <p style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:16px;">어떤 시장을 분석하시겠습니까?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="ux-tab ux-tab-active">🎓 교육 · 학습지</span>
+        <span class="ux-tab ux-tab-inactive">🛒 이커머스</span>
+        <span class="ux-tab ux-tab-inactive">💳 금융</span>
+        <span class="ux-tab ux-tab-inactive">🎮 게임</span>
+        <span class="ux-tab ux-tab-inactive">🍔 F&B · 배달</span>
+        <span class="ux-tab ux-tab-inactive">✈️ 여행</span>
+        <span class="ux-tab ux-tab-inactive">🏥 헬스케어</span>
+        <span class="ux-tab ux-tab-inactive">🏠 부동산</span>
+      </div>
+    </div>
+
+    <!-- Step 2: S-Tag 선택 (오디언스 × 전략) -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:15px;font-weight:600;color:var(--text-m);">PRISM — Step 2: S-Tag 선택 (교육 · 학습지)</span>
+      </div>
+      <p style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:4px;">어떤 오디언스를, 어떤 전략으로 분석하시겠습니까?</p>
+      <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">S-Tag = 오디언스 × 전략 목적. 선택 즉시 경쟁사 분석 리포트가 생성됩니다.</p>
+
+      <div class="ux-audience" style="border-color:var(--blue);background:var(--blue-bg);">
+        <div class="ux-audience-icon" style="background:var(--red-bg);">⚔️</div>
+        <div>
+          <div class="ux-audience-name">강남 3구 상위자 학부모 <span style="color:var(--red);font-size:15px;">→ 밀크T에서 탈취</span></div>
+          <div class="ux-audience-desc">강남/서초/송파 거주 · 자녀 성적 상위 20% · 경쟁 앱 침투율 46.2%</div>
+        </div>
+        <div class="ux-audience-count">24.7만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--orange-bg);">🔍</div>
+        <div>
+          <div class="ux-audience-name">제주 국제학교 학부모 <span style="color:var(--orange);font-size:15px;">→ 잠재 고객 발굴</span></div>
+          <div class="ux-audience-desc">제주 거주 · 월 교육비 340만 원 · 우리 앱 침투율 12.8%</div>
+        </div>
+        <div class="ux-audience-count">3.2만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--blue-bg);">�️</div>
+        <div>
+          <div class="ux-audience-name">초등 영어교육 학부모 <span style="color:var(--blue);font-size:15px;">→ 이탈 방지</span></div>
+          <div class="ux-audience-desc">자녀 6~9세 · 교육비 월 50만 원↑ · 최근 경쟁 앱 설치 급증</div>
+        </div>
+        <div class="ux-audience-count">41.8만 명</div>
+      </div>
+      <div class="ux-audience">
+        <div class="ux-audience-icon" style="background:var(--green-bg);">�</div>
+        <div>
+          <div class="ux-audience-name">중등 수학 학원 교차 학부모 <span style="color:var(--green);font-size:15px;">→ 거점 공략 (대치동)</span></div>
+          <div class="ux-audience-desc">자녀 13~15세 · 대치동 학원가 활동 · 수학 앱 2개 이상 교차</div>
+        </div>
+        <div class="ux-audience-count">18.3만 명</div>
+      </div>
+    </div>
+
+    <!-- Step 3: 리포트 구조 (5파트) -->
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:15px;font-weight:600;color:var(--text-m);">PRISM — Step 3: 리포트 (강남 3구 상위자 학부모 ⚔️ 밀크T에서 탈취)</span>
+      </div>
+
+      <!-- PART 1: 업종 벤치마크 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--blue);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 1</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">업종 벤치마크 — 교육 앱 상위 10% 사용자 기준선</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">교육·학습지 업종에서 사용 시간 기준 상위 10% 유저의 행동 패턴을 벤치마크로 제시합니다. 이 기준선 대비 선택한 오디언스가 어디에 위치하는지를 비교합니다.</p>
+        <div class="g4">
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">상위 10% 월 사용 시간</div>
+            <div style="font-size:22px;font-weight:800;color:var(--blue);">142분</div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">상위 10% 월 결제액</div>
+            <div style="font-size:22px;font-weight:800;color:var(--green);">18.4만</div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">상위 10% 앱 사용 수</div>
+            <div style="font-size:22px;font-weight:800;color:var(--purple);">4.2개</div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;text-align:center;">
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">상위 10% 재방문율</div>
+            <div style="font-size:22px;font-weight:800;color:var(--orange);">78.3%</div>
+          </div>
+        </div>
+        <div style="background:var(--blue-bg);border-radius:var(--rx);padding:14px 18px;margin-top:16px;">
+          <p style="font-size:15px;color:var(--text-1);line-height:1.6;">💡 이 벤치마크는 "반드시 공략해야 할 이유"의 근거입니다. 선택한 오디언스가 상위 10% 기준에 얼마나 가까운지, 경쟁사에서는 이미 상위 10% 수준인지를 비교합니다.</p>
+        </div>
+      </div>
+
+      <!-- PART 2: 오디언스 심층 프로파일 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--green);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 2</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">오디언스 심층 프로파일 — 세분화된 서브 세그먼트</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">선택한 오디언스를 R-Tag, F-Tag 기반으로 세분화하여, 내부에 숨겨진 고가치 서브 세그먼트를 발견합니다.</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="background:var(--purple-bg);border-radius:var(--rx);padding:8px 14px;">
+            <span style="font-size:15px;font-weight:700;color:var(--purple);">🎓 강남 3구 상위자 학부모</span>
+            <span style="font-size:15px;color:var(--text-m);margin-left:8px;">24.7만 명</span>
+          </div>
+        </div>
+        <div class="g3" style="margin-bottom:16px;">
+          <div class="card ca-purple" style="padding:20px;">
+            <div style="font-size:15px;font-weight:600;color:var(--purple);margin-bottom:6px;">서브 세그먼트 A</div>
+            <div class="ct" style="font-size:15px;">학원 3개+ 교차 이용 학부모</div>
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:8px;">8.4만 명 (34%)</div>
+            <p style="font-size:15px;">월 교육비 182만 원 · 교육 앱 4.8개 사용 · <strong style="color:var(--red);">경쟁 앱 사용 시간이 업종 상위 10% 수준</strong></p>
+          </div>
+          <div class="card ca-green" style="padding:20px;">
+            <div style="font-size:15px;font-weight:600;color:var(--green);margin-bottom:6px;">서브 세그먼트 B</div>
+            <div class="ct" style="font-size:15px;">온라인 학습 전환 학부모</div>
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:8px;">6.1만 명 (25%)</div>
+            <p style="font-size:15px;">최근 3개월 오프라인→온라인 전환 · 앱 탐색 빈도 급증 · <strong style="color:var(--blue);">우리 앱 체험 후 미결제 이탈 42%</strong></p>
+          </div>
+          <div class="card ca-orange" style="padding:20px;">
+            <div style="font-size:15px;font-weight:600;color:var(--orange);margin-bottom:6px;">서브 세그먼트 C</div>
+            <div class="ct" style="font-size:15px;">영어+수학 복합 니즈 학부모</div>
+            <div style="font-size:15px;color:var(--text-m);margin-bottom:8px;">10.2만 명 (41%)</div>
+            <p style="font-size:15px;">영어·수학 동시 학원 이용 · 월 교육비 98만 원 · <strong style="color:var(--orange);">경쟁사 번들 상품에 취약</strong></p>
+          </div>
+        </div>
+        <div style="background:var(--green-bg);border-radius:var(--rx);padding:14px 18px;">
+          <p style="font-size:15px;color:var(--text-1);line-height:1.6;">💡 <strong style="color:var(--green);">핵심 발견:</strong> 서브 세그먼트 A(8.4만 명)는 경쟁 앱에서 이미 업종 상위 10% 수준의 사용량을 보이고 있어, <strong style="color:var(--green);">"반드시 공략해야 할 오디언스"</strong>입니다. 이들을 전환하면 우리 앱의 상위 10% 유저가 됩니다.</p>
+        </div>
+      </div>
+
+      <!-- PART 3: 고객 세그먼트 — 누가 떠나고, 누가 남는가 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--red);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 3</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">고객 세그먼트 — 누가 떠나고, 누가 남는가</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">서브 세그먼트별로 우리 앱 충성도와 경쟁사 이동 현황을 진단합니다.</p>
+
+        <div class="g2" style="margin-bottom:16px;">
+          <div class="card ca-red" style="padding:24px;">
+            <div style="font-size:15px;font-weight:600;color:var(--red);margin-bottom:8px;">🔴 이탈 위험군: 학원 3개+ 교차 이용 학부모</div>
+            <div style="font-size:15px;color:var(--text-2);line-height:1.8;">
+              규모: <strong style="color:var(--text-h);">8.4만 명</strong><br>
+              우리 앱 월 사용: <strong style="color:var(--red);">18분 (↓34%)</strong><br>
+              밀크T 월 사용: <strong style="color:var(--text-h);">72분 (↑28%)</strong><br>
+              엘리하이 월 사용: <strong style="color:var(--text-h);">31분 (↑15%)</strong><br>
+              우리 앱 결제 빈도: <strong style="color:var(--red);">월 0.8회 (↓52%)</strong>
+            </div>
+            <div style="background:var(--red-bg);border-radius:var(--rx);padding:12px 16px;margin-top:12px;">
+              <p style="font-size:15px;color:var(--text-1);line-height:1.6;">⚠️ 이 그룹은 교육비 지출 의향이 가장 높지만, 우리 앱 사용이 급감하고 있습니다. 밀크T의 AI 맞춤 학습 기능에 빠르게 흡수되는 중.</p>
+            </div>
+          </div>
+
+          <div class="card ca-green" style="padding:24px;">
+            <div style="font-size:15px;font-weight:600;color:var(--green);margin-bottom:8px;">🟢 충성 유지군: 영어+수학 복합 니즈 학부모</div>
+            <div style="font-size:15px;color:var(--text-2);line-height:1.8;">
+              규모: <strong style="color:var(--text-h);">10.2만 명</strong><br>
+              우리 앱 월 사용: <strong style="color:var(--green);">54분 (↑8%)</strong><br>
+              밀크T 월 사용: <strong style="color:var(--text-h);">22분</strong><br>
+              우리 앱 결제 빈도: <strong style="color:var(--green);">월 2.4회 (안정)</strong><br>
+              번들 상품 이용률: <strong style="color:var(--green);">67.3%</strong>
+            </div>
+            <div style="background:var(--green-bg);border-radius:var(--rx);padding:12px 16px;margin-top:12px;">
+              <p style="font-size:15px;color:var(--text-1);line-height:1.6;">✅ 영어+수학 번들 상품이 록인 효과를 발휘하고 있습니다. 다만 경쟁사 번들 출시 시 방어 전략이 필요합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 4: 이탈 경로 추적 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--orange);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 4</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">이탈 경로 추적 — 내 고객은 어디로 가는가</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">최근 90일간 우리 앱 사용 빈도가 50% 이상 감소한 유저의 경쟁사 이동 패턴입니다.</p>
+
+        <div class="g2" style="margin-bottom:16px;">
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">📉 이탈 규모 요약</div>
+            <div style="font-size:15px;color:var(--text-2);line-height:2;">
+              전체 이탈 징후 유저: <strong style="color:var(--text-h);">3.8만 명</strong> (오디언스의 15.4%)<br>
+              → 밀크T로 이동: <strong style="color:var(--red);">2.0만 명 (52.3%)</strong><br>
+              → 엘리하이로 이동: <strong style="color:var(--orange);">0.7만 명 (18.7%)</strong><br>
+              → 오프라인 학원 전환: <strong style="color:var(--purple);">0.5만 명 (14.1%)</strong><br>
+              → 기타/복합: <strong style="color:var(--text-m);">0.6만 명 (14.9%)</strong>
+            </div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">⏰ 이탈 시점 패턴</div>
+            <div style="margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <div style="width:80px;font-size:15px;font-weight:600;color:var(--text-h);text-align:right;">15~17시</div>
+                <div style="flex:1;height:24px;background:var(--bg-alt);border-radius:6px;overflow:hidden;">
+                  <div style="width:18%;height:100%;background:var(--orange);border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:12px;color:#fff;font-weight:600;">방과후</div>
+                </div>
+                <div style="width:50px;font-size:15px;font-weight:700;">18.2%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <div style="width:80px;font-size:15px;font-weight:600;color:var(--red);text-align:right;">20~22시</div>
+                <div style="flex:1;height:24px;background:var(--bg-alt);border-radius:6px;overflow:hidden;">
+                  <div style="width:48%;height:100%;background:var(--red);border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:12px;color:#fff;font-weight:600;">자녀 학습 시간 ⚠️</div>
+                </div>
+                <div style="width:50px;font-size:15px;font-weight:700;color:var(--red);">47.8%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:80px;font-size:15px;font-weight:600;color:var(--text-h);text-align:right;">22~24시</div>
+                <div style="flex:1;height:24px;background:var(--bg-alt);border-radius:6px;overflow:hidden;">
+                  <div style="width:22%;height:100%;background:var(--purple);border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:12px;color:#fff;font-weight:600;">학부모 탐색</div>
+                </div>
+                <div style="width:50px;font-size:15px;font-weight:700;">22.1%</div>
+              </div>
+            </div>
+            <div style="background:var(--blue-bg);border-radius:var(--rx);padding:12px 16px;">
+              <p style="font-size:15px;color:var(--text-1);line-height:1.6;">💡 <strong style="color:var(--blue);">20~22시가 최대 이탈 시간대.</strong> 자녀가 밀크T로 학습하는 시간에 우리 앱은 열리지 않습니다. 이 시간대의 학습 경험이 핵심 전장입니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 5: 지갑 점유율 심층 분석 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--blue);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 5</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">지갑 점유율(Wallet Share) 심층 분석</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">이 오디언스의 월 교육비 127만 원 중 각 플랫폼에 얼마가 쓰이는지, 세그먼트별 격차는 어디서 벌어지는지를 분석합니다.</p>
+
+        <div class="g3" style="margin-bottom:16px;">
+          <div style="background:var(--bg);border:2px solid var(--blue);border-radius:var(--rx);padding:24px;text-align:center;">
+            <div style="font-size:15px;color:var(--blue);font-weight:600;margin-bottom:6px;">우리 앱 지갑점유율</div>
+            <div style="font-size:36px;font-weight:800;color:var(--blue);">14.2%</div>
+            <div style="font-size:15px;color:var(--text-m);margin-top:4px;">월 18만 원 / 127만 원</div>
+          </div>
+          <div style="background:var(--bg);border:2px solid var(--red);border-radius:var(--rx);padding:24px;text-align:center;">
+            <div style="font-size:15px;color:var(--red);font-weight:600;margin-bottom:6px;">밀크T 지갑점유율</div>
+            <div style="font-size:36px;font-weight:800;color:var(--red);">31.5%</div>
+            <div style="font-size:15px;color:var(--text-m);margin-top:4px;">월 40만 원 / 127만 원</div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rx);padding:24px;text-align:center;">
+            <div style="font-size:15px;color:var(--text-m);font-weight:600;margin-bottom:6px;">오프라인 학원 등</div>
+            <div style="font-size:36px;font-weight:800;color:var(--text-m);">54.3%</div>
+            <div style="font-size:15px;color:var(--text-m);margin-top:4px;">월 69만 원 / 127만 원</div>
+          </div>
+        </div>
+
+        <!-- 세그먼트별 Gap -->
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;margin-bottom:16px;">
+          <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">세그먼트별 지갑점유율 Gap</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:200px;font-size:15px;font-weight:600;color:var(--text-h);">학원 3개+ 교차 (A)</div>
+              <div style="flex:1;display:flex;gap:4px;align-items:center;">
+                <div style="width:12%;height:20px;background:var(--blue);border-radius:4px;"></div>
+                <div style="width:38%;height:20px;background:var(--red);border-radius:4px;"></div>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:var(--red);">Gap -26%p</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:200px;font-size:15px;font-weight:600;color:var(--text-h);">온라인 전환 (B)</div>
+              <div style="flex:1;display:flex;gap:4px;align-items:center;">
+                <div style="width:16%;height:20px;background:var(--blue);border-radius:4px;"></div>
+                <div style="width:28%;height:20px;background:var(--red);border-radius:4px;"></div>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:var(--orange);">Gap -12%p</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:200px;font-size:15px;font-weight:600;color:var(--text-h);">영어+수학 복합 (C)</div>
+              <div style="flex:1;display:flex;gap:4px;align-items:center;">
+                <div style="width:22%;height:20px;background:var(--blue);border-radius:4px;"></div>
+                <div style="width:24%;height:20px;background:var(--red);border-radius:4px;"></div>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:var(--text-m);">Gap -2%p</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--orange-bg);border-left:4px solid var(--orange);border-radius:0 var(--rs) var(--rs) 0;padding:16px 20px;">
+          <p style="font-size:15px;color:var(--text-1);line-height:1.6;">⚠️ <strong style="color:var(--orange);">핵심 발견:</strong> 세그먼트 A(학원 3개+ 교차)에서 지갑점유율 Gap이 26%p로 가장 큽니다. 이들의 밀크T 월 결제액은 우리 앱의 3.2배. 교육비 지출 의향은 가장 높은데 우리에게 쓰지 않는 역설적 구조입니다.</p>
+        </div>
+      </div>
+
+      <!-- PART 6: 전략 제안 — 3대 실행 시나리오 -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--purple);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 6</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">전략 제안 — 3대 실행 시나리오</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:20px;">S-Tag(오디언스 × 전략)에 기반한 즉시 실행 가능한 액션 플랜입니다. 각 전략에는 타겟 ADID 리스트가 포함됩니다.</p>
+
+        <!-- 전략 1 -->
+        <div style="background:var(--bg);border:2px solid var(--red);border-radius:var(--r);padding:24px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <div style="width:32px;height:32px;border-radius:var(--rx);background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;">1</div>
+            <div>
+              <div style="font-size:16px;font-weight:700;color:var(--text-h);">세그먼트 A 집중 탈취 — 밀크T 이탈 유도</div>
+              <div style="font-size:15px;color:var(--text-m);">단기 실행 (2주 내) · 타겟 4.2만 명</div>
+            </div>
+          </div>
+          <div class="g2">
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">타겟 정의</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>밀크T 헤비유저 중 최근 사용 시간 감소 그룹</li>
+                <li>학원 3개 이상 교차 이용 학부모</li>
+                <li>강남/서초/송파 거주</li>
+                <li>교육비 월 150만 원 이상</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">실행 방안</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>DSP 타겟 광고: 20~22시 자녀 학습 시간대 집중 노출</li>
+                <li>무료 체험 1개월 + AI 맞춤 학습 리포트 제공</li>
+                <li>오프라인 학원 연계 설명회 (대치동 거점)</li>
+              </ul>
+            </div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:24px;">
+            <div><div style="font-size:15px;color:var(--text-m);">타겟 ADID</div><div style="font-size:22px;font-weight:800;color:var(--red);">4.2만 명</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 전환율</div><div style="font-size:22px;font-weight:800;color:var(--text-h);">4.8%</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 신규 확보</div><div style="font-size:22px;font-weight:800;color:var(--blue);">2,016명</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 월 매출</div><div style="font-size:22px;font-weight:800;color:var(--green);">+1.2억</div></div>
+          </div>
+        </div>
+
+        <!-- 전략 2 -->
+        <div style="background:var(--bg);border:2px solid var(--blue);border-radius:var(--r);padding:24px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <div style="width:32px;height:32px;border-radius:var(--rx);background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;">2</div>
+            <div>
+              <div style="font-size:16px;font-weight:700;color:var(--text-h);">세그먼트 B 전환 완료 — 체험→결제 전환</div>
+              <div style="font-size:15px;color:var(--text-m);">중기 실행 (1개월) · 타겟 6.1만 명</div>
+            </div>
+          </div>
+          <div class="g2">
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">타겟 정의</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>우리 앱 체험 후 미결제 이탈 42% 그룹</li>
+                <li>최근 3개월 오프라인→온라인 전환 학부모</li>
+                <li>앱 탐색 빈도 급증 (주 5회 이상)</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">실행 방안</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>체험 종료 D+1 개인화 푸시: "자녀 학습 리포트 확인하세요"</li>
+                <li>첫 결제 50% 할인 (최대 3만 원)</li>
+                <li>학습 성과 보장 프로그램 안내</li>
+              </ul>
+            </div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:24px;">
+            <div><div style="font-size:15px;color:var(--text-m);">타겟 ADID</div><div style="font-size:22px;font-weight:800;color:var(--blue);">6.1만 명</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 전환율</div><div style="font-size:22px;font-weight:800;color:var(--text-h);">12.4%</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 신규 결제</div><div style="font-size:22px;font-weight:800;color:var(--blue);">7,564명</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 월 매출</div><div style="font-size:22px;font-weight:800;color:var(--green);">+2.4억</div></div>
+          </div>
+        </div>
+
+        <!-- 전략 3 -->
+        <div style="background:var(--bg);border:2px solid var(--green);border-radius:var(--r);padding:24px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <div style="width:32px;height:32px;border-radius:var(--rx);background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;">3</div>
+            <div>
+              <div style="font-size:16px;font-weight:700;color:var(--text-h);">세그먼트 C 번들 강화 — 지갑점유율 확대</div>
+              <div style="font-size:15px;color:var(--text-m);">중기 실행 (3개월) · 타겟 10.2만 명</div>
+            </div>
+          </div>
+          <div class="g2">
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">타겟 정의</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>영어+수학 동시 학원 이용 학부모</li>
+                <li>우리 앱 번들 미이용자</li>
+                <li>경쟁사 번들 상품 탐색 이력</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text-h);margin-bottom:8px;">실행 방안</div>
+              <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+                <li>영어+수학 올인원 번들 20% 할인 캠페인</li>
+                <li>과목별 AI 학습 리포트 통합 제공</li>
+                <li>경쟁사 번들 대비 가격 매칭 보장</li>
+              </ul>
+            </div>
+          </div>
+          <div style="background:var(--bg-alt);border-radius:var(--rx);padding:16px;margin-top:16px;display:flex;gap:24px;">
+            <div><div style="font-size:15px;color:var(--text-m);">타겟 ADID</div><div style="font-size:22px;font-weight:800;color:var(--green);">10.2만 명</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">지갑점유율 목표</div><div style="font-size:22px;font-weight:800;color:var(--text-h);">22% → 30%</div></div>
+            <div><div style="font-size:15px;color:var(--text-m);">예상 월 매출</div><div style="font-size:22px;font-weight:800;color:var(--green);">+3.8억</div></div>
+          </div>
+        </div>
+
+        <!-- 종합 효과 -->
+        <div style="background:var(--blue-bg);border:2px solid var(--blue);border-radius:var(--r);padding:24px;display:flex;justify-content:space-around;text-align:center;">
+          <div>
+            <div style="font-size:15px;color:var(--text-m);">총 타겟 ADID</div>
+            <div style="font-size:28px;font-weight:800;color:var(--blue);">20.5만 명</div>
+          </div>
+          <div>
+            <div style="font-size:15px;color:var(--text-m);">예상 월 매출 증분</div>
+            <div style="font-size:28px;font-weight:800;color:var(--green);">+7.4억</div>
+          </div>
+          <div>
+            <div style="font-size:15px;color:var(--text-m);">연간 환산 효과</div>
+            <div style="font-size:28px;font-weight:800;color:var(--orange);">+88.8억</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 7: VIP 이탈 방지 시나리오 -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="background:var(--teal);color:#fff;font-size:15px;font-weight:700;padding:3px 10px;border-radius:4px;">PART 7</span>
+          <span style="font-size:17px;font-weight:700;color:var(--text-h);">VIP 이탈 방지 — Win-back 시나리오</span>
+        </div>
+        <p style="font-size:15px;color:var(--text-m);margin-bottom:16px;">이 오디언스 내 상위 5% VIP 고객 중 경쟁사 이탈 징후가 감지된 유저에 대한 선제 방어 전략입니다.</p>
+
+        <div class="g2" style="margin-bottom:16px;">
+          <div class="card ca-red" style="padding:24px;">
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px;">🚨 이탈 징후 감지 기준</div>
+            <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+              <li>최근 30일 우리 앱 사용 시간 40% 이상 감소</li>
+              <li>동기간 밀크T 또는 엘리하이 사용 시간 30% 이상 증가</li>
+              <li>우리 앱 결제 빈도 주 2회 → 주 0.5회 이하로 감소</li>
+              <li>경쟁사 앱 신규 설치 이력 (최근 14일 내)</li>
+            </ul>
+          </div>
+          <div class="card ca-teal" style="padding:24px;">
+            <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px;">🛡️ 4단계 Win-back 시나리오</div>
+            <ul style="font-size:15px;color:var(--text-2);padding-left:16px;line-height:1.8;">
+              <li><strong style="color:var(--text-h);">D+1:</strong> 개인화 푸시 — "자녀의 학습 리포트가 업데이트되었습니다"</li>
+              <li><strong style="color:var(--text-h);">D+3:</strong> 전용 쿠폰 — 최근 학습 과목 30% 할인 (최대 2만 원)</li>
+              <li><strong style="color:var(--text-h);">D+7:</strong> 프리미엄 혜택 — AI 1:1 맞춤 학습 플랜 1개월 무료</li>
+              <li><strong style="color:var(--text-h);">D+14:</strong> 오프라인 연계 — 대치동 학습 상담 예약 + 교재 증정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:24px;">
+          <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px;">이탈 위험 VIP 현황</div>
+          <div class="g3">
+            <div style="text-align:center;padding:16px;">
+              <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">이탈 위험 VIP</div>
+              <div style="font-size:28px;font-weight:800;color:var(--red);">1,840명</div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:4px;">월 평균 결제 24.3만 원</div>
+            </div>
+            <div style="text-align:center;padding:16px;">
+              <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">전원 이탈 시 월 손실</div>
+              <div style="font-size:28px;font-weight:800;color:var(--orange);">4.5억 원</div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:4px;">연간 54억 원</div>
+            </div>
+            <div style="text-align:center;padding:16px;">
+              <div style="font-size:15px;color:var(--text-m);margin-bottom:4px;">Win-back 예상 회수율</div>
+              <div style="font-size:28px;font-weight:800;color:var(--green);">32%</div>
+              <div style="font-size:15px;color:var(--text-m);margin-top:4px;">월 1.4억 원 방어</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--red-bg);border-left:4px solid var(--red);border-radius:0 var(--rs) var(--rs) 0;padding:16px 20px;margin-top:16px;">
+          <p style="font-size:15px;color:var(--text-1);line-height:1.6;">⚠️ <strong style="color:var(--red);">긴급:</strong> VIP 1,840명이 모두 이탈할 경우 연간 54억 원의 매출 손실이 예상됩니다. Win-back 시나리오를 즉시 가동하여 최소 32% 이상 회수해야 합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오디언스 비교 기능 -->
+    <h3 style="font-size:18px;font-weight:700;margin:40px 0 16px;">🔄 오디언스 비교 기능</h3>
+    <p style="font-size:15px;color:var(--text-2);margin-bottom:20px;">서로 다른 오디언스를 비교하여 전략적 차이를 발견할 수 있습니다.</p>
+
+    <div class="ux-mock">
+      <div class="ux-mock-header">
+        <div class="ux-dot" style="background:#ff5f57;"></div>
+        <div class="ux-dot" style="background:#febc2e;"></div>
+        <div class="ux-dot" style="background:#28c840;"></div>
+        <span style="margin-left:12px;font-size:15px;font-weight:600;color:var(--text-m);">PRISM — 오디언스 비교</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+        <div style="background:var(--purple-bg);border:1px solid var(--purple);border-radius:var(--rx);padding:10px 16px;font-size:15px;font-weight:600;color:var(--purple);">🎓 강남 3구 성적 상위자 학부모</div>
+        <span style="font-size:18px;font-weight:700;color:var(--text-m);">VS</span>
+        <div style="background:var(--green-bg);border:1px solid var(--green);border-radius:var(--rx);padding:10px 16px;font-size:15px;font-weight:600;color:var(--green);">🏝️ 제주 국제학교 학생 학부모</div>
+      </div>
+      <div class="g2">
+        <div style="background:var(--bg-alt);border-radius:var(--rx);padding:20px;">
+          <div style="font-size:15px;font-weight:600;color:var(--purple);margin-bottom:12px;">강남 3구 학부모</div>
+          <div style="font-size:15px;color:var(--text-2);line-height:2;">
+            오디언스 규모: <strong style="color:var(--text-h);">24.7만 명</strong><br>
+            평균 연봉: <strong style="color:var(--text-h);">9,200만 원</strong><br>
+            교육 앱 사용: <strong style="color:var(--text-h);">3.4개</strong><br>
+            우리 앱 침투율: <strong style="color:var(--blue);">33.2%</strong><br>
+            경쟁 앱 침투율: <strong style="color:var(--red);">46.2%</strong><br>
+            월 교육비: <strong style="color:var(--text-h);">127만 원</strong>
+          </div>
+        </div>
+        <div style="background:var(--bg-alt);border-radius:var(--rx);padding:20px;">
+          <div style="font-size:15px;font-weight:600;color:var(--green);margin-bottom:12px;">제주 국제학교 학부모</div>
+          <div style="font-size:15px;color:var(--text-2);line-height:2;">
+            오디언스 규모: <strong style="color:var(--text-h);">3.2만 명</strong><br>
+            평균 연봉: <strong style="color:var(--text-h);">1.2억 원</strong><br>
+            교육 앱 사용: <strong style="color:var(--text-h);">2.1개</strong><br>
+            우리 앱 침투율: <strong style="color:var(--blue);">12.8%</strong><br>
+            경쟁 앱 침투율: <strong style="color:var(--red);">28.4%</strong><br>
+            월 교육비: <strong style="color:var(--text-h);">340만 원</strong>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--blue-bg);border-radius:var(--rx);padding:16px 20px;margin-top:16px;">
+        <p style="font-size:15px;color:var(--text-1);line-height:1.6;">💡 <strong style="color:var(--blue);">인사이트:</strong> 제주 국제학교 학부모는 규모는 작지만 인당 교육비가 2.7배 높고, 우리 앱 침투율이 12.8%로 매우 낮아 <strong style="color:var(--blue);">고가치 미개척 시장</strong>입니다. 반면 강남 3구는 규모가 크지만 경쟁이 치열하여 점유율 탈취 전략이 필요합니다.</p>
+      </div>
+    </div>
+
+    <!-- 기존 분석 뷰 사례 -->
+    <div style="background:var(--bg-dark);border-radius:var(--r);padding:40px;margin-top:40px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-size:22px;">📌</span>
+        <span style="font-size:18px;font-weight:700;color:var(--text-w);">이미 검증된 분석 뷰, PRISM이 자동으로 생성합니다</span>
+      </div>
+      <p style="font-size:15px;color:var(--text-wm);margin-bottom:24px;line-height:1.6;">아래와 같은 수준의 심층 분석 리포트를 수작업 없이, 오디언스 선택만으로 자동 생성합니다.</p>
+      <div class="g3">
+        <a href="https://www.igaworksblog.com/post/insight-finance-group-vs-toss" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:15px;font-weight:700;color:#7da0ff;background:rgba(51,102,255,0.15);padding:3px 8px;border-radius:4px;">금융</span>
+            <span style="font-size:15px;font-weight:700;color:#6ee7b7;background:rgba(34,197,94,0.15);padding:3px 8px;border-radius:4px;">교차 사용</span>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">'슈퍼앱' 토스에 맞서는 5대 시중 금융의 반격 시나리오</div>
+          <p style="font-size:15px;color:var(--text-wm);line-height:1.5;">그룹 통합 MAU, 교차 사용률, 체류시간 점유율 분석</p>
+          <div style="margin-top:10px;font-size:15px;color:#7da0ff;">분석 뷰 보기 →</div>
+        </a>
+        <a href="https://www.igaworksblog.com/post/insight-bts-fandom-audience" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:15px;font-weight:700;color:#c4b5fd;background:rgba(139,92,246,0.15);padding:3px 8px;border-radius:4px;">엔터</span>
+            <span style="font-size:15px;font-weight:700;color:#fdba74;background:rgba(245,158,11,0.15);padding:3px 8px;border-radius:4px;">GPS + 팬덤</span>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">BTS 광화문 공연이 남긴 135만 개 데이터</div>
+          <p style="font-size:15px;color:var(--text-wm);line-height:1.5;">GPS × 앱 사용 × 결제 데이터 결합 팬덤 오디언스</p>
+          <div style="margin-top:10px;font-size:15px;color:#7da0ff;">분석 뷰 보기 →</div>
+        </a>
+        <a href="https://www.igaworksblog.com/post/insight-coupang" target="_blank" rel="noopener" style="text-decoration:none;background:var(--bg-dark-card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rs);padding:24px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="font-size:15px;font-weight:700;color:#fca5a5;background:rgba(239,68,68,0.15);padding:3px 8px;border-radius:4px;">커머스</span>
+            <span style="font-size:15px;font-weight:700;color:#5eead4;background:rgba(20,184,166,0.15);padding:3px 8px;border-radius:4px;">결제 분석</span>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-w);margin-bottom:6px;line-height:1.4;">탈(脫)쿠팡 신호일까? 이커머스 시장의 변화</div>
+          <p style="font-size:15px;color:var(--text-wm);line-height:1.5;">DAU 변화, 결제 추이, 경쟁 플랫폼 간 이동 신호</p>
+          <div style="margin-top:10px;font-size:15px;color:#7da0ff;">분석 뷰 보기 →</div>
+        </a>
+      </div>
+      <div style="margin-top:20px;background:rgba(51,102,255,0.08);border-radius:var(--rx);padding:14px 18px;">
+        <p style="font-size:15px;color:var(--text-wm);line-height:1.6;">💡 위 리포트들은 분석가가 수일에 걸쳐 수작업으로 제작한 결과물입니다. <span style="color:#7da0ff;font-weight:600;">PRISM은 동일한 수준의 분석 뷰를 오디언스 선택만으로 자동 생성</span>합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</section>
+
+<!-- ═══ SECTION 4: 제품 시너지 ═══ -->
+<section id="synergy" class="sec">
+  <div class="c">
+    <div class="sn">4</div>
+    <h2 class="st">IGAWorks 제품 시너지 맵</h2>
+    <p class="sd">PRISM은 단독 제품이 아닌, 기존 IGAWorks 제품군과 결합하여 '분석 → 실행'의 풀 퍼널을 완성합니다.</p>
+
+    <div class="g3">
+      <div class="synergy-card synergy-mi">
+        <div style="font-size:24px;margin-bottom:12px;">📊</div>
+        <div class="ct">모바일인덱스 + PRISM</div>
+        <div class="synergy-formula">앱 분석 + 경쟁사 분석</div>
+        <p>모바일인덱스의 앱 시장 데이터에 PRISM의 ADID 기반 경쟁사 오디언스 분석을 결합. 시장 트렌드 파악과 동시에 경쟁사 고객 세그먼트까지 심층 분석이 가능합니다.</p>
+        <ul>
+          <li>앱 MAU/DAU 트렌드 + 경쟁사 오디언스 프로파일</li>
+          <li>카테고리별 점유율 + 이탈 경로 추적</li>
+          <li>시장 리포트 + 전략 리포트 원스톱 제공</li>
+        </ul>
+      </div>
+      <div class="synergy-card synergy-tw">
+        <div style="font-size:24px;margin-bottom:12px;">📡</div>
+        <div class="ct">트웍 / MI Ads + PRISM</div>
+        <div class="synergy-formula">경쟁사 분석 + 경쟁사 오디언스 광고</div>
+        <p>PRISM이 발견한 경쟁사 오디언스를 트웍/MI Ads를 통해 즉시 광고 타겟으로 전환. 분석에서 실행까지 끊김 없는 파이프라인을 구축합니다.</p>
+        <ul>
+          <li>경쟁사 헤비유저 ADID → DSP 타겟 광고 즉시 집행</li>
+          <li>이탈 징후 고객 → 리타겟팅 캠페인 자동 연결</li>
+          <li>리포트 내 "이 오디언스에 광고하기" 원클릭 실행</li>
+        </ul>
+      </div>
+      <div class="synergy-card synergy-df">
+        <div style="font-size:24px;margin-bottom:12px;">🔬</div>
+        <div class="ct">디파이너리 + PRISM</div>
+        <div class="synergy-formula">자사 데이터 + 경쟁사 데이터 통합 분석</div>
+        <p>디파이너리의 자사 1st Party 데이터에 PRISM의 경쟁사 3rd Party 데이터를 결합. 자사 고객이 경쟁사에서 어떻게 행동하는지까지 볼 수 있습니다.</p>
+        <ul>
+          <li>자사 CRM 데이터 + 경쟁사 앱 사용 패턴 결합</li>
+          <li>자사 VIP의 경쟁사 이탈 징후 실시간 감지</li>
+          <li>자사/경쟁사 통합 고객 여정 분석</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout-g callout" style="margin-top:32px;">
+      <p>✅ <strong>시너지 핵심:</strong> PRISM 단독으로는 '분석'이지만, 모바일인덱스와 붙으면 '시장+경쟁사', 트웍/MI Ads와 붙으면 '분석+실행', 디파이너리와 붙으면 '자사+경쟁사 통합'. 고객사 니즈에 따라 조합을 달리하여 패키지 판매가 가능합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: Kiro 활용 가이드 ═══ -->
+<section id="kiro" class="sec sec-alt">
+  <div class="c">
+    <div class="sn">5</div>
+    <h2 class="st">Kiro 활용 가이드: 데이터팀 × 마케팅팀</h2>
+    <p class="sd">Kiro는 단순한 코딩 도구가 아니라, '전략적 명세(Spec)를 이해하고 검증하는 에이전트'입니다. 데이터팀과 마케팅팀이 각각 다른 방식으로 활용합니다.</p>
+
+    <div class="g2" style="margin-bottom:40px;">
+      <!-- 데이터팀 -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="tag tag-kiro" style="font-size:15px;padding:5px 14px;">데이터팀</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-h);">R-F-S 태깅 시스템의 무결성 확보</span>
+        </div>
+
+        <div class="card ca-teal" style="margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;color:var(--teal);margin-bottom:8px;">① R→F 변환 로직 설계 (Stamper 단계)</div>
+          <div class="ct">GPS + 회사 명세 → 직장인 페르소나 생성</div>
+          <p>"GPS 좌표와 회사 명세를 매칭해 '직장인 페르소나'를 생성하라"는 스펙을 Kiro에게 전달. 데이터 정제 및 태깅 알고리즘 초안을 생성하고, 데이터 간 의존성을 분석합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:15px;font-weight:500;">→ 복잡한 SQL/Python 로직 작성 시간 단축 + 태깅 누락 사전 방지</p>
+        </div>
+
+        <div class="card ca-teal">
+          <div style="font-size:15px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 데이터 신뢰도 검증 (Quality Assurance)</div>
+          <div class="ct">엣지 케이스 시뮬레이션</div>
+          <p>CEO 책상에 오를 데이터인 만큼, 수천 개의 엣지 케이스 테스트를 Kiro에게 맡깁니다. 예: "주말에 회사 근처를 지나는 관광객을 '출퇴근 직장인'으로 오분류하지 않는가?"</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:15px;font-weight:500;">→ 사람이 놓치기 쉬운 데이터 오차를 잡아내어 PRISM의 대외 신뢰도 확보</p>
+        </div>
+      </div>
+
+      <!-- 마케팅팀 -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="tag tag-kiro" style="font-size:15px;padding:5px 14px;">마케팅팀</span>
+          <span style="font-size:18px;font-weight:700;color:var(--text-h);">리포트 자동화 및 전략 시나리오 고도화</span>
+        </div>
+
+        <div class="card ca-teal" style="margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;color:var(--teal);margin-bottom:8px;">① S-Tag 기반 리포트 생성 엔진</div>
+          <div class="ct">Executive Summary 자동 생성</div>
+          <p>분석 결과를 기반으로 CEO가 즉시 읽을 수 있는 Executive Summary와 전략 제안 텍스트를 자동 생성하는 엔진을 설계합니다. 조건에 따라 리포트의 텍스트와 표가 유동적으로 변합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:15px;font-weight:500;">→ 컨설팅 보고서 수작업 시간을 제로(0)에 가깝게 단축</p>
+        </div>
+
+        <div class="card ca-teal">
+          <div style="font-size:15px;font-weight:600;color:var(--teal);margin-bottom:8px;">② 타겟팅 시나리오 시뮬레이션 (Strategy Finder)</div>
+          <div class="ct">최적 오디언스 조합 탐색</div>
+          <p>"경쟁사 A의 VIP 유저를 우리 앱으로 데려오기 위한 최적의 오디언스 조합"을 시뮬레이션. 특정 F-Tag 조합 적용 시 예상 타겟 모수와 마케팅 반응률을 가상 테스트합니다.</p>
+          <p style="margin-top:8px;color:var(--teal);font-size:15px;font-weight:500;">→ 광고주에게 넘기기 전 전략의 예상 ROI를 미리 검증하여 설득력 강화</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: 사용자 편의 기능 ═══ -->
+<section class="sec">
+  <div class="c">
+    <div class="sn">6</div>
+    <h2 class="st">사용자 편의 기능</h2>
+    <p class="sd">대기업 사원들이 가장 고통받는 '장표 제작 시간'을 줄여줌으로써 플랫폼 록인을 유도합니다.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="icon icon-b">📋</div>
+        <div class="ct">원클릭 복사</div>
+        <p>리포트의 텍스트와 표를 HTML/Markdown 형태로 즉시 복사하여 사내 보고 시스템(Notion, Slack, ERP)이나 PPT에 그대로 붙여넣기 가능</p>
+      </div>
+      <div class="card">
+        <div class="icon icon-g">🤖</div>
+        <div class="ct">AI Summary</div>
+        <p>생성된 전체 리포트를 CEO 보고용 '한 줄 요약(Executive Summary)'으로 변환하여 제공</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <p>💡 <strong>"데이터가 아닌 시간을 팔자"</strong> — 대기업 사업전략팀이 우리 서비스를 쓰는 이유는 데이터 때문이 아니라, '데이터를 분석하고 보고서를 쓰는 일주일의 시간을 1분으로 단축'해주기 때문이어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="c">
+    <p style="margin-bottom:4px;">© 2026 IGAWorks PRISM — Precise Reporting & Intelligence Strategy Module</p>
+    <p><a href="proposal-v1.html" style="color:var(--blue);text-decoration:none;font-size:15px;">기획안 v1 보기 →</a> · <a href="report-ssg.html" style="color:var(--blue);text-decoration:none;font-size:15px;">SSG.COM 리포트 시뮬레이션 →</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
